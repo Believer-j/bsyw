@@ -7,7 +7,7 @@
 	"globalStyle": {
 		"navigationBarTitleText": "白沙物源",
 		"backgroundColor": "#F8F8F8",
-		"navigationStyle": "custom",
+		"navigationStyle": "custom"
 	},
 	"uniIdRouter": {}
 }
