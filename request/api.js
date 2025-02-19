@@ -2,7 +2,7 @@ import uniRequest from "./request";
 
 // 登录验签
 export const checkSign = (data) => {
-	return uniRequest('/base/api/pex/checkSign', {
+	return uniRequest('/base/api/cst/checkSign', {
 		method: 'post',
 		data,
 	})
@@ -10,7 +10,7 @@ export const checkSign = (data) => {
 
 // 获取用户信息
 export const getUserInfoApi = (data) => {
-	return uniRequest('/base/api/pex/user/info', {
+	return uniRequest('/base/api/cst/user/info', {
 		method: 'post',
 		data,
 	})

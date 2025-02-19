@@ -130,13 +130,13 @@ const store = new Vuex.Store({
 			commit
 		}) {
 			try {
-			
+
 				const res = await getUserInfoApi({
 					token: state.token,
 				})
 				commit('setUserInfo', res)
 			} catch (e) {
-				
+
 			}
 		},
 		async login({
@@ -147,20 +147,21 @@ const store = new Vuex.Store({
 			try {
 				state.loginLoading = true
 
-				await uni.$web3.connectWallet();
-				const address = uni.$web3.wallet.address().toString()
+				const walletVal = await uni.$web3.connect();
+				const address = walletVal.accounts[0];
 				const start = address.substring(0, 6);
 				const end = address.substring(address.length - 6, address.length);
-				await uni.$web3.checkSinger()
-				const signMessage = await uni.$web3.signer.signMessage(start + end); // 鉴权
+				// 签名
+				const signMessage = await uni.$web3.signMessage(start + end);
+				console.log(signMessage)
 				let params = {
-					udid: state.deviceId,
+					udid: "11",
 					address,
 					sign: start + end,
 					content: signMessage,
-					// invitationCode, // 绑定邀请码时传入
-					isPc: 1,
-				}
+					invitationCode, // 绑定邀请码时传入
+					isPc: 1
+				};
 				uni.showLoading()
 				try {
 					const data = await checkSign(params)
@@ -178,6 +179,7 @@ const store = new Vuex.Store({
 			} catch (e) {
 				//TODO handle the exception
 				state.loginLoading = false
+				console.log(e)
 			}
 		}
 	},

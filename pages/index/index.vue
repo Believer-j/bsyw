@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
+		<image class="logo" src="/static/logo.png" @click="tap"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
 		</view>
@@ -18,7 +18,15 @@
 
 		},
 		methods: {
-
+			async tap() {
+				// this.$store.dispatch('login')
+			 // const res = await this.$web3.getBalance(this.$store.state.address)
+			 // console.log(this.$web3.formatEther(res.value))
+			 // console.log(this.$web3.parseEther('1'))
+			 const res = await this.$web3.readContract('0x36Fdc78c6ecf0503F7106859eE7e1CC0A27a00b5', 'balanceOf', [this.$store.state.address])
+			 console.log(res)
+			 console.log(this.$web3.formatEther(res))
+			}
 		}
 	}
 </script>
