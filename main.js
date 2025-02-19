@@ -1,22 +1,17 @@
 import App from './App'
-
-// #ifndef VUE3
-import Vue from 'vue'
-import './uni.promisify.adaptor'
-Vue.config.productionTip = false
-App.mpType = 'app'
-const app = new Vue({
-  ...App
-})
-app.$mount()
-// #endif
-
-// #ifdef VUE3
+// uv-ui 工具库
+import uvUI from '@/uni_modules/uv-ui-tools'
+import utils from './utils/index.js'
+import store from './store/index.js'
+import cookie from './utils/cookie.js'
 import { createSSRApp } from 'vue'
 export function createApp() {
   const app = createSSRApp(App)
+  app.use(uvUI);
+  app.config.globalProperties.$utils = utils
+  app.config.globalProperties.$store = store
+  app.config.globalProperties.$cookie = cookie
   return {
     app
   }
 }
-// #endif
