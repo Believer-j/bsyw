@@ -152,7 +152,7 @@ class Web3 {
 			args: args
 		})
 	}
-	
+
 	/**
 	 * 写合约
 	 * @param {string} address 地址
@@ -162,13 +162,13 @@ class Web3 {
 	 * @returns 
 	 */
 	async writeContract(address, functionName, args, val = '') {
-	  return await writeContract(wagmiConfig, {
-	    abi: abi,
-	    address: address,
-	    functionName: functionName,
-	    args: args, 
-	    value: parseEther(val)
-	  })
+		return await writeContract(wagmiConfig, {
+			abi: abi,
+			address: address,
+			functionName: functionName,
+			args: args,
+			value: parseEther(val)
+		})
 	}
 }
 
