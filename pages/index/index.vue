@@ -1,5 +1,9 @@
 <template>
 	<view class="wrap">
+		<home v-show="tabIndex == 0"></home>
+		<zone v-show="tabIndex == 1"></zone>
+		<assets v-show="tabIndex == 2"></assets>
+		<user v-show="tabIndex == 3"></user>
 		<uv-tabbar :value="tabIndex" activeColor="#18533C" inactiveColor="#C1C9C5" @change="index => tabIndex = index">
 			<uv-tabbar-item v-for="(item, index) in tabs" :key="index" :text="item">
 				<template v-slot:active-icon>
@@ -10,12 +14,22 @@
 				</template>
 			</uv-tabbar-item>
 		</uv-tabbar>
-
+		
 	</view>
 </template>
 
 <script>
+	import home from "./components/home/home.vue"
+	import zone from "./components/zone/zone.vue"
+	import assets from "./components/assets/assets.vue"
+	import user from "./components/user/user.vue"
 	export default {
+		components: {
+			home,
+			zone,
+			assets,
+			user
+		},
 		data() {
 			return {
 				tabIndex: 0,
