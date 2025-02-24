@@ -1,0 +1,152 @@
+/**
+ * 安装选项
+ */
+export type InstallUniMPOptions = {
+  appid : string,
+  wgtFile : string,
+  password ?: string,
+  success ?: (res : UniMPResult) => void
+  fail ?: (res : UniMPFail) => void
+  complete ?: (res : any) => void
+}
+/**
+ * 打开选项
+ */
+export type OpenUniMPOptions = {
+  appid : string,
+  icon ?: string,
+  path ?: string,
+  extraData ?: UTSJSONObject,
+  fromAppid ?: string,
+  scene ?: number,
+  openMode ?: string,
+  enableGestureClose ?: boolean,
+  enableShowAnimated ?: boolean,
+  enableHideAnimated ?: boolean,
+  enableBackground ?: boolean
+}
+/**
+ * 通用参数选项
+ */
+export type UniMPOptions = {
+  appid : string,
+  callback : (res : UniMPResult) => void
+}
+/**
+ * 通用返回结果
+ */
+export type UniMPResult = {
+  type : string,
+  code : number,
+  message : string
+}
+/**
+ * 通用Event返回结果
+ */
+export type UniMPEventResult = {
+  fromAppid : string,
+  event : string,
+  data : any | null
+}
+/**
+ * 版本信息
+ */
+export type VersionInfo = {
+	name : string,
+	code : number,
+}
+/**
+ * 版本信息返回结果
+ */
+export type UniMPVersionResult = {
+  type : string,
+  code : number,
+  message : string | null,
+  versionInfo:VersionInfo | null
+}
+
+
+export type ActionSheetClickResult = {
+  appid : string,
+  id : string
+}
+
+export type ActionSheetItem = {
+	title : string,
+	id : string
+}
+
+export type MenuItemsOptions = {
+  items : Array<ActionSheetItem>
+}
+
+export type UniMPEventCallback = (res : UniMPEventResult) => void
+
+export type UniMPResultCallback = (res : UniMPResult) => void
+
+export type UniMPCallback = (res : any) => void
+
+export type UniMPVersionResultCallback = (res : UniMPVersionResult) => void
+
+export type ActionSheetClickResultCallback = (res : ActionSheetClickResult) => void
+
+
+export interface UniMPInstance {
+	/**
+	 * 安装小程序
+	 */
+	installUniMP(options: InstallUniMPOptions): void;
+	/**
+	 * 打开小程序
+	 */
+	openUniMP(options: OpenUniMPOptions): void;
+	/**
+	 * 关闭小程序
+	 */
+	closeUniMP(appid:string,callback:UniMPResultCallback): void;
+	/**
+	 * 隐藏小程序
+	 */
+	hideUniMP(appid:string,callback:UniMPResultCallback): void;
+	/**
+	 * 展示小程序
+	 */
+	showUniMP(appid:string,callback:UniMPResultCallback): void;
+	/**
+	 * 获取指定小程序版本信息
+	 */
+	getUniMPVersion(appid:string,callback:UniMPVersionResultCallback): void;
+	/**
+	 * 接受来自小程序的事件
+	 */
+	onUniMPEventReceive(callback:UniMPEventCallback): void;
+	/**
+	 * 向小程序发送事件
+	 */
+	sendUniMPEvent(appid:string,event:string,data:UTSJSONObject,callback:UniMPCallback): void;
+	/**
+	 * 设置小程序菜单
+	 */
+	setDefaultMenuItems(options:MenuItemsOptions,callback:ActionSheetClickResultCallback): void;
+}
+
+
+
+
+/**
+ * 错误码
+ */
+export type UniMPErrorCode = 9010001 | 9010002;
+/**
+ * UniMPFail 的错误回调参数
+ */
+export interface UniMPFail extends IUniError {
+  errCode : UniMPErrorCode
+};
+
+
+/* 对外函数定义 */
+export type CreateUniMPContext = () => UniMPInstance
+
+
+

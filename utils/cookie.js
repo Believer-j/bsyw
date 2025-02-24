@@ -1,13 +1,3 @@
-import {
-	AddressKey,
-	ShortAddressKey,
-	UserInfoKey,
-	TokenKey,
-	InviteCodeKey,
-	LocaleKey,
-	ThemeKey
-} from "@/config/index.js"
-
 export const set = (key, value) => {
 	uni.setStorageSync(key, value)
 }
@@ -20,57 +10,35 @@ export const remove = (key) => {
 export const clear = () => {
 	const res = uni.getStorageInfoSync();
 	res.keys.map((item) => {
-		if (item != LocaleKey && item != ThemeKey) {
-			remove(item)
+		if (item == 'redirect' || item == 'spread') {
+			return
 		}
-		
+		remove(item)
 	})
 }
-
-export const setAddress = (value) => {
-	uni.setStorageSync(AddressKey, value)
+export const setAddr = (value) => {
+	uni.setStorageSync('address', value)
 }
-export const getAddress = () => {
-	return uni.getStorageSync(AddressKey)
+export const getAddr = (value) => {
+	return uni.getStorageSync('address')
 }
-export const setShortAddress = (value) => {
-	uni.setStorageSync(ShortAddressKey, value)
+export const setUser = (value) => {
+	uni.setStorageSync('userInfo', value)
 }
-export const getShortAddress = () => {
-	return uni.getStorageSync(ShortAddressKey)
-}
-export const setUserInfo = (value) => {
-	uni.setStorageSync(UserInfoKey, value)
-}
-export const getUserInfo = () => {
-	return uni.getStorageSync(UserInfoKey)
+export const getUser = (value) => {
+	return uni.getStorageSync('userInfo')
 }
 export const setToken = (value) => {
-	uni.setStorageSync(TokenKey, value)
+	uni.setStorageSync('token', value)
 }
-export const getToken = () => {
-	return uni.getStorageSync(TokenKey)
+export const getToken = (value) => {
+	return uni.getStorageSync('token')
 }
 export const setInviteCode = (value) => {
-	uni.setStorageSync(InviteCodeKey, value)
+	uni.setStorageSync('inviteCode', value)
 }
-export const getInviteCode = () => {
-	return uni.getStorageSync(InviteCodeKey)
-}
-
-export const setLocale = (value) => {
-	uni.setStorageSync(value, LocaleKey)
-}
-export const getLocale = () => {
-	return uni.getStorageSync(LocaleKey)
-}
-
-export const setTheme = (value) => {
-	set(ThemeKey, value)
-}
-
-export const getTheme = () => {
-	return get(ThemeKey)
+export const getInviteCode = (value) => {
+	return uni.getStorageSync('inviteCode')
 }
 
 export default {
@@ -78,18 +46,12 @@ export default {
 	get,
 	remove,
 	clear,
-	setAddress,
-	getAddress,
-	setShortAddress,
-	getShortAddress,
-	setUserInfo,
-	getUserInfo,
+	setAddr,
+	getAddr,
+	setUser,
+	getUser,
 	setToken,
 	getToken,
 	setInviteCode,
-	getInviteCode,
-	setLocale,
-	getLocale,
-	setTheme,
-	getTheme
+	getInviteCode
 }

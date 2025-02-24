@@ -11,7 +11,8 @@
     "setup"
 ],
   "repository": "https://github.com/mescroll/mescroll",
-"engines": {
+  "engines": {
+    "HBuilderX": "^3.1.0"
   },
 "dcloudext": {
     "sale": {

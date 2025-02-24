@@ -1,0 +1,262 @@
+import Application from 'android.app.Application';
+import DCUniMPSDK from 'io.dcloud.feature.sdk.DCUniMPSDK';
+import DCSDKInitConfig from 'io.dcloud.feature.sdk.DCSDKInitConfig';
+import UniMPOpenConfiguration from 'io.dcloud.feature.unimp.config.UniMPOpenConfiguration';
+import JSONObject from 'org.json.JSONObject';
+import UniMPReleaseConfiguration from 'io.dcloud.feature.unimp.config.UniMPReleaseConfiguration';
+import IUniMPReleaseCallBack from 'io.dcloud.feature.unimp.config.IUniMPReleaseCallBack';
+import IUniMP from 'io.dcloud.feature.sdk.Interface.IUniMP';
+import IOnUniMPEventCallBack from 'io.dcloud.feature.sdk.Interface.IOnUniMPEventCallBack';
+import DCUniMPJSCallback from 'io.dcloud.feature.unimp.DCUniMPJSCallback';
+import MenuActionSheetItem from 'io.dcloud.feature.sdk.MenuActionSheetItem'
+import IMenuButtonClickCallBack from 'io.dcloud.feature.sdk.Interface.IMenuButtonClickCallBack'
+import DeviceInfo from 'io.dcloud.common.adapter.util.DeviceInfo';
+import UniMPDefSplash from './UniMPDefSplash.uts'
+import Picasso from 'com.squareup.picasso.Picasso'
+
+/* 引入 interface.uts 文件中定义的变量 */
+import { CreateUniMPContext,UniMPResultCallback,UniMPCallback,UniMPVersionResultCallback,UniMPInstance,DefaultMenuItemsOptions,ActionSheetClickResultCallback,UniMPVersionResult,VersionInfo,UniMPEventCallback,UniMPEventResult,MenuItemsOptions,ActionSheetClickResult,ActionSheetItem,OpenUniMPOptions,InstallUniMPOptions,UniMPFail,UniMPResult} from '../interface.uts';
+
+import { UniErrorSubject, UniErrors,UniMPFailImpl,getErrcode } from "../unierror.uts"
+/**
+ * Android UniMP实现
+ */
+class AndroidUniMPInstance implements UniMPInstance{
+	/**
+	 * 所有打开的小程序对象缓存
+	 */
+	appMap:Map<string,IUniMP> = new Map()
+	
+	public installUniMP(options: InstallUniMPOptions){
+		
+		let releaseConfig = new UniMPReleaseConfiguration()
+		releaseConfig.wgtPath = options.wgtFile;
+		if(options.password != null){
+			releaseConfig.password = options.password;
+		}
+		
+		class ReleaseCallbak implements IUniMPReleaseCallBack{
+			override onCallBack(pType:Int  ,pArgs:Any):void{
+				
+				if(pType == 1){
+					// 正确
+					let ret = new UniMPResult("success",0,"")
+					options?.success?.(ret)
+					options?.complete?.(ret)
+				}else if(pType == -4){
+					// 文件不存在
+					let error = new UniMPFailImpl(getErrcode(9010001))
+					options?.fail?.(error)
+					options?.complete?.(error)
+				}else if(pType == -5){
+					// 密码错误
+					let error = new UniMPFailImpl(getErrcode(9010003))
+					options?.fail?.(error)
+					options?.complete?.(error)
+				}
+				else{
+					let error = new UniMPFailImpl(getErrcode(9010002))
+					error.errMsg = pArgs.toString()
+					options?.fail?.(error)
+					options?.complete?.(error)
+				}
+				
+			}
+		}
+		
+		UTSAndroid.getDispatcher('io').async(function(_){
+			let releaseCallback = new ReleaseCallbak()
+			DCUniMPSDK.getInstance().releaseWgtToRunPath(options.appid,releaseConfig,releaseCallback);
+		},null)
+		
+	}
+	
+	public openUniMP(options: OpenUniMPOptions){
+		
+		if(this.appMap.size > 0 && this.appMap.get(options.appid) == null){
+			console.log("当前版本仅支持同时打开一个小程序实例")
+			return ;
+		}
+		
+		let uniMPOpenConfiguration = new UniMPOpenConfiguration();
+		if(options.path != null){
+			uniMPOpenConfiguration.path= options.path
+		}
+		if(options.extraData != null){
+			uniMPOpenConfiguration.extraData = new JSONObject(options.extraData!.toMap())
+		}
+		
+		let splash = new UniMPDefSplash()
+		
+		let mpInfo = new JSONObject()
+		if(options.fromAppid != null){
+			mpInfo.put("fromAppid",options.fromAppid!)
+		}
+		if(options.icon != null){
+			mpInfo.put("icon",options.icon!)
+		}
+		uniMPOpenConfiguration.splashClass = UTSAndroid.getJavaClass(splash)
+		let hostMP = DCUniMPSDK.getInstance().openUniMPForX(UTSAndroid.getAppContext(),options.appid,uniMPOpenConfiguration,mpInfo);
+		// 存放缓存
+		this.appMap.set(options.appid,hostMP)
+		
+	}
+	public closeUniMP(appid:string,callback:UniMPResultCallback){
+		
+		let appInstance = this.appMap.get(appid)
+		if(appInstance == null){
+			let ret = new UniMPResult("fail",-1,"应用实例不存在")
+			callback?.(ret)
+			return ;
+		}
+		
+		appInstance.closeUniMP()
+		let ret = new UniMPResult("success",0,"")
+		callback?.(ret)
+	}
+	
+	public hideUniMP(appid:string,callback:UniMPResultCallback){
+		
+		let appInstance = this.appMap.get(appid)
+		if(appInstance == null){
+			let ret = new UniMPResult("fail",-1,"应用实例不存在")
+			callback?.(ret)
+			return ;
+		}
+		appInstance.hideUniMP()
+		let ret = new UniMPResult("success",0,"")
+		callback?.(ret)
+	}
+	public showUniMP(appid:string,callback:UniMPResultCallback){
+		let appInstance = this.appMap.get(appid)
+		if(appInstance == null){
+			let ret = new UniMPResult("fail",-1,"应用实例不存在")
+			callback?.(ret)
+			return ;
+		}
+		appInstance.showUniMP()
+		let ret = new UniMPResult("success",0,"")
+		callback?.(ret)
+	}
+	
+	public getUniMPVersion(appid:string,callback:UniMPVersionResultCallback){
+		let versionInfo = DCUniMPSDK.getInstance().getAppVersionInfo(appid);
+		if(versionInfo == null){
+			let versionRet = new UniMPVersionResult("fail",-1)
+			callback?.(versionRet)
+			return ;
+		}
+		let nameStr = versionInfo.getString("name")
+		let codeInt = versionInfo.getInt("code")
+		let versionInfoRet = new VersionInfo(nameStr,codeInt)
+		let versionRet = new UniMPVersionResult("success",0,"",versionInfoRet)
+		callback(versionRet)
+		
+	}
+	
+	public onUniMPEventReceive(clientCallback:UniMPEventCallback){
+		
+		class CustomIOnUniMPEventCallBack implements IOnUniMPEventCallBack{
+			override onUniMPEventReceive(appid:String ,event:String , data:Any|null,callback:DCUniMPJSCallback ):void{				
+				console.log(data)
+				console.log(UTSAndroid.getJavaClass(data!))
+				let eventResult = UniMPEventResult(appid,event,data)
+				clientCallback(eventResult)
+			}
+		}
+		DCUniMPSDK.getInstance().setOnUniMPEventCallBack(new CustomIOnUniMPEventCallBack());
+	}
+	
+	public sendUniMPEvent(appid:string,event:string,data:UTSJSONObject,callback:UniMPCallback){
+		let appInstance = this.appMap.get(appid)
+		if(appInstance == null){
+			let ret = new UniMPResult("fail",-1,"应用实例不存在")
+			callback?.(ret)
+			return ;
+		}
+		
+		let dataJson = data.toJSONObject()
+		appInstance.sendUniMPEvent(event,dataJson)
+	}
+	
+	public setDefaultMenuItems(options:MenuItemsOptions,callback:ActionSheetClickResultCallback){
+		/**
+		 * map变换得到原生SDK 期望的配置格式
+		 */
+		const sheetItems  = options.items.map((x:ActionSheetItem):MenuActionSheetItem => new MenuActionSheetItem(x.title,x.id));
+		DCUniMPSDK.getInstance().updateSheetItems(sheetItems);
+		
+		class CustomIMenuButtonClickCallBack implements IMenuButtonClickCallBack{
+			override onClick(appid:string ,id:string):void{
+				let actionRet = new ActionSheetClickResult(appid,id)
+				callback(actionRet)
+			}
+		}
+		
+		DCUniMPSDK.getInstance().setDefMenuButtonClickCallBack(new CustomIMenuButtonClickCallBack())
+		
+	}
+	
+}
+
+/**
+ * 创建 createUniMPContext
+ */
+export const createUniMPContext: CreateUniMPContext = function() : UniMPInstance{
+	return new AndroidUniMPInstance()
+}
+
+
+export interface Uni {
+  /**
+   * 创建UniMP 功能实例
+   * @uniPlatform {
+   *    "app": {
+   *        "android": {
+   *            "osVer": "5.0",
+   *            "uniVer": "x",
+   *            "unixVer": "4.12"
+   *        },
+   *        "ios": {
+   *            "osVer": "x",
+   *            "uniVer": "x",
+   *            "unixVer": "x"
+   *   	  }
+   *    },
+   *  "web": {
+   *    "uniVer": "x",
+   *    "unixVer": "x"
+   *  }
+   * }
+   * @uniVueVersion 2,3  //支持的vue版本
+   */
+   createUniMPContext():CreateUniMPContext
+}
+
+
+/**
+ * 创建应用生命周期监听
+ */
+export class AppHookProxy implements UTSAndroidHookProxy {
+	
+  override onCreate(application: Application) {
+	//模拟当前应用取得用户同意隐私协议
+	UTSAndroid.setPrivacyAgree(true)
+	if(UTSAndroid.isPrivacyAgree()) {
+		// 如果需要远端加载图标
+		Picasso.setSingletonInstance(new Picasso.Builder(application).build());
+		/**
+		 * 初始化uni-app 必需环境数据
+		 */
+		DeviceInfo.init(application);
+		DeviceInfo.initPath(application);
+		/**
+		 * 初始化UniMP SDK
+		 */
+		let config = new DCSDKInitConfig.Builder().setCapsule(true).build();
+		DCUniMPSDK.getInstance().initialize(application,config);
+		
+	}
+  }
+}
+

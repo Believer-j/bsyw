@@ -8,9 +8,11 @@
 <br/>
 
 
-## 最新文档(1.3.8版本): <a href="https://www.mescroll.com/uni.html">https://www.mescroll.com/uni.html</a>
-2023-03-26 by 小瑾同学 (文档可能会有缓存,建议打开时刷新一下)
+## 最新文档(1.3.8版本): <a href="https://www.mescroll.com/uni.html?v=1.3.8">https://www.mescroll.com/uni.html</a>
+官网文档可能会有缓存,建议刷新一下
 
+## 最新示例(1.3.8版本)
+#### 所有最新的vue2,vue3示例, 请点击页面右上角的 "使用HBuilderX导入示例项目"或"下载示例项目ZIP"
 
 ## 1.3.5版本已调整为[uni_modules](https://uniapp.dcloud.io/uni_modules)
 uni_modules版本的mescroll-body 和 mescroll-empty 支持 [easycom规范](https://uniapp.dcloud.io/collocation/pages?id=easycom)  
@@ -22,7 +24,7 @@ uni_modules版本的mescroll-body 和 mescroll-empty 支持 [easycom规范](http
 2. 删除 main.js 注册的 mescroll 组件
 3. 从插件市场导入最新mescroll组件 (1.3.5+uni_modules版本)
 4. 全局搜索 '@/components/mescroll-uni/' 替换为 '@/uni_modules/mescroll-uni/components/mescroll-uni/'
-5. mescroll-empty遵循easycom规范, 若某些页面单独使用 'mescroll-empty.vue', 可删除手动导入的代码
+5. mescroll-empty遵循easycom规范, 可单独使用 'mescroll-empty.vue', 无需手动导入
 ```
 
 ## 近期已更新优化的内容:
@@ -39,7 +41,3 @@ uni_modules版本的mescroll-body 和 mescroll-empty 支持 [easycom规范](http
 <br/>
 <br/>
 <a href="https://ext.dcloud.net.cn/plugin?id=343&update_log">查看更多 ... </a>
-
-<br/>
-
-#### mescroll不支持nvue,也暂无支持的计划哈,so sorry~

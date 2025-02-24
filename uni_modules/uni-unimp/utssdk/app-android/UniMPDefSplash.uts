@@ -1,0 +1,62 @@
+import IDCUniMPAppSplashView from 'io.dcloud.feature.sdk.Interface.IDCUniMPAppSplashView';
+import SplashViewDBackground from 'io.dcloud.feature.internal.splash.SplashViewDBackground';
+import Bitmap from 'android.graphics.Bitmap';
+import Context from 'android.content.Context';
+import Picasso from 'com.squareup.picasso.Picasso'
+import View from 'android.view.View'
+import ViewGroup from 'android.view.ViewGroup'
+import BitmapFactory from 'android.graphics.BitmapFactory'
+import Log from 'android.util.Log'
+import File from 'java.io.File'
+
+/**
+ * 实现splash
+ */
+export default class UniMPDefSplash implements IDCUniMPAppSplashView {
+	
+	background:SplashViewDBackground|null = null;
+	bitmap:Bitmap|null = null;
+	hostIcon:string = ""
+
+	override getSplashView(context:Context|null,appid:string|null,appName:string|null,icon:string|null):View{
+		
+		this.background = new SplashViewDBackground(context, this.bitmap, appName!, false);
+		if(icon != null && icon != ""){
+			UTSAndroid.getDispatcher("io").async(function(_){
+				try {
+					if(icon.startsWith("https://") || icon.startsWith("http://")){
+						// 网络图片
+						this.bitmap = Picasso.get().load(icon).get();
+					}else{
+						// 认为是本地图片
+						this.bitmap = Picasso.get().load(new File(icon)).get();
+					}
+				} catch (e:Exception ) {
+					console.log("load error:",e)
+				}
+				UTSAndroid.getDispatcher("main").async(function(_){
+					if(this.bitmap != null) {
+						this.background!.setImageBitmap(this.bitmap);
+					}
+				},null)
+				
+			},null)
+			
+		}else{
+			this.bitmap = BitmapFactory.decodeResource(context!.getResources(), context!.getApplicationInfo().icon);
+			if(this.bitmap != null) {
+				this.background!.setImageBitmap(this.bitmap);
+			}
+		}
+		
+		return this.background!
+	}
+	
+	
+	override onCloseSplash(rootView:ViewGroup|null):void{
+		rootView!.removeView(this.background);
+		this.background = null;
+	}
+	
+	
+}

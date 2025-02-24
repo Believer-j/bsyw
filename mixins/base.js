@@ -1,62 +1,89 @@
-import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
 import {
 	mapState
 } from 'vuex'
+import {
+	ABI,
+	USDT_CONTRACT_ADDR,
+	USDB_CONTRACT_ADDR,
+	PHOENIX_CONTRACT_ADDR,
+	WIN_CONTRACT_ADDR,
+	WIN1_CONTRACT_ADDR,
+	SPHOENIX_CONTRACT_ADDR,
+	FRONT_CONTRACT_ADDR,
+	DAO_CONTRACT_ADDR,
+	IDO_CONTRACT_ADDR,
+	GAME_CONTRACT_ADDR,
+} from '@/utils/constant.js'
 export default {
-	mixins: [MescrollMixin],
 	computed: {
 		...mapState({
 			curTheme: 'curTheme',
-			userInfo: 'userInfo'
+			userInfo: 'userInfo',
+			hasChatShow: 'hasChatShow'
 		}),
-		statusBarHeight() {
-			const sys = uni.$uv.sys()
-			return sys.statusBarHeight
+		scrollStyle() {
+			const paddingTop = this.$u.addUnit(this.$u.getPx(50) + this.$navbarHeight + 36, 'px')
+			return {
+				paddingTop
+			}
 		},
-		navbarHeight() {
-			return this.statusBarHeight + 44
-		},
-		screenWidth() {
-			const sys = uni.$uv.sys()
-			return sys.windowWidth
-		},
-		pageHeight() {
-			const sys = uni.$uv.sys()
-			return sys.windowHeight - this.navbarHeight
-		},
-	},
-	data() {
-		return {
-			dataList: [],
-			// 下拉刷新的配置(可选, 绝大部分情况无需配置)
-			downOption: {
-				page: {
-					size: 10 // 每页数据的数量,默认10
-				},
-			},
-			// 上拉加载的配置(可选, 绝大部分情况无需配置)
-			upOption: {
-				page: {
-					size: 10 // 每页数据的数量,默认10
-				},
-				noMoreSize: 5, // 配置列表的总数量要大于等于5条才显示'-- END --'的提示
-				textNoMore: '-- 没有更多了 --',
-				empty: {
-					use: false
-				}
-			},
+		inviterUrl() {
+			const {
+				invitation
+			} = this.userInfo
+			return `https://phoenixnet.club/#/?invitationCode=${invitation}`
 		}
 	},
 	watch: {
+		'$store.state.curTheme': {
+			handler(newVal,oldVal){
+				this.themeChange && this.themeChange()
+			}
+		},
 		'$store.state.locale': {
-			handler(newVal, oldVal) {
+			handler(newVal,oldVal){
 				this.localeChange && this.localeChange()
 			}
 		}
 	},
+	data() {
+		return {
+			usdtContractAddr: USDT_CONTRACT_ADDR, // usdt 代币地址
+			usdbContractAddr: USDB_CONTRACT_ADDR, // usdb 代币地址
+			pexContractAddr: PHOENIX_CONTRACT_ADDR, // pex 代币地址
+			winContractAddr: WIN_CONTRACT_ADDR, // win 代币地址
+			win1ContractAddr: WIN1_CONTRACT_ADDR, // win 代币地址
+			spexContractAddr: SPHOENIX_CONTRACT_ADDR, // spex 代币地址
+			daoContractAddr: DAO_CONTRACT_ADDR, // dao 代币地址
+			frontContractAddr: FRONT_CONTRACT_ADDR, // front 代币地址
+			idoContractAddr: IDO_CONTRACT_ADDR, // ido 代币地址
+			gameContractAddr: GAME_CONTRACT_ADDR, // game 代币地址
+			abi: ABI,
+			scrollTop: 0,
+			mescroll: null,
+			up: {
+				empty: {
+					use: false
+				}
+			},
+			page: 1,
+			limit: 10,
+			totalCount: 0
+		}
+	},
+	onLaunch() {
+		// this.$store.commit('setTheme')
+	},
 	methods: {
-		back() {
-			uni.navigateBack()
+		mescrollInit(mescroll) {
+			this.mescroll = mescroll // 如果this.mescroll对象没有使用到,则mescrollInit可以不用配置
 		},
+		upCallback() {
+			this.mescroll.endBySize(0, 0);
+		},
+		resetPage(){
+			this.page = 1
+			this.limit = 10
+		}
 	}
 }

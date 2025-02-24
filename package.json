@@ -1,7 +1,12 @@
 {
   "dependencies": {
-    "@wagmi/connectors": "^5.7.7",
-    "@wagmi/core": "^2.16.4",
-    "viem": "^2.23.3"
+    "animejs": "^3.2.2",
+    "confetti-ts-canvas": "^1.1.5",
+    "ethers": "^5.7.2",
+    "fingerprintjs": "^0.5.3",
+    "js-cookie": "^3.0.5",
+    "uqrcodejs": "^4.0.7",
+    "uview-ui": "^2.0.37",
+    "vue-i18n": "^9.13.1"
   }
 }

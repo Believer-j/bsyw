@@ -1,4 +1,4 @@
-
+// 获取缩写地址
 export const getShortAddress = (value) => {
 	var start = value.substring(0, 6);
 	var end = value.substring(value.length - 6, value.length);
@@ -12,18 +12,29 @@ export const getShortAddress2 = (value) => {
 }
 
 export const isEmpty = (value) => {
-	let a = uni.$uv.test.empty(value)
-	if (!a) {
-		return value == 'null'
+	switch (typeof value) {
+		case 'undefined':
+			return true
+		case 'string':
+			if (value.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, '').length == 0) return true
+			break
+		case 'boolean':
+			if (!value) return true
+			break
+		case 'number':
+			if (value === 0 || isNaN(value)) return true
+			break
+		case 'object':
+			if (value === null || value.length === 0) return true
+			for (const i in value) {
+				return false
+			}
+			return true
 	}
-	return a
+	return false
 }
 
-export function empty(value, placeholder = '') {
-	return isEmpty(value) ? placeholder : value
-}
-
-export const decimal = (value, decimals = 2) => {
+export const thousands = (value, decimals = 2) => {
 	switch (typeof value) {
 		case 'undefined':
 			value = Number(0).toFixed(decimals)
@@ -32,29 +43,53 @@ export const decimal = (value, decimals = 2) => {
 			value = Number(value).toFixed(decimals)
 			break
 		case 'number':
+			console.log('thousands===', value)
 			value = value.toFixed(decimals)
 			break
 	}
 	return value
+	// const res = value.toString().replace(/(\d)(?=(\d{3})+\.)/g, "$1,")
+	// return res * 1
 }
 
-export const showToast = (msg) => {
+export const errorToast = (value) => {
+	console.log('value====');
 	uni.showToast({
-		title: msg,
-		icon: 'none',
-		duration: 2000
-	});
+		title: value,
+		duration: 2500,
+		icon: 'none'
+		// icon: 'error',
+		// iconUrl: 'https://cdn.uviewui.com/uview/demo/toast/error.png',
+		// image: require('@/static/error_icon.png')
+	})
+}
+
+export const successToast = (value) => {
+	uni.showToast({
+		title: value,
+		duration: 2500,
+		icon: 'none'
+		// image: require('@/static/success_icon.png')
+	})
 }
 
 export const copy = (value, msg) => {
 	uni.setClipboardData({
-		data: value,
-		success: () => {
-			showToast(msg || 'copied')
+		data: value.toString(),
+		success() {
+			uni.$u.toast(msg || '复制成功')
+		},
+		complete(res) {
+			// console.log(res)
 		}
-	})
+	});
 }
 
+export const isPcMode = () => {
+	const agent = navigator.userAgent.toLowerCase()
+	if (/mac|windows|linux/i.test(agent)) return 1
+	return 0
+}
 /**
  * 获取时间随机数
  * @param {number} len
@@ -75,47 +110,49 @@ export const priceFormat = (val, decimals = 3) => {
 	return uni.$u.priceFormat(val, decimals)
 }
 
-export const pageVM = () => {
-	try{
-		const pages = getCurrentPages();
-		const page = pages[pages.length - 1];
-		const pageVM = page.$vm;
-		return pageVM
-	}catch(e){
-		//TODO handle the exception
-	}
+export const showLoading = (title) => {
+	uni.showLoading({
+		title: '',
+		mask: true
+	})
 }
-/**
- * 必须有数字和字母, 8至16位
- */
-export const enAndNum =(str)=> {
-	const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/g
-	return reg.test(str)
+export const sliceList = (list, start, length) => {
+	if (list.length == 0) {
+		return list
+	}
+	let tempList = []
+	for (var i = start; i < start + length; i++) {
+		if (list[i]) {
+			tempList.push(list[i])
+		} else {
+			break
+		}
+
+	}
+	console.log(tempList)
+	return tempList
 }
 
-export function replaceAll(str, searchValue, replaceValue) {
-	while (str.indexOf(searchValue) != -1){
-		str = str.replace(searchValue, replaceValue)
-	}
-	return str
+export const isValidPhoneNumber = (phoneNumber) => {
+	return /^1[3-9]\d{9}$/.test(phoneNumber);
+
+	// console.log(isValidPhoneNumber('13800138000')); // true 或 false
 }
-export function randomColor() {
-	var color = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math
-		.random() * 256) + ')';
-	return color;
+export const validateIdNumber = (idNumber)=> {
+  var regExp = /(^\d{15}$)|(^\d{17}(\d|X)$)/;
+  return regExp.test(idNumber);
 }
 export default {
 	getShortAddress,
 	getShortAddress2,
 	isEmpty,
-	decimal,
-	showToast,
+	thousands,
+	errorToast,
+	successToast,
 	copy,
+	isPcMode,
 	randomTimeStr,
 	priceFormat,
-	empty,
-	pageVM,
-	enAndNum,
-	replaceAll,
-	randomColor
+	showLoading,
+	sliceList
 }
