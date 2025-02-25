@@ -1,5 +1,5 @@
 <template>
-	<view class="notice-box">
+	<view class="notice-box" @click="intoNoticeList">
 		<view class="tip">
 			<view class="tip-1">
 				最新
@@ -30,6 +30,13 @@
 			return {
 				
 			};
+		},
+		methods: {
+			intoNoticeList() {
+				uni.navigateTo({
+					url:'/pages/notice/notice'
+				})
+			}
 		}
 	}
 </script>
