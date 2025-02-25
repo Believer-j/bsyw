@@ -133,7 +133,7 @@
 
 		.btn {
 			height: 44px;
-			color: #2488FC;
+			color: #418C2D;
 			font-size: 17px;
 			font-weight: 600;
 		}

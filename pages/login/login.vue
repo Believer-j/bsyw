@@ -2,7 +2,7 @@
 	<view class="page-wrap">
 		<!-- #ifdef H5 -->
 		<view
-			style="position: absolute; background-color: red; right: 15px; top: 140px; background-color: #2488FC; border-radius: 4px; color: white;  padding: 7px 10px;"
+			style="position: absolute; background-color: red; right: 15px; top: 140px; background-color: #418C2D; border-radius: 4px; color: white;  padding: 7px 10px;"
 			@click="downTap">
 			下载APP
 		</view>
@@ -41,8 +41,8 @@
 						登录
 					</view> -->
 					<view class="btns">
-						<u-button type="primary" :disabled="hasLogin" text="登录" size="large"
-							@click="handleLogin"></u-button>
+						<u-button type="primary" :disabled="hasLogin" text="登录" size="large" cus
+				:customStyle="{backgroundColor: '#418C2D'}" @click="handleLogin"></u-button>
 					</view>
 				</view>
 				<view class="login-form-box" v-else>
@@ -111,7 +111,7 @@
 						注册
 					</view> -->
 					<view class="btns">
-						<u-button type="primary" :disabled="hasRegister" text="注册" size="large"
+						<u-button type="primary" :disabled="hasRegister" text="注册" size="large" :customStyle="{backgroundColor: '#418C2D'}"
 							@click="getRegister"></u-button>
 					</view>
 

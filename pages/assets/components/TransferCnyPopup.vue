@@ -125,7 +125,7 @@ import {transfer} from '@/config/api.js'
 		.btn-confirm{
 			width: 48%;
 			height: 42px;
-			background: #2488FC;
+			background: #418C2D;
 			line-height: 42px;
 			border-radius: 4px 4px 4px 4px;
 			text-align: center;

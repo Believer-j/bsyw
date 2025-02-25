@@ -167,7 +167,7 @@
 					content: '';
 					width: 24px;
 					height: 3px;
-					background: #2488FC;
+					background: #418C2D;
 					border-radius: 18px;
 					position: absolute;
 					left: 50%;
