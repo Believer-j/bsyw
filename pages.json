@@ -103,7 +103,29 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/address/address",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/address/address-add",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/goods-detail/goods-detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
+		
 		
 		// {
 		// 	"path" : "pages/login/login",

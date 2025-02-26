@@ -1,6 +1,6 @@
 <template>
 	<scroll-view class="scroll-view" :scroll-y="true" @scrolltolower="scrolltolower">
-		<view class="page-wrap">
+		<view class="page-gradient-bg" style="min-height: calc(100vh - 54px);">
 			<view class="page-main">
 				<view class="assets-info">
 					<view class="amount-info">
@@ -190,7 +190,7 @@
 		padding-bottom: 70px;
 
 		.assets-info {
-			background: linear-gradient(171deg, #2CA6FF 0%, #2487FC 58%);
+			// background: linear-gradient(171deg, #2CA6FF 0%, #2487FC 58%);
 			padding: 60px 16px 14px 16px;
 
 			.amount-info {

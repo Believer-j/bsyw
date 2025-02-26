@@ -1,12 +1,15 @@
 <template>
-	<view class="page-wrap">
+	<view class="page-wrap page-gradient-bg">
 		<view class="page-content2">
+			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+				<image src="/static/img/logo/bsyw-logo.png" mode="widthFix" style="width: 45px;"></image>
+			</view>
 			<view class="swiper-box">
 				<u-swiper :list="list1" @change="swiperChange" @click="swiperClick"></u-swiper>
 			</view>
 			<view class="page-main">
 				<notice-box />
-				<product-box />
+				<!-- <product-box /> -->
 				<video-box v-if="hasLeave" />
 				<good-foundation ref="goodFoundation" />
 
@@ -156,7 +159,8 @@
 
 	.page-wrap {
 		position: relative;
-
+		min-height: calc(100vh - 54px);
+		 
 		.img-a {
 			width: 36px;
 			height: 36px;
@@ -168,9 +172,9 @@
 
 		.page-content2 {
 			padding-bottom: 10px;
-			background: url('@/static/img/home/bg.png') no-repeat;
-			background-size: contain;
-			background-color: #3294fd;
+			// background: url('@/static/img/home/bg.png') no-repeat;
+			// background-size: contain;
+			// background-color: #3294fd;
 
 			.page-main {
 				padding: 0 16px;

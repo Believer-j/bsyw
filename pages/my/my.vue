@@ -1,6 +1,6 @@
 <template>
-	<view class="page-wrap">
-		<view class="page-content page-bg">
+	<view class="page-wrap page-gradient-bg">
+		<view class="page-content">
 			<view class="user-info">
 				<view class="icons">
 					<image class="img-7" src="@/static/img/my/1.jpg" mode=""></image>
@@ -11,26 +11,26 @@
 							手机号: {{userInfo.mobile}}
 						</view>
 					</view>
-          <view class="info-name">
-            <view class="title-name title-name-1" v-if="userInfo.teamLevel >= 0">
-              <image class="img-8" src="@/static/img/my/title-1.png" mode=""></image>
-              <view class="text">
-                {{ userInfo.teamName || "暂无等级"}}
-              </view>
-            </view>
-            <view class="title-name title-name-2" v-if="userInfo.personalLevel >= 0">
-              <image class="img-8" src="@/static/img/my/title-2.png" mode=""></image>
-              <view class="text">
-                {{ userInfo.personalName || "暂无称号"}}
-              </view>
-            </view>
-            <view class="title-name title-name-3" v-if="userInfo.quarterLevel >= 0">
-              <image class="img-8" src="@/static/img/my/title-3.png" mode=""></image>
-              <view class="text">
-                {{ userInfo.personalName || "暂无原料"}}
-              </view>
-            </view>
-          </view>
+					<view class="info-name">
+						<view class="title-name title-name-1" v-if="userInfo.teamLevel >= 0">
+							<image class="img-8" src="@/static/img/my/title-1.png" mode=""></image>
+							<view class="text">
+								{{ userInfo.teamName || "暂无等级"}}
+							</view>
+						</view>
+						<view class="title-name title-name-2" v-if="userInfo.personalLevel >= 0">
+							<image class="img-8" src="@/static/img/my/title-2.png" mode=""></image>
+							<view class="text">
+								{{ userInfo.personalName || "暂无称号"}}
+							</view>
+						</view>
+						<view class="title-name title-name-3" v-if="userInfo.quarterLevel >= 0">
+							<image class="img-8" src="@/static/img/my/title-3.png" mode=""></image>
+							<view class="text">
+								{{ userInfo.personalName || "暂无原料"}}
+							</view>
+						</view>
+					</view>
 					<view class="invitation">
 						昵称: {{userInfo.nick}}
 					</view>
@@ -49,7 +49,9 @@
 	import SetBox from './components/SetBox.vue'
 	import MyTeam from './components/MyTeam.vue'
 	import InvitationRecord from './components/InvitationRecord.vue'
-	import {mapState} from 'vuex'
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		mixins: [base],
 		components: {
@@ -68,7 +70,7 @@
 			}
 		},
 		onShow() {
-      this.$store.dispatch('getUserInfo')
+			this.$store.dispatch('getUserInfo')
 		},
 		methods: {}
 	}
@@ -77,7 +79,7 @@
 <style lang="scss" scoped>
 	.page-content {
 		padding-bottom: 60px;
-		background-color: #3294fd;
+		// background-color: #3294fd;
 
 		.user-info {
 			padding: 80px 0 28px 16px;
@@ -97,7 +99,7 @@
 					.name {
 						font-weight: 500;
 						font-size: 18px;
-						color: #FFFFFF;
+						color: #4F5755;
 						line-height: 21px;
 
 					}
@@ -153,7 +155,7 @@
 
 				.invitation {
 					font-size: 12px;
-					color: rgba(255, 255, 255, 0.7);
+					color: #4F5755;
 					line-height: 14px;
 					padding-top: 5px;
 				}

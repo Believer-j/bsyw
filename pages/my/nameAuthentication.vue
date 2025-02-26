@@ -1,5 +1,5 @@
 <template>
-	<view class="page-wrap">
+	<view class="page-wrap page-gradient-bg">
 		<header-box :title="headerTitle" backUrl="/pages/my/my" />
 		<view class="page-content page-main page-header-main">
 			<view class="page-title">
@@ -211,7 +211,7 @@
 
 <style lang="scss" scoped>
 	.page-wrap {
-		background: #fff;
+		// background: #fff;
 		min-height: 100vh;
 
 		.page-main {
@@ -229,6 +229,7 @@
 			}
 
 			.page-title {
+				margin-top: 15px;
 				.title {
 					font-weight: 500;
 					font-size: 17px;
