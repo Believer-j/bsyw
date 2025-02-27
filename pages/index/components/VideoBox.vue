@@ -15,7 +15,7 @@
 		data() {
 			return {
 				videoSrc: "https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/bsmj.mp4",
-				poster: "https://static.hjgy.cc/static/video1.jpg"
+				poster: "https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/product15.png"
 			}
 		},
 		methods: {

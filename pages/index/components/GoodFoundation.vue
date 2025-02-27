@@ -10,7 +10,7 @@
 			</view>
 		</view>
 		<view class="list">
-			<view class="item" v-for="item in list" :key="item.id">
+			<view class="item" v-for="item in list" :key="item.id" @click="gotoDetail(item.id)">
 				<view class="img">
 					<!--          {{item.urlSmall}}-->
 					<image :src="item.urlSmall"></image>
@@ -65,6 +65,11 @@
 			},
 			goBuy(item) {
 				this.$refs.paymentPopup.open(item)
+			},
+			gotoDetail(id) {
+				uni.navigateTo({
+					url: '/pages/goods-detail/goods-detail?id=' + id
+				})
 			}
 		}
 	}

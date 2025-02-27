@@ -5,7 +5,7 @@
 				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
 			</view>
 			<view class="swiper-box">
-				<u-swiper :list="list1" @change="swiperChange" @click="swiperClick"></u-swiper>
+				<u-swiper :list="list1" height="200px"  @change="swiperChange" @click="swiperClick"></u-swiper>
 			</view>
 			<view class="page-main">
 				<notice-box />

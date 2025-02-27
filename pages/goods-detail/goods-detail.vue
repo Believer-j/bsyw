@@ -4,23 +4,23 @@
 			<image slot='left' src="@/static/arrow_left_alpha.png" style="width: 28px; height: 28px;" @click="back">
 			</image>
 		</u-navbar>
-		<u-swiper :list="data.urlBigList" :height="screenWidth + 'px'" radius="0px" circular
+		<u-swiper :list="data.urlBigsStr" :height="screenWidth + 'px'" radius="0px" circular
 			indicatorStyle="bottom: 10px; right: 0px" @change="e => bannerIndex = e.current">
 			<view slot="indicator" class="indicator-num">
-				<text class="indicator-num__text">{{ bannerIndex + 1 }}/{{ data.urlBigList.length }}</text>
+				<text class="indicator-num__text">{{ bannerIndex + 1 }}/{{ data.urlBigsStr.length }}</text>
 			</view>
 		</u-swiper>
 		<!-- -->
 		<view style="margin: 12px 16px 0px 16px;">
 			<view class="div flex-column">
 				<view class="flex-row flex-items-center">
-					<view style="color: #D91919;" class="font-20 font-weight-semibold">¥{{ data.price }}</view>
+					<view style="color: #D91919;" class="font-20 font-weight-semibold">¥{{ data.priceCny }}</view>
 					<view v-if="data.integralStatus == 1" style="color: #9BA09F;" class="font-12 font-weight-regular">
 						{{ '+' + data.integral + '积分' }}
 					</view>
 				</view>
 				<view class="u-line-2 font-16 font-weight-semibold" style="color: #545958;">
-					{{ data.name }}
+					{{ data.title }}
 				</view>
 				<view class="flex-row flex-items-center flex-between" style="margin-top: 5px;">
 					<view class="font-12 font-weight-regular" style="color: #9BA09F;">
@@ -99,18 +99,18 @@
 				</view>
 			</view>
 
-			<view v-if="data.goodsDetailImage.length != 0" class="div flex-column"
+			<view v-if="data.urlDetail.length != 0" class="div flex-column"
 				style="margin-top: 12px; padding-left: 0px; padding-right: 0px; margin-bottom: 12px;">
 				<text class="font-14 font-weight-medium" style="color: #545958; margin-left: 12px;">详情介绍</text>
 				<view class="flex-column" style="margin-top: 12px;">
 					<view v-for="(item,index) in [1]" :key="index" style="width: 100%;">
-						<image :src="data.goodsDetailImage" mode="widthFix" :style="{width: '100%'}"></image>
+						<image :src="data.urlDetail" mode="widthFix" :style="{width: '100%'}"></image>
 					</view>
 				</view>
 			</view>
 
 		</view>
-		<view class="" style="position: fixed; bottom: 0px; left: 0px; right: 0px; background-color: white;"
+		<!-- <view class="" style="position: fixed; bottom: 0px; left: 0px; right: 0px; background-color: white;"
 			:style="{height: toolbarHeight + 'px' }">
 			<view class="flex-row flex-items-center" style="height: 54px;">
 				<view class="flex-column-center" style="width: 110px; height: 100%; " @click="intoClinic">
@@ -218,15 +218,15 @@
 			</view>
 		</u-popup>
 		<u-datetime-picker :show="showDatePicker" v-model="timeValue" mode="datetime" :minDate="Number(new Date())"
-			@confirm="datePickerConfirm" @cancel="datePickerCancel"></u-datetime-picker>
+			@confirm="datePickerConfirm" @cancel="datePickerCancel"></u-datetime-picker> -->
 	</view>
 </template>
 
 <script>
-	// import {
-	// 	goodsDetailApi,
-	// 	collectApi
-	// } from "@/api/index.js"
+	import {
+		goodsDetailApi,
+		// collectApi
+	} from "@/config/api.js"
 	// import {
 	// 	walletInfoApi,
 	// 	userInfoApi
@@ -238,7 +238,7 @@
 				goodsId: '',
 				collected: false,
 				data: {
-					urlBigList: [],
+					urlBigsStr: [],
 					goodsDetailImage: ''
 				},
 				clinic: {
@@ -285,19 +285,22 @@
 			toolbarHeight() {
 				const sys = uni.$u.sys()
 				return sys.safeAreaInsets.bottom + 54
+			},
+			isLogin() {
+				return this.$store.state.token.length != 0
 			}
 		},
 		onLoad(info) {
 			this.goodsId = info.id
 			this.getGoodsDetail()
-			if (this.$tool.isLogin()) {
+			if (this.isLogin) {
 				this.collect()
 				this.getUserinfo()
 			}
 			this.share.path = `/pages/index/index?id=` + this.goodsId + '&type=' + 'DetailShare'
 		},
 		onShow() {
-			if (this.$tool.isLogin()) {
+			if (this.isLogin) {
 				this.getWalletInfo()
 			}
 		},
@@ -311,9 +314,9 @@
 				// })
 			},
 			async getUserinfo() {
-				const res = await userInfoApi()
-				this.$cookie.set('roleType', res.data.roleType)
-				this.userId = res.data.id
+				// const res = await userInfoApi()
+				// this.$cookie.set('roleType', res.data.roleType)
+				// this.userId = res.data.id
 			},
 			intoClinic() {
 				uni.navigateTo({
@@ -337,25 +340,25 @@
 			 * 获取可用积分
 			 */
 			async getWalletInfo() {
-				const res = await walletInfoApi()
-				this.integralAmount = parseFloat(res.data.consumeAmount).toFixed(2)
+				// const res = await walletInfoApi()
+				// this.integralAmount = parseFloat(res.data.consumeAmount).toFixed(2)
 			},
 			/**
 			 * 收藏相关
 			 * 1 查询, 2 添加收藏, 3 移除收藏
 			 */
 			async collect(query = 1) {
-				const res = await collectApi({
-					type: 2,
-					query: query,
-					id: this.goodsId
-				})
-				if (query == 1) {
-					this.collected = res.data.status == 1
-				} else {
-					this.collected = !this.collected
-					this.$tool.showToast(query == 2 ? '收藏成功' : '已取消收藏')
-				}
+				// const res = await collectApi({
+				// 	type: 2,
+				// 	query: query,
+				// 	id: this.goodsId
+				// })
+				// if (query == 1) {
+				// 	this.collected = res.data.status == 1
+				// } else {
+				// 	this.collected = !this.collected
+				// 	this.$tool.showToast(query == 2 ? '收藏成功' : '已取消收藏')
+				// }
 			},
 			/**
 			 * 点击收藏按钮
@@ -370,14 +373,12 @@
 			 * 获取商品详情数据
 			 */
 			async getGoodsDetail() {
-				const res = await goodsDetailApi({
-					id: this.goodsId
-				})
-				console.log(res.data)
-				this.data = res.data
-				this.clinic = this.data.clinic
-				this.clinic.specials = this.clinic.special.split('__')
-				this.updatePrice()
+				const res = await goodsDetailApi(this.goodsId)
+				console.log(res)
+				this.data = res
+				// this.clinic = this.data.clinic
+				// this.clinic.specials = this.clinic.special.split('__')
+				// this.updatePrice()
 			},
 			/**
 			 * 点击评价

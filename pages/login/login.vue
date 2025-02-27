@@ -14,8 +14,8 @@
 				<view class="r-flex-all-center">
 					<image src="/static/bsyw-logo-bianxing.png" mode="widthFix" style="width: 70%;"></image>
 				</view>
-				<text class="font-18" style="margin-top: 20px; margin-left: 40px;">您好，欢迎使用</text>
-				<text class="font-20 font-weight-medium" style="margin-top: 7px; margin-left: 40px;">白沙源物平台</text>
+				<text class="font-24 font-weight-medium" style="margin-top: 20px; margin-left: 40px;">您好，欢迎使用</text>
+				<text class="font-weight-semibold" style="font-size: 28px; margin-top: 7px; margin-left: 40px;">白沙源物平台</text>
 			</view>
 			<view class="login-wrapper">
 

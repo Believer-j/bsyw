@@ -182,3 +182,10 @@ export const noticeDetailApi = (data) => {
 		data: {},
 	})
 }
+// 商品详情
+export const goodsDetailApi = (data) => {
+	return uniRequest('/base/api/home/product/' + data, {
+		method: 'post',
+		data: {},
+	})
+}
