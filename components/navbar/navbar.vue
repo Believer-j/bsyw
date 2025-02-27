@@ -1,26 +1,27 @@
 <template>
-	<u-tabbar :value="tabId" activeColor="#1C73EA" inactiveColor="#92909E" @change="handleChangeTab">
+	<u-tabbar :value="tabId" activeColor="#18533C" inactiveColor="#92909E" @change="handleChangeTab">
 		<u-tabbar-item text="首页">
 			<!-- <image class="u-page__item__slot-icon" slot="active-icon"
 				src="@/static/img/navBar/home-2.svg"></image>
 			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/navBar/home-1.svg">
 			</image> -->
-			<u-icon name="home" slot="inactive-icon" color="#92909E" size="26"></u-icon>
-			<u-icon name="home" slot="active-icon" color="#1C73EA" size="26"></u-icon>
+			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/home-s.png"></image>
+			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/home.png">
+			</image>
 		</u-tabbar-item>
 		<u-tabbar-item text="合金">
-			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/navBar/home-2.svg"></image>
-			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/navBar/home-1.svg">
+			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/tab1-s.png"></image>
+			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab1.png">
 			</image>
 		</u-tabbar-item>
 		<u-tabbar-item text="资产">
-			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/navBar/assets-2.svg"></image>
-			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/navBar/assets-1.svg">
+			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/tab2-s.png"></image>
+			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab2.png">
 			</image>
 		</u-tabbar-item>
 		<u-tabbar-item text="我的">
-			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/navBar/my-2.svg"></image>
-			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/navBar/my-1.svg">
+			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/tab3-s.png"></image>
+			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab3.png">
 			</image>
 		</u-tabbar-item>
 	</u-tabbar>

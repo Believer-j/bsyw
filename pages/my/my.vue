@@ -1,5 +1,5 @@
 <template>
-	<view class="page-wrap page-gradient-bg">
+	<view class="page-wrap user-bg">
 		<view class="page-content">
 			<view class="user-info">
 				<view class="icons">
@@ -77,6 +77,10 @@
 </script>
 
 <style lang="scss" scoped>
+	.user-bg {
+		background-image: url('/static/img/user-bg.jpg');
+		background-size: 100% 100%;
+	}
 	.page-content {
 		padding-bottom: 60px;
 		// background-color: #3294fd;
