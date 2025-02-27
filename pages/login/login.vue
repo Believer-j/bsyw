@@ -1,15 +1,22 @@
 <template>
 	<view class="page-wrap">
+
 		<!-- #ifdef H5 -->
-		<view
+		<!-- <view
 			style="position: absolute; background-color: red; right: 15px; top: 140px; background-color: #418C2D; border-radius: 4px; color: white;  padding: 7px 10px;"
 			@click="downTap">
 			下载APP
-		</view>
+		</view> -->
 		<!-- #endif -->
 
-		<view class="page-content2 page-bg2">
-
+		<view class="page-content2 page-gradient-bg">
+			<view class="r-flex-column" style="padding-top: 50px; ">
+				<view class="r-flex-all-center">
+					<image src="/static/bsyw-logo-bianxing.png" mode="widthFix" style="width: 70%;"></image>
+				</view>
+				<text class="font-18" style="margin-top: 20px; margin-left: 40px;">您好，欢迎使用</text>
+				<text class="font-20 font-weight-medium" style="margin-top: 7px; margin-left: 40px;">白沙源物平台</text>
+			</view>
 			<view class="login-wrapper">
 
 				<view class="nav-box">
@@ -42,7 +49,7 @@
 					</view> -->
 					<view class="btns">
 						<u-button type="primary" :disabled="hasLogin" text="登录" size="large" cus
-				:customStyle="{backgroundColor: '#418C2D'}" @click="handleLogin"></u-button>
+							:customStyle="{backgroundColor: '#418C2D'}" @click="handleLogin"></u-button>
 					</view>
 				</view>
 				<view class="login-form-box" v-else>
@@ -111,8 +118,8 @@
 						注册
 					</view> -->
 					<view class="btns">
-						<u-button type="primary" :disabled="hasRegister" text="注册" size="large" :customStyle="{backgroundColor: '#418C2D'}"
-							@click="getRegister"></u-button>
+						<u-button type="primary" :disabled="hasRegister" text="注册" size="large"
+							:customStyle="{backgroundColor: '#418C2D'}" @click="getRegister"></u-button>
 					</view>
 
 				</view>
@@ -295,12 +302,16 @@
 						});
 						await this.$store.commit('setToken', res)
 						await this.$store.dispatch('getUserInfo')
-
-						if (this.$store.state.userInfo && this.$store.state.userInfo.mobile) {
-							uni.navigateTo({
+						setTimeout(function() {
+							uni.reLaunch({
 								url: '/pages/index/index'
 							})
-						}
+						}, 2000);
+						// if (this.$store.state.userInfo && this.$store.state.userInfo.mobile) {
+						// 	uni.navigateTo({
+						// 		url: '/pages/index/index'
+						// 	})
+						// }
 
 					}
 				} catch (e) {
@@ -314,7 +325,7 @@
 
 <style lang="scss" scoped>
 	.login-wrapper {
-		padding-top: 210px;
+		padding-top: 20px;
 		min-height: 100vh;
 
 		.nav-box {

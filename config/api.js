@@ -137,3 +137,48 @@ export const download = (data) => {
 		data,
 	})
 }
+
+// 地址列表
+export const addressListApi = (data) => {
+	return uniRequest('/base/api/user/user/addr', {
+		method: 'post',
+		data,
+	})
+}
+
+// 新增地址
+export const addAddressApi = (data) => {
+	return uniRequest('/base/api/user/add/addr', {
+		method: 'post',
+		data,
+	})
+}
+
+// 修改地址
+export const updateAddressApi = (data) => {
+	return uniRequest('/base/api/user/update/addr', {
+		method: 'post',
+		data,
+	})
+}
+// 删除地址
+export const deleteAddressApi = (data) => {
+	return uniRequest('/base/api/user/delete/addr/' + data, {
+		method: 'post',
+		data: {},
+	})
+}
+// 通知列表
+export const noticeListApi = (data) => {
+	return uniRequest('/base/api/home/notices', {
+		method: 'post',
+		data,
+	})
+}
+// 通知详情
+export const noticeDetailApi = (data) => {
+	return uniRequest('/base/api/home/notice/' + data, {
+		method: 'post',
+		data: {},
+	})
+}

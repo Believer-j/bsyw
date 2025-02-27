@@ -1,26 +1,34 @@
 <template>
 	<view class="page-wrap">
-		<header-box title="公告详情" backUrl="/pages/index/index" />
+		<header-box title="公告详情" backUrl="/pages/notice/notice" />
 		<view class="notice-detail r-flex-column" style="">
-			<text class="item_title">公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题</text>
-			<text class="item_content" style="color: gainsboro;">2024-23-12 12:12:12</text>
+			<text class="item_title">{{ content.title }}</text>
+			<text class="item_content" style="color: gainsboro;">{{ content.createTime }}</text>
 			<text
-				class="item_content">公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容内容公告内容公告内容内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容</text>
+				class="item_content " v-html="content.detail"></text>
 		</view>
 		
 	</view>
 </template>
 
 <script>
+import {
+		noticeDetailApi
+	} from "@/config/api.js"
 	export default {
 		data() {
 			return {
-
+				id: '',
+				content: {}
 			}
 		},
+		onLoad(info) {
+			this.id = info.id
+			this.getNoticeDetail()
+		},
 		methods: {
-			intoDetail() {
-				
+			async getNoticeDetail() {
+				this.content = await noticeDetailApi(this.id)
 			}
 		}
 	}
@@ -48,6 +56,7 @@
 			font-weight: 400;
 			font-size: 14px;
 			margin-top: 8px;
+			word-break: break-all;
 		}
 	}
 </style>

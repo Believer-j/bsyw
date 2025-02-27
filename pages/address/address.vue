@@ -1,27 +1,31 @@
 <template>
 	<view class="page-gradient-bg" style="min-height: 100vh;">
 		<u-navbar title="我的收货地址" :placeholder="true" :autoBack="true">
-			<view class="" style="color: #18533C; font-size: 15px;" slot="right">
-				管理
+			<view class="" style="color: #18533C; font-size: 15px;" slot="right" @click="editing = !editing">
+				{{ editing ? '取消' : '管理' }}
 			</view>
 		</u-navbar>
 		<view class="address-wrap  r-flex-column content">
-			<view v-for="(item,index) in 13" :key="index" class="item r-flex-row r-flex-items-center r-flex-between">
-				<view class="r-flex-column">
-					<view class="r-flex-row r-flex-items-center">
-						<text class="name">土豆豆</text>
-						<text class="phone">15028932832</text>
-						<view class="default">
-							默认
+			<view v-for="(item,index) in dataList" :key="index" class="r-flex-row r-flex-items-center r-flex-between">
+				<view class="item r-flex-row r-flex-items-center r-flex-between" :class="[editing ? 'editingWidth' : 'normalWidth']">
+					<view class="r-flex-column">
+						<view class="r-flex-row r-flex-items-center">
+							<text class="name">{{ item.name }}</text>
+							<text class="phone">{{ item.mobile }}</text>
+
 						</view>
+						<text
+							class="address">{{ `${item.province}${item.city}${item.area}${item.detailsAddr}黄飞鸿积分活动时间匡扶汉室大家繁花似锦地方` }}</text>
 					</view>
-					<text class="address">成都市高新区天府五街美年广场1号成都市高新区天府五街美年广场1号</text>
+					<u-icon v-if="!editing" name="edit-pen" color="#E2E2E2" size="28" @click="edit(item)"></u-icon>
 				</view>
-				<u-icon name="edit-pen" color="#E2E2E2" size="28"></u-icon>
+				<view v-if="editing" class="font-16 r-flex-all-center" style="color: #e74d23; width: 50px;" @click="deleteAddr(item)">
+					删除
+				</view>
 			</view>
 		</view>
 		<view class="address-add-wrap r-flex-all-center">
-			<view class="btn r-flex-all-center">
+			<view class="btn r-flex-all-center" @click="gotoAddressAdd">
 				+ 添加收获地址
 			</view>
 		</view>
@@ -29,14 +33,44 @@
 </template>
 
 <script>
+	import {
+		addressListApi,
+		deleteAddressApi
+	} from '@/config/api.js'
+
 	export default {
 		data() {
 			return {
-
+				dataList: [],
+				editing: false
 			}
 		},
+		onLoad() {
+			this.getAddressList()
+		},
 		methods: {
-
+			gotoAddressAdd() {
+				uni.navigateTo({
+					url: '/pages/address/address-add'
+				})
+			},
+			async getAddressList() {
+				const res = await addressListApi()
+				this.dataList = res
+			},
+			edit(item) {
+				let data = JSON.stringify(item);
+				uni.navigateTo({
+					url: '/pages/address/address-add?data=' + data
+				})
+			},
+			goCurrent() {
+				this.getAddressList()
+			},
+			async deleteAddr(item) {
+				await deleteAddressApi(item.id)
+				this.getAddressList()
+			}
 		}
 	}
 </script>
@@ -47,22 +81,30 @@
 		height: 54px;
 		background: #FFFFFF;
 		margin-top: 10px;
-		
+
 		.btn {
 			width: 344px;
 			height: 44px;
 			background: #18533C;
 			border-radius: 15px;
-			
+
 			font-weight: 600;
 			font-size: 18px;
 			color: #FFFFFF;
 		}
 	}
+
 	.address-wrap {
 		// min-height: calc(100vh - 48px);
 		overflow: scroll;
 		max-height: calc(100vh - 48px - 64px);
+		min-height: calc(100vh - 48px - 64px);
+		.normalWidth {
+			width: calc(100vw - 28px);
+		}
+		.editingWidth {
+			width: calc(100vw - 78px);
+		}
 		.item {
 			margin-top: 10px;
 			// height: 84px;
@@ -71,27 +113,32 @@
 			padding: 16px 12px;
 			margin-left: 14px;
 			margin-right: 14px;
+			
+
 			.default {
 				padding: 2px 4px;
 				border-radius: 2px;
 				border: 1px solid #18533C;
-				
+
 				font-weight: 600;
 				font-size: 10px;
 				color: #18533C;
 				margin-left: 6px;
 			}
+
 			.name {
 				font-weight: 600;
 				font-size: 16px;
 				color: #4F5755;
 			}
+
 			.phone {
 				font-weight: 400;
 				font-size: 14px;
 				color: #545958;
 				margin-left: 6px;
 			}
+
 			.address {
 				font-weight: 400;
 				font-size: 12px;

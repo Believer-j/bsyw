@@ -9,7 +9,7 @@
 			</view>
 		</view>
 		<view class="content">
-			<u-notice-bar v-if="userInfo&&userInfo.notice" :text="userInfo.notice" speed="80" icon="" bgColor="#fff" color="#333333"></u-notice-bar>
+			<u-notice-bar direction="column" :text="dataList" icon="" bgColor="#fff" color="#333333"></u-notice-bar>
 		</view>
 		<!-- <view class="content">
 			<view class="text">
@@ -23,15 +23,30 @@
 
 <script>
 	import base from '../mixins/base';
+	import {
+		noticeListApi
+	} from "../config/api.js"
 	export default {
 		name:"NoticeBox",
 		mixins: [base],
 		data() {
 			return {
-				
+				dataList: []
 			};
 		},
+		mounted() {
+			this.getList()
+		},
 		methods: {
+			async getList() {
+				const res = await noticeListApi()
+				var texts = []
+				for (var index = 0; index < res.length; index++) {
+					var element = res[index];
+					texts.push(element.title)
+				}
+				this.dataList = texts;
+			},
 			intoNoticeList() {
 				uni.navigateTo({
 					url:'/pages/notice/notice'

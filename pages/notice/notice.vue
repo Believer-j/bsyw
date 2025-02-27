@@ -2,26 +2,40 @@
 	<view class="page-wrap">
 		<header-box title="公告列表" backUrl="/pages/index/index" />
 		<view style="margin-top: 80px;">
-			<view v-for="(item,index) in 10" :key="index" class="item r-flex-column" @click="intoDetail">
-				<text class="item_title u-line-1">公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题公告标题</text>
+			<view v-for="(item,index) in dataList" :key="index" class="item r-flex-column" @click="intoDetail(item.id)">
+				<text class="item_title u-line-1">{{ item.title }}</text>
 				<text
-					class="item_content u-line-3">公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容内容公告内容公告内容内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容</text>
+					class="item_content u-line-3">{{ removeHTMLTags(item.subTitle) }}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		noticeListApi
+	} from '@/config/api.js'
+	
 	export default {
 		data() {
 			return {
-
+				dataList: []
 			}
 		},
+		onLoad() {
+			this.getList()
+		},
 		methods: {
-			intoDetail() {
+			async getList() {
+				const res = await noticeListApi()
+				this.dataList = res
+			},
+			removeHTMLTags(str) {
+			    return str.replace(/<[^>]*>/g, '');
+			},
+			intoDetail(id) {
 				uni.navigateTo({
-					url: '/pages/notice/notice-detail'
+					url: `/pages/notice/notice-detail?id=${id}`
 				})
 			}
 		}

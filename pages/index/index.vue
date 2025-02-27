@@ -2,7 +2,7 @@
 	<view class="page-wrap page-gradient-bg">
 		<view class="page-content2">
 			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
-				<image src="/static/img/logo/bsyw-logo.png" mode="widthFix" style="width: 45px;"></image>
+				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
 			</view>
 			<view class="swiper-box">
 				<u-swiper :list="list1" @change="swiperChange" @click="swiperClick"></u-swiper>
@@ -64,9 +64,9 @@
 			return {
 				showUpdate: false,
 				list1: [
-					'https://static.hjgy.cc/static/banner/index1.jpg',
-					'https://static.hjgy.cc/static/banner/index2.jpg',
-					'https://static.hjgy.cc/static/banner/index3.jpg',
+					'https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/banner1.jpg',
+					'https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/banner2.png',
+					'https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/banner3.png',
 				],
 				hasLeave: true,
 				hasInvitationCode: false,

@@ -8,8 +8,8 @@
 			<!-- <view class="input">
 				{{parametersTemp.province + parametersTemp.city + parametersTemp.area}}
 			</view> -->
-			<u-input v-model="text" placeholder="请选择地址" input-align="right" border="none" :disabled="true" disabledColor="#FFFFFF" ></u-input>
-			<!-- <view v-else class="placeholder-input">请选择地址</view> -->
+			<u-input v-model="text" placeholder="请选择地址" input-align="right" border="none" :disabled="false" disabledColor="#FFFFFF" ></u-input>
+			<!-- <view class="placeholder-input">请选择地址</view> -->
 			
 		</picker>
 	</view>
@@ -31,6 +31,7 @@
 		},
 		watch: {
 			parameters: {
+				deep: true,
 				handler(newVal, oldVal) {
 					this.parametersTemp = newVal
 					this.text = this.parametersTemp.province + this.parametersTemp.city + this.parametersTemp.area

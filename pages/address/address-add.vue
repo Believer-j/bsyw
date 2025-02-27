@@ -1,7 +1,8 @@
 <template>
-	<view class="font-16 font-weight-regular page-gradient-bg" style="width: 100vw; color: #545958; font-size: 400; min-height: 100vh;">
+	<view class="font-16 font-weight-regular page-gradient-bg"
+		style="width: 100vw; color: #545958; font-size: 400; min-height: 100vh;">
 		<u-navbar :fixed="true" title="添加收货地址" :placeholder="true" bgColor="#FAFCFF" :autoBack="true">
-			
+
 		</u-navbar>
 		<view
 			style="background-color: #FFFFFF; border: 1px; border-radius: 5px; margin-top: 31px; margin-left: 16px; margin-right: 16px; padding: 11px 12px 11px 12px;">
@@ -29,23 +30,23 @@
 				</view>
 			</view>
 			<view style="height: 1px; background-color: #F5F5F5; margin-top: 11px; margin-bottom: 10px;"></view>
-			<view class="flex-column">
+			<view class="flex-column" >
 				<text>详细地址</text>
-				<view class="" style="margin-top: 6px;">
-					<tui-textarea placeholder="请填写街道、楼牌号等" v-model="parameters.detail" background-color="#F4F9F7"
+				<view class="" style="margin-top: 6px; margin-bottom: 14px;">
+					<tui-textarea placeholder="请填写街道、楼牌号等" v-model="parameters.detailsAddr" background-color="#F4F9F7"
 						:border-bottom="false" :border-top="false" radius="12rpx" height="101px">
 					</tui-textarea>
-					<view style="margin: -25px 0px 0px 15px;" class="clearBtn" @click="parameters.detail=''">
+					<view style="margin: -25px 0px 0px 15px;" class="clearBtn" @click="parameters.detailsAddr=''">
 						清除
 					</view>
 				</view>
 			</view>
-			<view class="flex-row flex-between" style="margin-top: 16px;">
+			<!-- <view class="flex-row flex-between" style="margin-top: 16px;">
 				<text>设为默认地址</text>
 				<u-switch space="2" v-model="tempDefaultSta" @change="defaultSwitch($event)" activeColor="#18533C"
 					inactiveColor="rgb(230, 230, 230)">
 				</u-switch>
-			</view>
+			</view> -->
 		</view>
 
 		<view class="flex-row flex-center flex-items-center"
@@ -65,9 +66,10 @@
 	// 	empty,
 	// 	showToast
 	// } from "@/tools/index.js";
-	// import {
-	// 	ModifyUserAddressApi
-	// } from '@/api/address.js'
+	import {
+		addAddressApi,
+		updateAddressApi
+	} from '@/config/api.js'
 
 	export default {
 		components: {
@@ -81,7 +83,7 @@
 					area: '',
 					city: '',
 					defaultSta: 0,
-					detail: '',
+					detailsAddr: '',
 					id: 0,
 					mobile: '',
 					name: '',
@@ -98,9 +100,12 @@
 			if (Object.keys(options).length !== 0) {
 				let data = JSON.parse(options.data);
 				if (data.mobile) {
-					this.isEdit = true,
+					this.$nextTick(() => {
+						this.isEdit = true
 						this.parameters = data
-					this.parameters.defaultSta == 1 ? this.tempDefaultSta = true : this.tempDefaultSta = false
+						this.parameters.defaultSta == 1 ? this.tempDefaultSta = true : this.tempDefaultSta = false
+					})
+					
 					//this.parameters.defaultAddr = JSON.parse(this.parameters.defaultAddr)
 				}
 			}
@@ -114,7 +119,9 @@
 				});
 			},
 			addressChange(e) {
-				this.parameters = e
+				this.parameters.area = e.area
+				this.parameters.city = e.city
+				this.parameters.province = e.province
 			},
 			//返回上一页
 			back() {
@@ -158,7 +165,7 @@
 					area: this.parameters.area,
 					city: this.parameters.city,
 					defaultSta: this.parameters.defaultSta,
-					detailsAddr: this.parameters.detail,
+					detailsAddr: this.parameters.detailsAddr,
 					mobile: this.parameters.mobile,
 					name: this.parameters.name,
 					province: this.parameters.province,
@@ -167,7 +174,7 @@
 				if (!this.jumpParmas(temp)) {
 					return
 				}
-				const res = await ModifyUserAddressApi(temp)
+				const res = await addAddressApi(temp)
 				this.showToast('添加地址成功')
 				setTimeout(function() {
 					var pages = getCurrentPages(); // 获取当前挂载的路由数组
@@ -186,17 +193,18 @@
 					area: this.parameters.area,
 					city: this.parameters.city,
 					defaultSta: this.parameters.defaultSta,
-					detailsAddr: this.parameters.detail,
+					detailsAddr: this.parameters.detailsAddr,
 					mobile: this.parameters.mobile,
 					name: this.parameters.name,
 					province: this.parameters.province,
-					addrId: this.parameters.id
+					id: this.parameters.id
 				}
 				if (!this.jumpParmas(temp)) {
+					console.log('xxx')
 					return
 				}
-				const res = await ModifyUserAddressApi(temp)
-				showToast('修改地址成功')
+				const res = await updateAddressApi(temp)
+				this.showToast('修改地址成功')
 				setTimeout(function() {
 					var pages = getCurrentPages(); // 获取当前挂载的路由数组
 					var prePage = pages[pages.length - 2] //获取 上一个页面

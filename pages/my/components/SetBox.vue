@@ -29,24 +29,31 @@
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
-      <view class="set-item" @click="openLoginPwd">
-        <image class="img-10" src="@/static/img/my/set-1.png" mode=""></image>
-        <view class="title">
-          修改登录密码
-        </view>
-        <u-icon name="arrow-right" color="#999" size="12"></u-icon>
-      </view>
-      <view class="set-item" @click="openNumPwd">
-        <image class="img-10" src="@/static/img/my/set-1.png" mode=""></image>
-        <view class="title">
-          修改资金密码
-        </view>
-        <u-icon name="arrow-right" color="#999" size="12"></u-icon>
-      </view>
+			<view class="set-item" @click="openLoginPwd">
+				<image class="img-10" src="@/static/img/my/set-1.png" mode=""></image>
+				<view class="title">
+					修改登录密码
+				</view>
+				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
+			</view>
+			<view class="set-item" @click="openNumPwd">
+				<image class="img-10" src="@/static/img/my/set-1.png" mode=""></image>
+				<view class="title">
+					修改资金密码
+				</view>
+				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
+			</view>
 			<view class="set-item" @click="goNameAuth">
 				<image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
 				<view class="title">
 					实名认证
+				</view>
+				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
+			</view>
+			<view class="set-item" @click="goAddress">
+				<u-icon name="map-fill" color="#2d2d2d" size="18"></u-icon>
+				<view class="title">
+					收货地址
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
@@ -57,13 +64,13 @@
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
-      <view class="set-item" @click="layout">
-        <image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
-        <view class="title">
-          退出登录
-        </view>
-        <u-icon name="arrow-right" color="#999" size="12"></u-icon>
-      </view>
+			<view class="set-item" @click="layout">
+				<image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
+				<view class="title">
+					退出登录
+				</view>
+				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
+			</view>
 		</view>
 		<edit-nickname-popup ref="editNicknamePopup" />
 		<edit-phone-popup ref="editPhonePopup" />
@@ -79,14 +86,18 @@
 	import EditNumPwd from './EditNumPwd.vue'
 	import EditPhonePopup from './EditPhonePopup.vue'
 	import SharePopup from '@/components/SharePopup.vue'
-	import {mapState} from 'vuex'
-	import {copy} from '@/utils/index.js'
+	import {
+		mapState
+	} from 'vuex'
+	import {
+		copy
+	} from '@/utils/index.js'
 	export default {
 		components: {
 			EditNicknamePopup,
 			EditPhonePopup,
-      EditLoginPwd,
-      EditNumPwd,
+			EditLoginPwd,
+			EditNumPwd,
 			SharePopup
 		},
 		computed: {
@@ -110,22 +121,27 @@
 			openEditPhone() {
 				this.$refs.editPhonePopup.open()
 			},
-      openLoginPwd() {
-        this.$refs.editLoginPwd.open()
-      },
-      openNumPwd() {
-        this.$refs.editNumPwd.open()
-      },
-			share(){
+			openLoginPwd() {
+				this.$refs.editLoginPwd.open()
+			},
+			openNumPwd() {
+				this.$refs.editNumPwd.open()
+			},
+			share() {
 				this.$refs.sharePopup.open()
 			},
 			// 实名认证
-			goNameAuth(){
+			goNameAuth() {
 				uni.navigateTo({
 					url: '/pages/my/nameAuthentication'
 				})
 			},
-			layout(){
+			goAddress() {
+				uni.navigateTo({
+					url: '/pages/address/address'
+				})
+			},
+			layout() {
 				this.$store.commit('logout')
 			}
 		}
