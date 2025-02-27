@@ -1,5 +1,5 @@
 <template>
-	<view class="page-wrap">
+	<view class="page-wrap page-gradient-bg">
 		<header-box title="公告列表" backUrl="/pages/index/index" />
 		<view style="margin-top: 80px;">
 			<view v-for="(item,index) in dataList" :key="index" class="item r-flex-column" @click="intoDetail(item.id)">
@@ -44,7 +44,7 @@
 <style lang="scss" scoped>
 	.page-wrap {
 		overflow: hidden;
-		background: white;
+		// background: white;
 		min-height: 100vh;
 
 		.item {

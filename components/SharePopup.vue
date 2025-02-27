@@ -8,7 +8,7 @@
 			
 			<view class="qrcode-box">
 				<view class="title" style="text-align: center;padding-bottom:10px;">
-					合金工业
+					白沙源物
 				</view>
 				<qrcode-info ref="qrcodeInfo" />
 			</view>

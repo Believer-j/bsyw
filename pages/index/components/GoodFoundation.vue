@@ -32,7 +32,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="btn" @click="goBuy(item)">
+				<view class="btn" @click.stop="goBuy(item)">
 					<image class="img-5" src="@/static/img/home/qg.png" mode=""></image>
 					<text>去抢购</text>
 				</view>

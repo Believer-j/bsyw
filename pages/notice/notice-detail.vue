@@ -1,5 +1,5 @@
 <template>
-	<view class="page-wrap">
+	<view class="page-wrap page-gradient-bg">
 		<header-box title="公告详情" backUrl="/pages/notice/notice" />
 		<view class="notice-detail r-flex-column" style="">
 			<text class="item_title">{{ content.title }}</text>
@@ -36,7 +36,7 @@ import {
 <style lang="scss" scoped>
 	.page-wrap {
 		overflow: hidden;
-		background: white;
+		// background: white;
 		min-height: 100vh;
 		.notice-detail {
 			margin: 12px;
@@ -45,7 +45,7 @@ import {
 			box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 			border: 1px solid rgba(0, 0, 0, 0.1);
 			border-radius: 10px;
-			padding: 10px;
+			padding: 15px;
 		}
 		.item_title {
 			font-weight: 500;

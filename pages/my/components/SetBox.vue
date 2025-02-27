@@ -64,13 +64,13 @@
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
-			<view class="set-item" @click="layout">
+			<!-- <view class="set-item" @click="layout">
 				<image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
 				<view class="title">
 					退出登录
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
-			</view>
+			</view> -->
 		</view>
 		<edit-nickname-popup ref="editNicknamePopup" />
 		<edit-phone-popup ref="editPhonePopup" />
@@ -192,14 +192,14 @@
 			padding: 9px 0;
 
 			.set-item {
-				padding: 9px 0;
+				padding: 15px 0;
 				display: flex;
 				align-items: center;
 
 				.title {
 					padding-left: 12px;
 					flex: 1;
-					font-size: 15px;
+					font-size: 17px;
 					color: #333333;
 					line-height: 18px;
 				}

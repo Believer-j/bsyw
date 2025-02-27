@@ -1,7 +1,7 @@
 <template>
 	<view class="font-16 font-weight-regular page-gradient-bg"
 		style="width: 100vw; color: #545958; font-size: 400; min-height: 100vh;">
-		<u-navbar :fixed="true" title="添加收货地址" :placeholder="true" bgColor="#FAFCFF" :autoBack="true">
+		<u-navbar :fixed="true" title="添加收货地址" height="70px" :placeholder="true" bgColor="#FAFCFF" :autoBack="true">
 
 		</u-navbar>
 		<view
@@ -50,7 +50,7 @@
 		</view>
 
 		<view class="flex-row flex-center flex-items-center"
-			style="bottom: 0; height: 45px; margin: 59px 14px 5px 17px; border-radius: 10px; background-color: #18533C;"
+			style="bottom: 0; height: 45px; margin: 59px 14px 5px 17px; border-radius: 10px; background-color: #389838;"
 			@click="isEdit ? $u.throttle(addressUpdate, 3000) : addressAdd()">
 			<text class="font-18 font-weight-semibold" style=" color: #FFFFFF;">保存</text>
 

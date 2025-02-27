@@ -4,7 +4,7 @@
 			<image slot='left' src="@/static/arrow_left_alpha.png" style="width: 28px; height: 28px;" @click="back">
 			</image>
 		</u-navbar>
-		<u-swiper :list="data.urlBigsStr" :height="screenWidth + 'px'" radius="0px" circular
+		<u-swiper :list="data.urlBigsStr" :height="200 + 'px'" radius="0px" circular
 			indicatorStyle="bottom: 10px; right: 0px" @change="e => bannerIndex = e.current">
 			<view slot="indicator" class="indicator-num">
 				<text class="indicator-num__text">{{ bannerIndex + 1 }}/{{ data.urlBigsStr.length }}</text>
@@ -22,84 +22,16 @@
 				<view class="u-line-2 font-16 font-weight-semibold" style="color: #545958;">
 					{{ data.title }}
 				</view>
-				<view class="flex-row flex-items-center flex-between" style="margin-top: 5px;">
-					<view class="font-12 font-weight-regular" style="color: #9BA09F;">
-						已售: {{ data.sell }}
-					</view>
-					<view class="flex-row flex-items-center">
-						<!-- #ifdef MP-WEIXIN -->
-						<button open-type="share"
-							style="border: none; background-color: transparent; box-shadow: none;">
-							<image src="@/static/share.png" style="width: 15px; height: 13px; margin-right: 3px;">
-							</image>
-							<text class="font-12 font-weight-regular" style="color: #9BA09F;">分享</text>
-						</button>
-						<!-- #endif -->
-						
-						<view class="flex-row flex-items-center" @click="collectTap">
-							<image :src="collected ? '../../static/collect_s.png' : '../../static/collect.png' "
-								style="width: 15px; height: 14px; margin-right: 3px;">
-							</image>
-							<view class="font-12 font-weight-regular" style="color: #9BA09F;">收藏</view>
-						</view>
-					</view>
-				</view>
+				
 			</view>
-			<view class="div flex-row flex-items-center flex-between" style="margin-top: 12px;" @click="appraise">
-				<text class="font-14 font-weight-medium" style="color: #545958;">评价内容</text>
-				<view class="flex-row flex-items-center">
-					<text class="font-14 font-weight-regular" style="color: #9BA09F;">{{ data.totalComment }}条评价</text>
-					<image src="@/static/arrow_right_gary.png" style="width: 5px; height: 10px; margin-left: 5px;">
-					</image>
-				</view>
-			</view>
+			
 			<view class="div flex-column" style="margin-top: 12px;">
-				<text class="font-14 font-weight-medium" style="color: #545958;">平台保障</text>
-				<view class="flex-row flex-wrap">
-					<view v-for="(item,index) in data.guaranteeList" :key="index" class="flex-row flex-items-center"
-						style="margin-right: 20px; margin-top: 5px;">
-						<image src="@/static/gougou.png" style="width: 13px; height: 13px; margin-right: 6px;"></image>
-						<text class="font-12 font-weight-regular" style="color: #545958;"> {{ item }}</text>
-					</view>
-				</view>
+				<text class="font-14 font-weight-medium" style="color: #545958;">{{ data.remark }}</text>
+				
 			</view>
-			<view class="div flex-column" style="margin-top: 12px;" @click.stop="intoClinic">
-				<text class="font-14 font-weight-medium" style="color: #545958;">适用诊所</text>
-				<view class="flex-row flex-between" style="margin-top: 12px;">
-					<view class="flex-row">
-						<image :src="clinic.logo" mode="aspectFill"
-							style="width: 60px; height: 60px; border-radius: 10px; min-width: 60px;"></image>
-						<view class="flex-column" style="margin-left: 11px;">
-							<view class="font-18 font-weight-semibold" style="color: #545958;">{{ clinic.name }}</view>
-							<view class="flex-row flex-items-center">
-								<image v-for="(item,index) in [1,1,1,1,1]" :key="index"
-									style="width: 13px; height: 12px; margin-right: 5px;"
-									:src="index < star ? '../../static/star_s.png' : '../../static/star.png'">
-								</image>
-							</view>
-							<view v-if="clinic.specials.length != 0" class="flex-row flex-items-center"
-								style="margin-top: 7px;">
-								<view v-for="(item,index) in clinic.specials" :key="index"
-									class="font-10 font-weight-semibold flex-column flex-items-center"
-									style="height: 16px; border-radius: 2px; padding-left: 7px; padding-right: 7px; margin-right: 5px; color: #38BF9F; background-color: #EEFAF7;">
-									{{ item }}
-								</view>
-							</view>
-							<view class="flex-row" style="margin-top: 7px;">
-								<image src="@/static/address.png"
-									style="width: 13px; height: 12px; min-width: 13px; margin-right: 5px; margin-top: 4px;">
-								</image>
-								<view class="u-line-2 font-12 font-weight-regular" style="color: #9BA09F;">
-									{{ clinic.addr }}
-								</view>
-							</view>
-						</view>
-					</view>
-					<image v-show="parseInt(clinic.sysUser) !=  parseInt(userId)" src="@/static/im.png" style="width: 40px; height: 40px; min-width: 40px;" @click.stop="im"></image>
-				</view>
-			</view>
+			
 
-			<view v-if="data.urlDetail.length != 0" class="div flex-column"
+			<view v-if="true" class="div flex-column"
 				style="margin-top: 12px; padding-left: 0px; padding-right: 0px; margin-bottom: 12px;">
 				<text class="font-14 font-weight-medium" style="color: #545958; margin-left: 12px;">详情介绍</text>
 				<view class="flex-column" style="margin-top: 12px;">
@@ -110,130 +42,67 @@
 			</view>
 
 		</view>
-		<!-- <view class="" style="position: fixed; bottom: 0px; left: 0px; right: 0px; background-color: white;"
+		<view class="" style="position: fixed; bottom: 0px; left: 0px; right: 0px; background-color: white;"
 			:style="{height: toolbarHeight + 'px' }">
-			<view class="flex-row flex-items-center" style="height: 54px;">
-				<view class="flex-column-center" style="width: 110px; height: 100%; " @click="intoClinic">
-					<image src="@/static/toolbar_clinic.png" style="width: 22px; height: 20px;"></image>
-					<text class="font-12 font-weight-regular" style="color: #9BA09F;">诊所</text>
-				</view>
+			<view class="flex-row flex-items-center flex-center" style="height: 54px;">
+				
 				<view class="flex-row-center font-18 font-weight-semibold"
-					style="color: white; background-color: #18533C; height: 44px; border-radius: 15px;"
+					style="color: white; background-color: #389838; height: 44px; border-radius: 15px;"
 					:style="{width: screenWidth - 110 - 16 + 'px'}" @click="showReservation=true">
 					立即购买
 				</view>
 			</view>
 		</view>
-
-		<u-popup :show="showReservation" :closeOnClickOverlay="false" round="15px">
-			<view class="flex-column"
-				style="margin-top: 20px; margin-left: 16px; margin-right: 16px; margin-bottom: 10px;">
-				<view class="flex-row flex-items-center flex-between">
-					<text style="color: #545958;" class="font-18 font-weight-medium">{{ clinic.name }}</text>
-					<image src="@/static/close.png" style="width: 20px; height: 20px;" @click="showReservation=false">
-					</image>
+		<u-popup :show="showReservation" mode="bottom" :closeOnClickOverlay="false" round="12px">
+			<view class="" style="">
+				<view class="flex-row flex-items-center flex-between" style="">
+					<text class="font-22 font-weight-semibold">购买</text>
+					<u-icon name="close" size="20px" @click="showReservation = false"></u-icon>
 				</view>
-				<view class="flex-row" style="margin-top: 20px;">
-					<image :src="clinic.logo" mode="aspectFill" style="width: 80px; height: 80px; border-radius: 10px;">
-					</image>
-					<view class="flex-column" style="margin-left: 12px;">
-						<view class="font-16 font-weight-regular u-line-2" style="color: #545958;">
-							{{ data.name }}
-						</view>
-						<view class="font-16 font-weight-semibold" style="color: #D91919; margin-top: 5px;">
-							{{ '¥ ' + parseFloat(data.price).toFixed(2) }}
-						</view>
+				<p class="flex-row flex-items-center flex-between" style="margin-top: 15px;">
+					<span class="font-16 font-weight-medium">商品金额</span>
+					<span class="font-20 font-weight-semibold" style="color: #D91919;">¥{{data.priceCny}}</span>
+				</p>
+				<p class="flex-row flex-items-center flex-between" style="margin-top: 7px;">
+					<span class="font-16 font-weight-medium">我的余额</span>
+					<span class="font-20 font-weight-semibold" style="color: #D91919;">¥{{data.priceCny}}</span>
+				</p>
+				<p class="flex-row flex-items-center flex-between" style="margin-top: 2px;">
+					<span></span>
+					<span>余额不足</span>
+				</p>
+				
+				<p class="flex-row flex-items-center flex-between" style="margin-top: 7px;">
+					<span class="font-16 font-weight-medium" style="min-width: 80px;">收货地址</span>
+					<view class="flex-row flex-items-center" @click="intoAddress">
+						<span>{{ addressObj.id ? `${addressObj.name}, ${addressObj.city}${addressObj.area}${addressObj.detailsAddr}` : '请选择收货地址'}}</span>
+						<u-icon name="arrow-right"></u-icon>
 					</view>
-				</view>
-				<view style="width: 100%; height: 1px; background-color: #F5F5F5; margin-top: 19px;"></view>
-				<view class="flex-column">
-					<view class="font-16 font-weight-regular flex-row flex-items-center flex-between"
-						style="height: 47px; color: #545958;">
-						<text>消费数量</text>
-						<view class="flex-row" style="height: 28px; border-radius: 6px; border: 1px solid #E3E9E6;">
-							<view class="flex-row-center font-20 font-weight-bold"
-								style="width: 28px; height: 100%; background-color: #FBFFFC; border-top-left-radius: 6px; border-bottom-left-radius: 6px;"
-								@click.stop="down">-</view>
-							<view style="background-color: #E3E9E6; width: 1px; height: 100%;"></view>
-							<u-input v-model="reservationNum" border="none" type="number" inputAlign="center"
-								color="#545958" customStyle="width: 50px;" :disabled="true"
-								disabledColor="white"></u-input>
-							<view style="background-color: #E3E9E6; width: 1px; height: 100%;"></view>
-							<view class="flex-row-center font-20 font-weight-bold"
-								style="width: 28px; height: 100%; background-color: #FBFFFC; border-top-right-radius: 6px; border-bottom-right-radius: 6px;"
-								@click.stop="add">+</view>
-						</view>
+				</p>
+				
+				<view class="flex-row flex-items-center flex-center" style="height: 54px; margin-top: 25px;">
+					
+					<view class="flex-row-center font-18 font-weight-semibold"
+						style="color: white; background-color: #389838; height: 44px; border-radius: 15px;"
+						:style="{width: screenWidth - 110 - 16 + 'px'}" @click="confirmBuy">
+						确认购买
 					</view>
-					<view style="width: 100%; height: 1px; background-color: #F5F5F5;"></view>
-				</view>
-				<view class="flex-column">
-					<view class="font-16 font-weight-regular flex-row flex-items-center flex-between"
-						style="height: 47px; color: #545958;">
-						<text>金额总计</text>
-						<view class="">¥ {{ sumPrice }}</view>
-					</view>
-					<view style="width: 100%; height: 1px; background-color: #F5F5F5;"></view>
-				</view>
-				<view v-if="data.integralStatus == 1" class="flex-column">
-					<view class="font-16 font-weight-regular flex-row flex-items-center flex-between"
-						style="height: 47px; color: #545958;">
-						<text>消耗积分</text>
-						<view class="flex-row flex-items-center" @click="selectIntegralBtn">
-							<view class="flex-column flex-items-end" style="margin-right: 8px;">
-								<view class="">{{ integral }}</view>
-								<view class="font-12 font-weight-regular" style="color: #9BA09F;">
-									剩余积分:{{integralAmount}}</view>
-							</view>
-							<image
-								:src=" selectIntegral ? '../../static/register/round_selected.png' : '../../static/register/round_select.png' "
-								style="width: 18px; height: 18px;"></image>
-						</view>
-					</view>
-					<view style="width: 100%; height: 1px; background-color: #F5F5F5;"></view>
-				</view>
-				<view class="flex-column">
-					<view class="font-16 font-weight-regular flex-row flex-items-center flex-between"
-						style="height: 47px; color: #545958;">
-						<text>实付金额</text>
-						<view class="font-weight-medium" style="color: #D91919;">¥ {{ realPrice }}</view>
-					</view>
-					<view style="width: 100%; height: 1px; background-color: #F5F5F5;"></view>
-				</view>
-				<view v-if="data.service == 1" class="flex-column">
-					<view class="font-16 font-weight-regular flex-row flex-items-center flex-between"
-						style="height: 47px; color: #545958;" @click="timeTap">
-						<text>预约时间</text>
-						<view class="flex-row flex-items-center flex-center" style="height: 47px;">
-							<view>{{ time }}</view>
-							<image src="@/static/date.png" style="width: 20px; height: 20px; margin-left: 12px;">
-							</image>
-						</view>
-					</view>
-					<view style="width: 100%; height: 1px; background-color: #F5F5F5;"></view>
-				</view>
-				<view class="flex-row-center btn" style="margin-top: 16px;"
-					@click="$u.throttle(intoConfirmOrder, 2000)">
-					立即下单
 				</view>
 			</view>
 		</u-popup>
-		<u-datetime-picker :show="showDatePicker" v-model="timeValue" mode="datetime" :minDate="Number(new Date())"
-			@confirm="datePickerConfirm" @cancel="datePickerCancel"></u-datetime-picker> -->
 	</view>
 </template>
 
 <script>
 	import {
 		goodsDetailApi,
-		// collectApi
+		addressListApi
 	} from "@/config/api.js"
-	// import {
-	// 	walletInfoApi,
-	// 	userInfoApi
-	// } from "@/api/user.js"
 	export default {
 		data() {
 			return {
+				addressList: [],
+				addressObj: {},
 				userId: '',
 				goodsId: '',
 				collected: false,
@@ -296,8 +165,10 @@
 			if (this.isLogin) {
 				this.collect()
 				this.getUserinfo()
+				this.getAddressList()
 			}
 			this.share.path = `/pages/index/index?id=` + this.goodsId + '&type=' + 'DetailShare'
+			
 		},
 		onShow() {
 			if (this.isLogin) {
@@ -305,6 +176,24 @@
 			}
 		},
 		methods: {
+			confirmBuy() {
+				
+			},
+			async getAddressList( index = 0) {
+				const res = await addressListApi()
+				this.addressList = res
+				if (res.length != 0) {
+					this.addressObj = res[index]
+				}
+			},
+			selectAddress(index) {
+				this.getAddressList(index)
+			},
+			intoAddress(){
+				uni.navigateTo({
+					url:'/pages/address/address?select=1'
+				})
+			},
 			im() {
 				// if (!this.$tool.isLogin(true)) {
 				// 	return

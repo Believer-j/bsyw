@@ -1,5 +1,5 @@
 <template>
-	<view class="page-wrap user-bg">
+	<view class="page-wrap user-bg" style="min-height: calc(100vh - 48px);">
 		<view class="page-content">
 			<view class="user-info">
 				<view class="icons">
@@ -37,9 +37,18 @@
 				</view>
 			</view>
 			<set-box />
-			<my-team />
-			<invitation-record />
+			<view class="flex-row flex-items-center flex-center" style="height: 54px; margin-top: 25px;">
+				
+				<view class="flex-row-center font-18 font-weight-semibold"
+					style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
+					 @click="logout">
+					退出登录
+				</view>
+			</view>
+			<!-- <my-team /> -->
+			<!-- <invitation-record /> -->
 		</view>
+		
 		<navbar></navbar>
 	</view>
 </template>
@@ -72,7 +81,11 @@
 		onShow() {
 			this.$store.dispatch('getUserInfo')
 		},
-		methods: {}
+		methods: {
+			logout() {
+				this.$store.commit('logout')
+			}
+		}
 	}
 </script>
 

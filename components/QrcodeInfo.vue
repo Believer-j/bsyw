@@ -54,7 +54,7 @@
 				// 设置二维码大小，必须与canvas设置的宽高一致
 				qr.size = this.width;
 				// 设置二维码前景图，可以是路径
-				qr.foregroundImageSrc = require('@/static/img/my/1.jpg');
+				qr.foregroundImageSrc = require('@/static/img/common/144x144.png');
 				// 调用制作二维码方法
 				qr.make();
 				// 获取canvas上下文

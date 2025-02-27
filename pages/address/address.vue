@@ -1,13 +1,13 @@
 <template>
 	<view class="page-gradient-bg" style="min-height: 100vh;">
-		<u-navbar title="我的收货地址" :placeholder="true" :autoBack="true">
+		<u-navbar title="我的收货地址" :placeholder="true" height="70px" :autoBack="true">
 			<view class="" style="color: #18533C; font-size: 15px;" slot="right" @click="editing = !editing">
 				{{ editing ? '取消' : '管理' }}
 			</view>
 		</u-navbar>
 		<view class="address-wrap  r-flex-column content">
 			<view v-for="(item,index) in dataList" :key="index" class="r-flex-row r-flex-items-center r-flex-between">
-				<view class="item r-flex-row r-flex-items-center r-flex-between" :class="[editing ? 'editingWidth' : 'normalWidth']">
+				<view class="item r-flex-row r-flex-items-center r-flex-between" :class="[editing ? 'editingWidth' : 'normalWidth']" @click="selectAddress(index)">
 					<view class="r-flex-column">
 						<view class="r-flex-row r-flex-items-center">
 							<text class="name">{{ item.name }}</text>
@@ -15,7 +15,7 @@
 
 						</view>
 						<text
-							class="address">{{ `${item.province}${item.city}${item.area}${item.detailsAddr}黄飞鸿积分活动时间匡扶汉室大家繁花似锦地方` }}</text>
+							class="address">{{ `${item.province}${item.city}${item.area}${item.detailsAddr}` }}</text>
 					</view>
 					<u-icon v-if="!editing" name="edit-pen" color="#E2E2E2" size="28" @click="edit(item)"></u-icon>
 				</view>
@@ -26,7 +26,7 @@
 		</view>
 		<view class="address-add-wrap r-flex-all-center">
 			<view class="btn r-flex-all-center" @click="gotoAddressAdd">
-				+ 添加收获地址
+				+ 添加收货地址
 			</view>
 		</view>
 	</view>
@@ -42,13 +42,27 @@
 		data() {
 			return {
 				dataList: [],
-				editing: false
+				editing: false,
+				isSelect: false
 			}
 		},
-		onLoad() {
+		onLoad(info) {
+			this.isSelect = info.select == '1'
 			this.getAddressList()
 		},
 		methods: {
+			selectAddress(index) {
+				if (!this.isSelect) {
+					return
+				}
+				var pages = getCurrentPages(); // 获取当前挂载的路由数组
+				var prePage = pages[pages.length - 2] //获取 上一个页面
+				uni.navigateBack({
+					success() {
+						prePage.$vm.selectAddress(index) // 当返回成功的时候调用上一级页面的回调
+					}
+				})
+			},
 			gotoAddressAdd() {
 				uni.navigateTo({
 					url: '/pages/address/address-add'
@@ -85,7 +99,7 @@
 		.btn {
 			width: 344px;
 			height: 44px;
-			background: #18533C;
+			background: #389838;
 			border-radius: 15px;
 
 			font-weight: 600;
@@ -97,8 +111,8 @@
 	.address-wrap {
 		// min-height: calc(100vh - 48px);
 		overflow: scroll;
-		max-height: calc(100vh - 48px - 64px);
-		min-height: calc(100vh - 48px - 64px);
+		max-height: calc(100vh - 70px - 64px);
+		min-height: calc(100vh - 70px - 64px);
 		.normalWidth {
 			width: calc(100vw - 28px);
 		}

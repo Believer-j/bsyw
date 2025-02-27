@@ -9,7 +9,7 @@
 			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/home.png">
 			</image>
 		</u-tabbar-item>
-		<u-tabbar-item text="合金">
+		<u-tabbar-item text="专区">
 			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/tab1-s.png"></image>
 			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab1.png">
 			</image>
