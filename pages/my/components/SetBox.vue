@@ -57,6 +57,13 @@
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
+			<view class="set-item" @click="goTeams">
+				<image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
+				<view class="title">
+					我的团队
+				</view>
+				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
+			</view>
 			<view class="set-item" @click="share">
 				<image class="img-10" src="@/static/img/my/set-4.png" mode=""></image>
 				<view class="title">
@@ -139,6 +146,11 @@
 			goAddress() {
 				uni.navigateTo({
 					url: '/pages/address/address'
+				})
+			},
+			goTeams() {
+				uni.navigateTo({
+					url: '/pages/team/team'
 				})
 			},
 			layout() {

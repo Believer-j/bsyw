@@ -65,9 +65,9 @@
 				</p>
 				<p class="flex-row flex-items-center flex-between" style="margin-top: 7px;">
 					<span class="font-16 font-weight-medium">我的余额</span>
-					<span class="font-20 font-weight-semibold" style="color: #D91919;">¥{{data.priceCny}}</span>
+					<span class="font-20 font-weight-semibold" style="color: #D91919;">¥{{$store.state.userInfo.amount}}</span>
 				</p>
-				<p class="flex-row flex-items-center flex-between" style="margin-top: 2px;">
+				<p v-if="Number($store.state.userInfo.amount) < Number(data.priceCny)" class="flex-row flex-items-center flex-between" style="margin-top: 2px;">
 					<span></span>
 					<span>余额不足</span>
 				</p>
@@ -96,7 +96,8 @@
 <script>
 	import {
 		goodsDetailApi,
-		addressListApi
+		addressListApi,
+		buyApi
 	} from "@/config/api.js"
 	export default {
 		data() {
@@ -176,8 +177,18 @@
 			}
 		},
 		methods: {
-			confirmBuy() {
-				
+			async confirmBuy() {
+				await buyApi({
+					productId: this.goodsId,
+					addrId: this.addressObj.id
+				})
+				uni.showToast({
+					title: '登录成功'
+				});
+				this.$store.dispatch('getUserInfo')
+				setTimeout(function() {
+					uni.navigateBack()
+				}, 2000);
 			},
 			async getAddressList( index = 0) {
 				const res = await addressListApi()

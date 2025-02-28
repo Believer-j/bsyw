@@ -189,3 +189,20 @@ export const goodsDetailApi = (data) => {
 		data: {},
 	})
 }
+
+// t团队列表
+export const teamListApi = (data) => {
+	return uniRequest('/base/api/user/teams', {
+		method: 'post',
+		data,
+	})
+}
+
+// 下单
+export const buyApi = (data) => {
+	return uniRequest('/base/api/home/order', {
+		method: 'post',
+		data,
+	})
+}
+

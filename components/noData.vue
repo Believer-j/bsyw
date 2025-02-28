@@ -1,6 +1,7 @@
 <template>
-	<view class="no-data">
-		<image src="@/static/img/common/placeholder.jpg" style="height: 32px;" mode="heightFix"></image>
+	<view class="no-data flex-column flex-items-center flex-center">
+		<image v-if="version == 1" src="@/static/img/common/placeholder.jpg" style="height: 32px;" mode="heightFix"></image>
+		<image v-else src="@/static/img/common/place.png" style="width: 70vw;" mode="widthFix"></image>
 		<view class="text">
 			暂无数据
 		</view>
@@ -10,6 +11,12 @@
 <script>
 	export default {
 		name:"noData",
+		props: {
+			version: {
+				type: Number,
+				default: 1
+			}
+		},
 		data() {
 			return {
 				
@@ -20,6 +27,7 @@
 
 <style lang="scss" scoped>
 	.no-data{
+		
 		text-align: center;
 		padding: 40px 0;
 		.text{

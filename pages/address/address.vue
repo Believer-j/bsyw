@@ -17,7 +17,7 @@
 						<text
 							class="address">{{ `${item.province}${item.city}${item.area}${item.detailsAddr}` }}</text>
 					</view>
-					<u-icon v-if="!editing" name="edit-pen" color="#E2E2E2" size="28" @click="edit(item)"></u-icon>
+					<u-icon v-if="!editing && !isSelect" name="edit-pen" color="#E2E2E2" size="28" @click="edit(item)"></u-icon>
 				</view>
 				<view v-if="editing" class="font-16 r-flex-all-center" style="color: #e74d23; width: 50px;" @click="deleteAddr(item)">
 					删除
