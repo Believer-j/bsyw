@@ -4,76 +4,68 @@
 			<view class="page-main">
 
 				<view class="assets-info">
-					<view class="amount-info">
+					<view class="amount-info flex-row flex-items-center flex-between">
 						<view class="info-1">
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>投资金额(CNY)</text>
+									<text>可用余额</text>
 								</view>
 								<view class="info-amount-num">
-									¥ {{userInfo.amountCny}}
+									¥ {{userInfo.amount}}
 								</view>
 							</view>
-							<view class="btns">
+							<!-- <view class="btns">
 								<view class="btn" @click="openRecharge(1)">
 									充值
 								</view>
-							</view>
+							</view> -->
 						</view>
 						<view class="info-1 info-2">
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>提现余额(CNY)</text>
+									<text>剩余待释放</text>
 								</view>
-								<view class="info-amount-num">
-									¥ {{userInfo.withdrawCny}}
-								</view>
-							</view>
-							<view class="btns">
-								<view class="btn" @click="openWithdrawalCny">
-									提现
-								</view>
-								<view class="btn" @click="openTranCnysfer">
-									划转
+								<view class="info-amount-num" style="text-align: right;">
+									{{userInfo.staticAmount}} 股
 								</view>
 							</view>
 						</view>
 					</view>
-					<view class="amount-info">
-						<view class="info-1">
+					<view class="amount-info r-flex-all-center">
+						<!-- <view class="info-1">
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>投资金额(USDT)</text>
+									<text>剩余待释放</text>
 								</view>
 								<view class="info-amount-num">
-									$ {{userInfo.amountUsdt}}
+									{{userInfo.staticAmount}}股
 								</view>
 							</view>
 							<view class="btns">
-								<view class="btn" @click="openRecharge(2)">
-									充值
+								<view class="btn" style="opacity: 0;">
+									
 								</view>
 							</view>
-						</view>
-						<view class="info-1 info-2">
+						</view> -->
+						<view class="info-1 info-2 flex-column flex-items-center flex-center">
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>提现余额(USDT)</text>
+									<text>可用股份</text>
 								</view>
 								<view class="info-amount-num">
-									$ {{userInfo.withdrawUsdt}}
+									{{userInfo.released}} 股
 								</view>
 							</view>
 							<view class="btns">
-								<view class="btn" @click="openWithdrawalUsdt(1)">
-									提现
+								<view class="btn" @click="openWithdrawalCny">
+									质押
 								</view>
-								<view class="btn" @click="openTranUsdtsfer">
-									划转
+								<view class="btn" @click="openTranCnysfer">
+									转出
 								</view>
 							</view>
 						</view>
@@ -111,8 +103,8 @@
 								<text v-if="current !== 1" style="color: #999999;">{{ item.time }}</text>
 							</view>
 							<view v-if="current == 1" class="flex-row flex-items-center flex-between"
-								style="margin-top: 0px;">
-								<text style="margin-top: 10px;">{{ `剩余质押天数:${item.hash}` }}</text>
+								style="margin-top: 10px;">
+								<text style="">{{ `剩余质押天数:${item.hash}` }}</text>
 								<text style="color: #999999;">{{ item.time }}</text>
 							</view>
 
@@ -122,8 +114,8 @@
 				</mescroll-uni>
 			</view>
 			<navbar></navbar>
-			<transfer-cny-popup ref="transferCnyPopup" />
-			<Withdrawal-cny-popup ref="withdrawalCnyPopup" />
+			<transfer-cny-popup ref="transferCnyPopup" @success="handleChangeNav({index: 2})" />
+			<Withdrawal-cny-popup ref="withdrawalCnyPopup" @success="handleChangeNav({index: 1})" />
 			<transfer-usdt-popup ref="transferUsdtPopup" />
 			<Withdrawal-usdt-popup ref="withdrawalUsdtPopup" />
 			<recharge-popup ref="rechargePopup" />

@@ -213,4 +213,21 @@ export const buyApi = (data) => {
 		data,
 	})
 }
+// 转出
+export const withdrawApi = (data) => {
+	return uniRequest('/base/api/asset/withdraw', {
+		method: 'post',
+		data,
+	})
+}
+
+// 质押
+export const transferApi = (data) => {
+	return uniRequest('/base/api/asset/transfer', {
+		method: 'post',
+		data,
+	})
+}
+
+
 
