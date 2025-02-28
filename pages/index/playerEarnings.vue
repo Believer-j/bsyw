@@ -3,7 +3,7 @@
 		<header-box title="新闻媒体" />
 		<view class="page-main">
 			<view class="new-item">
-				<image src="@/static/img/home/news.jpg"  style="width: 100vw;" mode="widthFix"></image>
+				<!-- <image src="@/static/img/home/news.jpg"  style="width: 100vw;" mode="widthFix"></image> -->
 			</view>
 		</view>
 	</view>

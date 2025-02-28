@@ -38,32 +38,32 @@
 	} from '@/config/api.js'
 	export default {
 		data() {
-			const list = []
-			for (let i = 1; i < 6; i++) {
-				var icon = ""
-				if (i === 1) {
-					icon = require('@/static/img/common/a-alloy1.jpg')
-				} else if (i === 2) {
-					icon = require('@/static/img/common/a-alloy2.jpg')
-				} else if (i === 3) {
-					icon = require('@/static/img/common/a-alloy3.jpg')
-				} else if (i === 4) {
-					icon = require('@/static/img/common/a-alloy4.jpg')
-				} else if (i === 5) {
-					icon = require('@/static/img/common/a-alloy5.jpg')
-				}
-				list.push({
-					id: i,
-					icon: icon,
-					title: `合金原料${i}号`,
-					desc: `点击查看详情`,
-					detailImg: `https://static.hjgy.cc/static/a-detail${i}.jpg`,
-					userNum: 0,
-					alloyTotal: 0
-				})
-			}
+			// const list = []
+			// for (let i = 1; i < 6; i++) {
+			// 	var icon = ""
+			// 	if (i === 1) {
+			// 		icon = require('@/static/img/common/a-alloy1.jpg')
+			// 	} else if (i === 2) {
+			// 		icon = require('@/static/img/common/a-alloy2.jpg')
+			// 	} else if (i === 3) {
+			// 		icon = require('@/static/img/common/a-alloy3.jpg')
+			// 	} else if (i === 4) {
+			// 		icon = require('@/static/img/common/a-alloy4.jpg')
+			// 	} else if (i === 5) {
+			// 		icon = require('@/static/img/common/a-alloy5.jpg')
+			// 	}
+			// 	list.push({
+			// 		id: i,
+			// 		icon: icon,
+			// 		title: `合金原料${i}号`,
+			// 		desc: `点击查看详情`,
+			// 		detailImg: `https://static.hjgy.cc/static/a-detail${i}.jpg`,
+			// 		userNum: 0,
+			// 		alloyTotal: 0
+			// 	})
+			// }
 			return {
-				list
+				list: []
 			}
 		},
 		created() {

@@ -1,7 +1,11 @@
 <template>
 	<view class="font-16 font-weight-regular page-gradient-bg"
 		style="width: 100vw; color: #545958; font-size: 400; min-height: 100vh;">
-		<u-navbar :fixed="true" title="我的团队" height="70px" :placeholder="true" bgColor="#FAFCFF" :autoBack="true" />
+		<u-navbar :fixed="true" title="" height="70px" :placeholder="true" bgColor="#FAFCFF" :autoBack="true" >
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				我的团队
+			</view>
+		</u-navbar>
 		<view class="flex-column flex-items-center flex-center team_all">
 			<text class="team_all_num">¥{{ $store.state.userInfo.performance }}</text>
 			<text class="team_all_title">团队总业绩</text>

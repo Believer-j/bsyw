@@ -4,6 +4,9 @@
 			<view class="" style="color: #18533C; font-size: 15px;" slot="right" @click="editing = !editing">
 				{{ editing ? '取消' : '管理' }}
 			</view>
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				我的收货地址
+			</view>
 		</u-navbar>
 		<view class="address-wrap  r-flex-column content">
 			<view v-for="(item,index) in dataList" :key="index" class="r-flex-row r-flex-items-center r-flex-between">

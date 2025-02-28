@@ -71,8 +71,13 @@
 			})
 		},
 		mounted() {
-			const path = window.location.href
-			let index = this.navList.findIndex(val => path.includes(val.id))
+			// location
+			// const path = window.location.href
+			const pages = getCurrentPages(); // 获取当前打开的页面栈
+			const currentPage = pages[pages.length - 1]; // 获取当前页面实例
+			const currentPath ='/' + currentPage.route; // 获取当前页面的路径
+			console.log(currentPath);
+			let index = this.navList.findIndex(val => currentPath.includes(val.id))
 			index = index === -1 ? 0 : index
 
 			this.$store.commit('changeTab', index)
@@ -82,7 +87,8 @@
 				// this.tabId = val
 				this.$store.commit('changeTab', val)
 				uni.navigateTo({
-					url: this.navList[val].link // 跳转到对应路径的页面
+					url: this.navList[val].link, // 跳转到对应路径的页面
+					animationType: 'none'
 				});
 			}
 		}

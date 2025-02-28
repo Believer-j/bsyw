@@ -4,11 +4,15 @@
 		<view class="page-content page-main page-header-main">
 			<view class="page-title">
 				<view class="title">
-					证件图片
+					证件信息
 				</view>
 				<view class="tip">
 					请确保信息无误，并本人操作
 				</view>
+				<view class="tip" style="margin-top: 6px;">
+					实名信息异常, 可能导致股份转移失败, 请仔细核实
+				</view>
+				
 			</view>
 			<!-- <view class="sfz-info">
 				<view class="sfz-item">

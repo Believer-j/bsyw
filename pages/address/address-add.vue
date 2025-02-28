@@ -1,26 +1,28 @@
 <template>
 	<view class="font-16 font-weight-regular page-gradient-bg"
 		style="width: 100vw; color: #545958; font-size: 400; min-height: 100vh;">
-		<u-navbar :fixed="true" title="添加收货地址" height="70px" :placeholder="true" bgColor="#FAFCFF" :autoBack="true">
-
+		<u-navbar :fixed="true" title="" height="70px" :placeholder="true" bgColor="#FAFCFF" :autoBack="true">
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				添加收货地址
+			</view>
 		</u-navbar>
 		<view
 			style="background-color: #FFFFFF; border: 1px; border-radius: 5px; margin-top: 31px; margin-left: 16px; margin-right: 16px; padding: 11px 12px 11px 12px;">
-			<view class="flex-row flex-between">
+			<view class="flex-row flex-items-center flex-between">
 				<text>收货人</text>
 				<u-input placeholder="请填写收货人姓名" border="none" confirmType="done" inputAlign="right"
 					v-model="parameters.name">
 				</u-input>
 			</view>
 			<view style="height: 1px; background-color: #F5F5F5; margin-top: 11px; margin-bottom: 10px;"></view>
-			<view class="flex-row flex-between" style="">
+			<view class="flex-row flex-items-center flex-between" style="">
 				<text>手机号码</text>
 				<u-input placeholder="请填写收货人手机号码" type="number" maxlength="11" border="none" confirmType="done"
 					inputAlign="right" v-model="parameters.mobile">
 				</u-input>
 			</view>
 			<view style="height: 1px; background-color: #F5F5F5; margin-top: 11px; margin-bottom: 10px;"></view>
-			<view class="flex-row flex-between" style="">
+			<view class="flex-row flex-items-center flex-between" style="">
 				<text>所在地区</text>
 				<view class="flex-row flex-items-center">
 					<addressSelect :parameters="parameters" @change='addressChange'></addressSelect>

@@ -29,7 +29,7 @@
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
 									<text>剩余待释放</text>
 								</view>
-								<view class="info-amount-num" style="text-align: right;">
+								<view class="info-amount-num" style="">
 									{{userInfo.staticAmount}} 股
 								</view>
 							</view>

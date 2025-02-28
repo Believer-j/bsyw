@@ -19,9 +19,9 @@
 			}
 		},
 		methods: {
-			getVideo() {
-				return `<video class="video" src="https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/bsmj.mp4" poster="../../static/img/home/video.png" style="width:100%;height:100%; border-radius: 10px;" controls objectFit="cover"></video>`
-			}
+			// getVideo() {
+			// 	return `<video class="video" src="https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/bsmj.mp4" poster="../../static/img/home/video.png" style="width:100%;height:100%; border-radius: 10px;" controls objectFit="cover"></video>`
+			// }
 		}
 	}
 </script>

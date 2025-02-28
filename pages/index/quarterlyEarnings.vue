@@ -35,7 +35,7 @@
 		// background: linear-gradient(180deg, #B7D9F6 0%, rgba(227, 238, 255, 0) 100%);
 		padding-top: 60px;
 		.page-main {
-			background: url('https://static.hjgy.cc/static/demand.jpg') no-repeat;
+			// background: url('https://static.hjgy.cc/static/demand.jpg') no-repeat;
 			width:100%;
 			height: 1600px;
 			background-size: contain;

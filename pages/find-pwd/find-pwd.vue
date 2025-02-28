@@ -1,6 +1,10 @@
 <template>
 	<view class="page-gradient-bg" style="min-height: 100vh;">
-		<u-navbar title="找回密码" :placeholder="true" height="70px" :autoBack="true" />
+		<u-navbar title="" :placeholder="true" height="70px" :autoBack="true">
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				找回密码
+			</view>
+		</u-navbar>
 		<view class="find-form-box">
 			<view class="form-item">
 				<view class="form-item-label">

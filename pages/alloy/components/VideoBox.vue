@@ -18,9 +18,9 @@
 			}
 		},
 		methods: {
-			getVideo() {
-				return`<video class="video" src="https://static.hjgy.cc/static/alloy2.mp4" poster="../../static/img/home/video.png" style="width:100%;height:100%;" controls objectFit="cover"></video>`
-			}
+			// getVideo() {
+			// 	return`<video class="video" src="https://static.hjgy.cc/static/alloy2.mp4" poster="../../static/img/home/video.png" style="width:100%;height:100%;" controls objectFit="cover"></video>`
+			// }
 		}
 	}
 </script>

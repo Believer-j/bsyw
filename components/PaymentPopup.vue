@@ -24,7 +24,7 @@
 					请选择支付方式
 				</view>
 				<view :class="cnyClass" @click="handleChangePay(1)">
-					<image class="img-2" src="@/static/img/common/pay-1.png" mode=""></image>
+					<!-- <image class="img-2" src="@/static/img/common/pay-1.png" mode=""></image> -->
 					<view class="info">
 						<view class="info-1">
 							投资金额(人民币)
@@ -39,7 +39,7 @@
 				</view>
 				<!-- ['pay-option', payId==2?'active-pay':''] -->
 				<view :class="usdtClass" @click="handleChangePay(2)">
-					<image class="img-2" src="@/static/img/common/pay-2.png" mode=""></image>
+					<!-- <image class="img-2" src="@/static/img/common/pay-2.png" mode=""></image> -->
 					<view class="info">
 						<view class="info-1">
 							投资金额(USDT)

@@ -18,22 +18,22 @@
 				tabList: [{
 					id: '1',
 					name: '产品收益',
-					icon: require('@/static/img/home/product-1.png'),
+					// icon: require('@/static/img/home/product-1.png'),
 					link: '/pages/index/productRevenue'
 				},{
 					id: '2',
 					name: '新闻媒体',
-					icon: require('@/static/img/home/product-2.png'),
+					// icon: require('@/static/img/home/product-2.png'),
 					link: '/pages/index/playerEarnings'
 				},{
 					id: '3',
 					name: '市场需求',
-					icon: require('@/static/img/home/product-4.png'),
+					// icon: require('@/static/img/home/product-4.png'),
 					link: '/pages/index/quarterlyEarnings'
 				},{
 					id: '4',
 					name: '联系客服',
-					icon: require('@/static/img/home/product-3.png'),
+					// icon: require('@/static/img/home/product-3.png'),
 					link: '/pages/index/incomeInvestment'
 				}]
 			}

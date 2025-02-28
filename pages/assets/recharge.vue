@@ -10,7 +10,7 @@
 					<view class="title">
 						充值地址
 					</view>
-					<image class="img-2" src="@/static/img/common/copy-2.png" mode="" @click="copyCode"></image>
+					<!-- <image class="img-2" src="@/static/img/common/copy-2.png" mode="" @click="copyCode"></image> -->
 				</view>
 				<view class="text">
 					{{payUrl}}

@@ -93,12 +93,12 @@
 					id: 'BSC',
 					type: 1,
 					name: 'BSC BEP20 提现',
-					icon: require('@/static/img/common/pay-1.png')
+					// icon: require('@/static/img/common/pay-1.png')
 				}, {
 					id: 'TRON',
 					type: 1,
 					name: 'TRON TRC20 提现',
-					icon: require('@/static/img/common/pay-2.png')
+					// icon: require('@/static/img/common/pay-2.png')
 				}]
 				return list.filter(val => val.type === type)
 			}

@@ -1,11 +1,11 @@
 <template>
 	<view class="signIn-box">
-		<image class="sign-bg" src="@/static/img/home/sign-in.png" mode="" @click="handleSign"></image>
+		<!-- <image class="sign-bg" src="@/static/img/home/sign-in.png" mode="" @click="handleSign"></image> -->
 		<u-overlay :show="show"  @click="handleSign">
 			<view class="sign-content">
 				<view class="card">
 					<view class="sign-icon">
-						<image class="img-6" src="@/static/img/home/sign.png" mode=""></image>
+						<!-- <image class="img-6" src="@/static/img/home/sign.png" mode=""></image> -->
 					</view>
 					
 					<view class="info-1">
