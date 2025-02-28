@@ -183,11 +183,13 @@
 					addrId: this.addressObj.id
 				})
 				uni.showToast({
-					title: '登录成功'
+					title: '购买成功'
 				});
 				this.$store.dispatch('getUserInfo')
 				setTimeout(function() {
-					uni.navigateBack()
+					uni.reLaunch({
+						url: '/pages/assets/assets'
+					})
 				}, 2000);
 			},
 			async getAddressList( index = 0) {

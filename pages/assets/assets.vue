@@ -1,7 +1,8 @@
 <template>
-	<scroll-view class="scroll-view" :scroll-y="true" @scrolltolower="scrolltolower">
-		<view class="page-gradient-bg" style="min-height: calc(100vh - 54px);">
+	<view>
+		<view class="user-bg" style="min-height: calc(100vh - 54px);">
 			<view class="page-main">
+
 				<view class="assets-info">
 					<view class="amount-info">
 						<view class="info-1">
@@ -77,50 +78,58 @@
 							</view>
 						</view>
 					</view>
-					<!-- <view class="wages-box">
-						<view class="wages-item wages-day">
-							<view class="title">
-								投资金额(USDT)
+				</view>
+				<u-tabs :list="navList" :current="current" lineColor="#389838"
+					activeStyle="color: #333333; font-size: 16px; fontWeight: 500;" @click="handleChangeNav" style="height: 50px;"></u-tabs>
+				<mescroll-uni @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption"
+					:up="upOption" :height="scrollHeight + 'px'">
+					<no-data v-if="listData.length==0" :version="0" />
+					<view style="background-color: transparent;" v-else>
+
+						<view v-for="item in listData" :key="item.sort" class="flex-column"
+							style="padding: 14px 12px; background-color: rgba(255, 255, 255, 0.8); border-radius: 6px; margin: 10px;">
+							<view class="flex-row flex-items-center flex-between">
+								<text v-if="current == 0" class="font-16 font-weight-medium">{{ item.proName }}</text>
+								<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
+
+								<text v-if="current == 1">{{ `质押数量:${item.amount}` }}</text>
+								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>
+
+								<text v-if="current == 2" class="font-16 font-weight-medium">转出</text>
+								<text v-if="current == 2">{{ item.status == 1 ? '确认中' : '已完成' }}</text>
+
+								<text v-if="current > 2"
+									class="font-16 font-weight-medium">{{ navList[current].name }}</text>
+								<text v-if="current > 2">已完成</text>
 							</view>
-							<view class="title-2">
-								$ {{userInfo.amountUsdt}}
+							<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
+								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
+								<text v-if="current == 1">{{ `到期收益:${item.fee}` }}</text>
+								<text v-if="current == 2">{{ `数量: ${item.amount}` }}</text>
+								<text v-if="current > 2">{{ `数量: ${item.amount}股` }}</text>
+
+								<text v-if="current !== 1" style="color: #999999;">{{ item.time }}</text>
 							</view>
-							<view class="btns">
-								<view class="btn" @click="openRecharge(2)">
-									充值
-								</view>
+							<view v-if="current == 1" class="flex-row flex-items-center flex-between"
+								style="margin-top: 0px;">
+								<text style="margin-top: 10px;">{{ `剩余质押天数:${item.hash}` }}</text>
+								<text style="color: #999999;">{{ item.time }}</text>
 							</view>
 
 						</view>
-						<view class="wages-item wages-month">
-							<view class="title">
-								提现余额(USDT)
-							</view>
-							<view class="title-2">
-								$ {{userInfo.withdrawUsdt}}
-							</view>
-							<view class="btns">
-								<view class="btn" @click="openWithdrawalUsdt">
-									提现
-								</view>
-								<view class="btn" @click="openTranUsdtsfer">
-									划转
-								</view>
-							</view>
-						</view>
-					</view> -->
-				</view>
-				<record-list ref="recordList" />
+
+					</view>
+				</mescroll-uni>
 			</view>
 			<navbar></navbar>
 			<transfer-cny-popup ref="transferCnyPopup" />
 			<Withdrawal-cny-popup ref="withdrawalCnyPopup" />
 			<transfer-usdt-popup ref="transferUsdtPopup" />
 			<Withdrawal-usdt-popup ref="withdrawalUsdtPopup" />
-      <recharge-popup ref="rechargePopup" />
-      <withdraw-popup ref="withdrawPopup" />
+			<recharge-popup ref="rechargePopup" />
+			<withdraw-popup ref="withdrawPopup" />
 		</view>
-	</scroll-view>
+	</view>
 </template>
 
 <script>
@@ -130,8 +139,12 @@
 	import WithdrawalCnyPopup from './components/WithdrawalCnyPopup.vue'
 	import TransferUsdtPopup from './components/TransferUsdtPopup.vue'
 	import WithdrawalUsdtPopup from './components/WithdrawalUsdtPopup.vue'
+	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
+	import {
+		assetRecords
+	} from "@/config/api.js"
 	export default {
-		mixins: [base],
+		mixins: [base, MescrollMixin],
 		components: {
 			RecordList,
 			TransferCnyPopup,
@@ -142,6 +155,46 @@
 		data() {
 			return {
 				option: {},
+				navList: [{
+					id: '1',
+					name: '订单记录'
+				}, {
+					id: '2',
+					name: '质押记录'
+				}, {
+					id: '3',
+					name: '转出记录'
+				}, {
+					id: '4',
+					name: '释放记录'
+				}, {
+					id: '5',
+					name: '推荐记录'
+				}, {
+					id: '6',
+					name: '合伙分红'
+				}, {
+					id: '7',
+					name: '平级分红'
+				}, {
+					id: '8',
+					name: '业绩分红'
+				}],
+				listData: [],
+				current: 0,
+				// 上拉加载的配置(可选, 绝大部分情况无需配置)
+				upOption: {
+					empty: {
+						ues: false
+					}
+				},
+				downOption: {}
+			}
+		},
+		computed: {
+			scrollHeight() {
+				const sys = this.$u.sys()
+				return sys.windowHeight - 420
 			}
 		},
 		onShow() {
@@ -167,8 +220,8 @@
 			openWithdrawalUsdt(type) {
 				// this.$refs.withdrawalUsdtPopup.open()
 				this.$refs.withdrawPopup.open({
-          type
-        })
+					type
+				})
 			},
 			// 去充值 1:cny 2usdt
 			openRecharge(type) {
@@ -176,31 +229,65 @@
 					type
 				})
 			},
-			scrolltolower() {
-				console.log('scrolltolower==');
-				this.$refs.recordList.addPage()
-			}
+			handleChangeNav(item) {
+				this.current = item.index
+				this.mescroll.resetUpScroll();
+			},
+			/*上拉加载的回调*/
+			upCallback(page) {
+				assetRecords({
+					page: page.num,
+					limit: page.size,
+					type: this.navList[this.current].id
+				}).then((data) => {
+					// 接口返回的当前页数据列表 (数组)
+					let curPageData = data.list;
+					// 接口返回的当前页数据长度 (如列表有26个数据,当前页返回8个,则curPageLen=8)
+					let curPageLen = curPageData.length;
+					// 接口返回的总页数 (如列表有26个数据,每页10条,共3页; 则totalPage=3)
+					let totalPage = data.totalPage;
+
+					//设置列表数据
+					if (page.num == 1) this.listData = []; //如果是第一页需手动置空列表
+					this.listData = this.listData.concat(curPageData); //追加新数据
+					
+					// 请求成功,隐藏加载状态
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					this.mescroll.endByPage(curPageLen, totalPage);
+				}).catch((e) => {
+					//  请求失败,隐藏加载状态
+					this.mescroll.endErr()
+				})
+			},
 
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.user-bg {
+		background-image: url('/static/img/user-bg.jpg');
+		background-size: 100% 100%;
+	}
+
 	.page-main {
-		padding-bottom: 70px;
+		// padding-bottom: 70px;
 
 		.assets-info {
 			// background: linear-gradient(171deg, #2CA6FF 0%, #2487FC 58%);
-			padding: 60px 16px 14px 16px;
+			padding: 40px 16px 14px 16px;
 
 			.amount-info {
-				margin-bottom: 20px;
+				height: 120px;
+				margin-bottom: 15px;
 				display: flex;
 				align-items: center;
 				background: linear-gradient(205deg, #DEECF8 0%, #FFFFFF 100%);
 				border-radius: 8px;
+
 				.info-1 {
 					padding: 9px 18px 12px 18px;
+
 					.info-amount {
 						flex: 1;
 
@@ -225,17 +312,19 @@
 
 					.btns {
 						display: flex;
+
 						.btn {
 							width: 70px;
 							height: 28px;
-							background: linear-gradient(180deg, #5AA6FD 0%, #1D73EB 100%);
+							background-color: #389838;
 							box-shadow: inset 0px 1px 4px 0px rgba(255, 255, 255, 0.25);
 							border-radius: 8px;
 							color: #FFFFFF;
 							line-height: 28px;
 							text-align: center;
 							margin-bottom: 10px;
-							&:nth-child(n+2){
+
+							&:nth-child(n+2) {
 								margin-left: 10px;
 							}
 						}
@@ -243,7 +332,7 @@
 
 				}
 			}
-			
+
 			.wages-box {
 				display: flex;
 				align-items: center;
@@ -293,7 +382,8 @@
 					border-left: 1px solid rgba(255, 255, 255, 0.15);
 				}
 			}
-			.wages-cny{
+
+			.wages-cny {
 				margin-bottom: 20px;
 				padding-bottom: 20px;
 				border-bottom: 1px solid rgba(255, 255, 255, 0.15);

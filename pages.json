@@ -66,8 +66,7 @@
 		{
 			"path": "pages/assets/assets",
 			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": ""
 			}
 		},
 		{

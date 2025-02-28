@@ -8,7 +8,7 @@
 				<u-swiper :list="list1" height="200px"  @change="swiperChange" @click="swiperClick"></u-swiper>
 			</view>
 			<view class="page-main">
-				<good-foundation ref="goodFoundation" />
+				<good-foundation ref="goodFoundation" :isHome="false" />
 
 			</view>
 		</view>

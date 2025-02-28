@@ -2,14 +2,14 @@
 	<view class="foundation-box">
 		<view class="title-info">
 			<view class="title">
-				白沙源物优质产品
+				{{ isHome ? '白沙源物优质产品' : '专区产品' }}
 			</view>
 			<view class="more">
 				<!--				<text>全部</text>-->
 				<!--				<image class="img-3" src="@/static/img/home/more.png" mode=""></image>-->
 			</view>
 		</view>
-		<view class="list">
+		<view v-if="list.length != 0" class="list">
 			<view class="item" v-for="item in list" :key="item.id" @click="gotoDetail(item.id)">
 				<view class="img">
 					<!--          {{item.urlSmall}}-->
@@ -32,21 +32,33 @@
 						</view>
 					</view>
 				</view>
-				<view class="btn" @click.stop="goBuy(item)">
+				<view class="btn">
 					<image class="img-5" src="@/static/img/home/qg.png" mode=""></image>
 					<text>去抢购</text>
 				</view>
 			</view>
 		</view>
+		<no-data v-else :version="0"></no-data>
 		<payment-popup ref="paymentPopup" />
 	</view>
 </template>
 
 <script>
 	import {
-		getProductList
+		getProductList,
+		getCityList
 	} from '@/config/api.js'
+	import noData from '../../../components/noData.vue'
 	export default {
+		components: {
+			noData
+		},
+		props: {
+			isHome: {
+				type: Boolean,
+				default: true
+			}
+		},
 		data() {
 			return {
 				list: []
@@ -56,7 +68,7 @@
 			async queryList() {
 				this.list = []
 				try {
-					const res = await getProductList()
+					const res = this.isHome ? (await getProductList()) : (await getCityList())
 					console.log('res===', res)
 					this.list = res
 				} catch (e) {

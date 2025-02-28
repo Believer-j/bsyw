@@ -32,7 +32,22 @@ export default {
 				invitation
 			} = this.userInfo
 			return `https://phoenixnet.club/#/?invitationCode=${invitation}`
-		}
+		},
+		statusBarHeight() {
+			const sys = uni.$uv.sys()
+			return sys.statusBarHeight
+		},
+		navbarHeight() {
+			return this.statusBarHeight + 44
+		},
+		screenWidth() {
+			const sys = uni.$uv.sys()
+			return sys.windowWidth
+		},
+		pageHeight() {
+			const sys = uni.$uv.sys()
+			return sys.windowHeight - this.navbarHeight
+		},
 	},
 	watch: {
 		'$store.state.curTheme': {

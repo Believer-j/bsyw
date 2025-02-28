@@ -42,6 +42,14 @@ export const getProductList = (data) => {
 	})
 }
 
+// 专区列表
+export const getCityList = (data) => {
+	return uniRequest('/base/api/home/city/list', {
+		method: 'get',
+		data,
+	})
+}
+
 // 实名认证
 export const authApply = (data) => {
 	return uniRequest('/base/api/user/authApply', {
