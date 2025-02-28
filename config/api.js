@@ -229,5 +229,19 @@ export const transferApi = (data) => {
 	})
 }
 
+export const sendEmailApi = (data) => {
+	return uniRequest('/base/api/home/send/email', {
+		method: 'post',
+		data,
+	})
+}
+
+export const findPWDApi = (data) => {
+	return uniRequest('/base/api/home/forget', {
+		method: 'post',
+		data,
+	})
+}
+
 
 

@@ -162,7 +162,7 @@
 
 					.tags {
 						font-size: 12px;
-						color: #1C72EA;
+						color: #389838;
 						text-align: center;
 						display: flex;
 
@@ -170,7 +170,7 @@
 							padding: 0 6px;
 							height: 21px;
 							border-radius: 9px 9px 9px 9px;
-							border: 1px solid #1C72EA;
+							border: 1px solid #389838;
 							line-height: 20px;
 							margin-right: 6px;
 						}
@@ -180,7 +180,7 @@
 				.btn {
 					width: 60px;
 					height: 28px;
-					background: #EFAB46;
+					background: #389838;
 					border-radius: 5px 5px 5px 5px;
 					display: flex;
 					align-items: center;

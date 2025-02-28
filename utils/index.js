@@ -1,3 +1,39 @@
+import CryptoJS from 'crypto-js'
+import md5 from 'js-md5';
+
+//des加密 DES-CBC
+export const des_encrypt = (message) => {
+	const keyvi = 'J0p9POuN';
+	// 密钥转成16进制的字符串
+	var key = CryptoJS.enc.Utf8.parse(keyvi);
+	// 加密过程
+	var encrypted = CryptoJS.DES.encrypt(message, key, {
+		// iv偏移量为key值
+		iv: key,
+		// 模式为CBC
+		mode: CryptoJS.mode.CBC,
+		// DES加密padding为Pkcs7
+		padding: CryptoJS.pad.Pkcs7
+	});
+	// 加密返回为字符串密文(加密经过一次base64加密，结果可看结果)
+	return encrypted.toString();
+}
+
+export const des_encrypt_data = (data) => {
+	var timestamp = (new Date()).getTime() //获取时间戳
+	var str = ''
+	for (var i in data) {
+		str += `${i}=${data[i]}&`
+	}
+	str = str.substr(0, str.length - 1);
+	console.log(str)
+	data = {
+		encrypt: des_encrypt(str),
+		sign: md5(`timestamp=${timestamp}`)
+	}
+	return data
+}
+
 // 获取缩写地址
 export const getShortAddress = (value) => {
 	var start = value.substring(0, 6);
@@ -138,9 +174,9 @@ export const isValidPhoneNumber = (phoneNumber) => {
 
 	// console.log(isValidPhoneNumber('13800138000')); // true 或 false
 }
-export const validateIdNumber = (idNumber)=> {
-  var regExp = /(^\d{15}$)|(^\d{17}(\d|X)$)/;
-  return regExp.test(idNumber);
+export const validateIdNumber = (idNumber) => {
+	var regExp = /(^\d{15}$)|(^\d{17}(\d|X)$)/;
+	return regExp.test(idNumber);
 }
 export default {
 	getShortAddress,

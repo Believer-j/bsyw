@@ -15,7 +15,8 @@
 					<image src="/static/bsyw-logo-bianxing.png" mode="widthFix" style="width: 70%;"></image>
 				</view>
 				<text class="font-24 font-weight-medium" style="margin-top: 20px; margin-left: 40px;">您好，欢迎使用</text>
-				<text class="font-weight-semibold" style="font-size: 28px; margin-top: 7px; margin-left: 40px;">白沙源物平台</text>
+				<text class="font-weight-semibold"
+					style="font-size: 28px; margin-top: 7px; margin-left: 40px;">白沙源物平台</text>
 			</view>
 			<view class="login-wrapper">
 
@@ -28,10 +29,10 @@
 				<view class="login-form-box" v-if="navId==1">
 					<view class="form-item">
 						<view class="form-item-label">
-							手机号
+							邮箱
 						</view>
 						<view class="form-item-content">
-							<u--input class="account-input" v-model="form.mobile" placeholder="请输入手机号" border="surround"
+							<u--input class="account-input" v-model="form.mobile" placeholder="请输入邮箱" border="surround"
 								clearable></u--input>
 						</view>
 					</view>
@@ -44,12 +45,16 @@
 								clearable></u--input>
 						</view>
 					</view>
+					
 					<!-- <view class="login-btn" @click="handleLogin">
 						登录
 					</view> -->
 					<view class="btns">
 						<u-button type="primary" :disabled="hasLogin" text="登录" size="large" cus
 							:customStyle="{backgroundColor: '#418C2D'}" @click="handleLogin"></u-button>
+					</view>
+					<view class="form-item" style="margin-top: 16px; text-align: right;" @click="gotoFindPassword">
+						忘记密码?
 					</view>
 				</view>
 				<view class="login-form-box" v-else>
@@ -61,11 +66,25 @@
 6, 邀请码 -->
 					<view class="form-item">
 						<view class="form-item-label">
-							手机号
+							邮箱
 						</view>
 						<view class="form-item-content">
-							<u--input size="large" v-model="form.mobile" placeholder="请输入手机号" border="surround"
+							<u--input size="large" v-model="form.mobile" placeholder="请输入邮箱" border="surround"
 								clearable></u--input>
+						</view>
+					</view>
+					<view class="form-item">
+						<view class="form-item-label">
+							验证码
+						</view>
+						<view class="form-item-content">
+							<u--input class="account-input" v-model="form.code" placeholder="请输入验证码" border="surround"
+								clearable>
+								<template slot="suffix">
+									<u-code ref="uCode" @change="codeChange" seconds="60" changeText="X秒后重新获取"></u-code>
+									<u-button @tap="getCode" :text="tips" type="success" style="background-color: #389838; border: none;"></u-button>
+								</template>
+							</u--input>
 						</view>
 					</view>
 					<view class="form-item">
@@ -133,12 +152,14 @@
 
 <script>
 	import {
-		isValidPhoneNumber
+		isValidPhoneNumber,
+		des_encrypt_data
 	} from '@/utils/index.js'
 	import {
 		login,
 		register,
-		download
+		download,
+		sendEmailApi
 	} from '@/config/api.js'
 	export default {
 		computed: {
@@ -186,6 +207,7 @@
 					fundPassword: undefined,
 					confirmFundPassword: undefined,
 					inviteCode: undefined,
+					code: undefined
 					// 	"mobile": "13881724499",  手机号
 					// 	"password": "a123456",  登录密码
 					// 	"confirmPassword": "a123456",  确认登录密码
@@ -193,7 +215,9 @@
 					// 	"confirmFundPassword": "123456", 确认资金密码
 					// 	"inviteCode": "F4fkrNK2"  邀请码
 				},
-				checked: false
+				checked: false,
+				tips: '',
+				value: ''
 			};
 		},
 		onLoad(info) {
@@ -206,6 +230,34 @@
 			}
 		},
 		methods: {
+			codeChange(text) {
+				this.tips = text;
+			},
+			async getCode() {
+				if (this.$refs.uCode.canGetCode) {
+					if (!this.$u.test.email(this.form.mobile)) {
+						uni.showToast({
+							title: '请输入邮箱',
+							icon: 'none',
+							duration: 2000
+						});
+						return
+					}
+					let params = des_encrypt_data({
+						type: '1',
+						email: this.form.mobile
+					})
+					await sendEmailApi(params)
+					this.$refs.uCode.start();
+				} else {
+					uni.$u.toast('倒计时结束后再发送');
+				}
+			},
+			gotoFindPassword() {
+				uni.navigateTo({
+					url: '/pages/find-pwd/find-pwd'
+				})
+			},
 			async downTap() {
 				const res = await download()
 				window.open(res)
@@ -229,7 +281,8 @@
 					confirmPassword,
 					fundPassword,
 					confirmFundPassword,
-					inviteCode
+					inviteCode,
+					code
 				} = this.form
 				console.log(isValidPhoneNumber(mobile));
 				// 	"mobile": "13881724499",  手机号
@@ -239,9 +292,15 @@
 				// 	"confirmFundPassword": "123456", 确认资金密码
 				// 	"inviteCode": "F4fkrNK2"  邀请码
 
-				if (!isValidPhoneNumber(mobile)) {
+				if (!this.$u.test.email(mobile)) {
 					uni.showToast({
 						title: '请输入正确的手机号',
+					})
+					return false
+				}
+				if (!code) {
+					uni.showToast({
+						title: '请输入验证码',
 					})
 					return false
 				}
@@ -272,7 +331,8 @@
 						confirmPassword,
 						fundPassword,
 						confirmFundPassword,
-						inviteCode
+						inviteCode,
+						code
 					});
 					uni.showToast({
 						title: '注册成功'

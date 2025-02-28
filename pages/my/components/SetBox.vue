@@ -18,7 +18,7 @@
 			<view class="set-item" @click="openEditPhone">
 				<image class="img-10" src="@/static/img/my/set-2.png" mode=""></image>
 				<view class="title">
-					修改手机
+					修改邮箱
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
@@ -192,9 +192,9 @@
 			.btn {
 				width: 64px;
 				border-radius: 4px 4px 4px 4px;
-				border: 1px solid #1C73EA;
+				border: 1px solid #389838;
 				font-size: 12px;
-				color: #1C73EA;
+				color: #389838;
 				line-height: 23px;
 				text-align: center;
 			}

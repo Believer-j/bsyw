@@ -2,7 +2,9 @@
 	<view>
 		<view class="user-bg" style="min-height: calc(100vh - 54px);">
 			<view class="page-main">
-
+			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
+			</view>
 				<view class="assets-info">
 					<view class="amount-info flex-row flex-items-center flex-between">
 						<view class="info-1">
@@ -84,7 +86,7 @@
 								<text v-if="current == 0" class="font-16 font-weight-medium">{{ item.proName }}</text>
 								<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
 
-								<text v-if="current == 1">{{ `质押数量:${item.amount}` }}</text>
+								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }}</text>
 								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>
 
 								<text v-if="current == 2" class="font-16 font-weight-medium">转出</text>
@@ -96,15 +98,16 @@
 							</view>
 							<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
 								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
-								<text v-if="current == 1">{{ `到期收益:${item.fee}` }}</text>
+								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }}</text>
 								<text v-if="current == 2">{{ `数量: ${item.amount}` }}</text>
 								<text v-if="current > 2">{{ `数量: ${item.amount}股` }}</text>
 
-								<text v-if="current !== 1" style="color: #999999;">{{ item.time }}</text>
+								<text v-if="current !== 1 && current !== 2" style="color: #999999;">{{ item.time }}</text>
 							</view>
-							<view v-if="current == 1" class="flex-row flex-items-center flex-between"
+							<view v-if="current == 1 || current == 2" class="flex-row flex-items-center flex-between"
 								style="margin-top: 10px;">
-								<text style="">{{ `剩余质押天数:${item.hash}` }}</text>
+								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }}</text>
+								<text v-if="current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
 								<text style="color: #999999;">{{ item.time }}</text>
 							</view>
 
@@ -177,16 +180,18 @@
 				// 上拉加载的配置(可选, 绝大部分情况无需配置)
 				upOption: {
 					empty: {
-						ues: false
+						use : false
 					}
 				},
-				downOption: {}
+				downOption: {
+					
+				}
 			}
 		},
 		computed: {
 			scrollHeight() {
 				const sys = this.$u.sys()
-				return sys.windowHeight - 420
+				return sys.windowHeight - 460
 			}
 		},
 		onShow() {
@@ -238,7 +243,6 @@
 					let curPageLen = curPageData.length;
 					// 接口返回的总页数 (如列表有26个数据,每页10条,共3页; 则totalPage=3)
 					let totalPage = data.totalPage;
-
 					//设置列表数据
 					if (page.num == 1) this.listData = []; //如果是第一页需手动置空列表
 					this.listData = this.listData.concat(curPageData); //追加新数据
@@ -267,7 +271,7 @@
 
 		.assets-info {
 			// background: linear-gradient(171deg, #2CA6FF 0%, #2487FC 58%);
-			padding: 40px 16px 14px 16px;
+			padding: 10px 16px 14px 16px;
 
 			.amount-info {
 				height: 120px;

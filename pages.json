@@ -130,6 +130,13 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/find-pwd/find-pwd",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 		
 		

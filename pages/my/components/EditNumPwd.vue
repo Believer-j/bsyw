@@ -35,7 +35,7 @@
     </view>
 		<view class="btns">
 			<u-button text="取消" class="btn-2" size="large" @click="close"></u-button>
-			<u-button type="primary" class="btn-1" :disabled="hasSave" text="确认" size="large" @click="confirm"></u-button>
+			<u-button type="primary" class="btn-1" style="background-color: #389838;" :disabled="hasSave" text="确认" size="large" @click="confirm"></u-button>
 		</view>
 	</u-popup>
 </template>

@@ -3,12 +3,12 @@
 		<view class="page-content">
 			<view class="user-info">
 				<view class="icons">
-					<image class="img-7" src="@/static/img/my/1.jpg" mode=""></image>
+					<image class="img-7" src="@/static/img/logo/bsyw-logo.png" mode=""></image>
 				</view>
 				<view class="infos">
 					<view class="info-name">
 						<view class="name">
-							手机号: {{userInfo.mobile}}
+							邮箱: {{userInfo.mobile}}
 						</view>
 					</view>
 					<view class="info-name">

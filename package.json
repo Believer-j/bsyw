@@ -8,6 +8,8 @@
     "uqrcodejs": "^4.0.7",
     "uview-ui": "^2.0.37",
     "vue-i18n": "^9.13.1",
-	"element-china-area-data": "^6.0.2"
+	"element-china-area-data": "^6.0.2",
+	"crypto-js": "^4.2.0",
+	"js-md5": "^0.8.3"
   }
 }
