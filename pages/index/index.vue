@@ -113,8 +113,8 @@
 
 			async judgeVersion() {
 				console.error(VERSION)
-				console.error(this.$store.state.userInfo.gender)
-				if (VERSION !== this.$store.state.userInfo.gender) {
+				console.error(this.$store.state.userInfo.version)
+				if (VERSION !== this.$store.state.userInfo.version) {
 					this.showUpdate = true
 				}
 			},
