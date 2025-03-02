@@ -7,7 +7,6 @@
 				<!-- #ifdef H5 -->
 				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
 				<!-- #endif -->
-
 					<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
 				</view>
 				<view class="swiper-box">
@@ -119,8 +118,9 @@
 
 			async judgeVersion() {
 				console.error(VERSION)
-				console.error(this.$store.state.userInfo.version)
-				if (VERSION !== this.$store.state.userInfo.version) {
+				let netVersion = this.$store.state.userInfo.version
+				console.error(netVersion)
+				if (netVersion && VERSION !== netVersion) {
 					this.showUpdate = true
 				}
 			},

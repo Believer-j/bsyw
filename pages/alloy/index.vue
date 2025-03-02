@@ -111,8 +111,9 @@
 
 			async judgeVersion() {
 				console.error(VERSION)
-				console.error(this.$store.state.userInfo.version)
-				if (VERSION !== this.$store.state.userInfo.version) {
+				let netVersion = this.$store.state.userInfo.version
+				console.error(netVersion)
+				if (netVersion && VERSION !== netVersion) {
 					this.showUpdate = true
 				}
 			},

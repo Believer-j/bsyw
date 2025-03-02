@@ -20,13 +20,13 @@
 					验证码
 				</view>
 				<view class="form-item-content">
-					<u--input class="account-input" v-model="form.code" placeholder="请输入验证码" border="surround"
+					<u-input class="account-input" v-model="form.code" placeholder="请输入验证码" border="surround"
 						clearable>
 						<template slot="suffix">
 							<u-code ref="uCode" @change="codeChange" seconds="60" changeText="X秒后重新获取"></u-code>
 							<u-button @tap="getCode" :text="tips" type="success" style="background-color: transparent; border: none; color: #389838;"></u-button>
 						</template>
-					</u--input>
+					</u-input>
 				</view>
 			</view>
 			<view class="form-item">
