@@ -223,7 +223,7 @@
 					const res = await authApply({
 						...this.authParams
 					})
-          uni.$u.toast('实名认证成功!')
+          uni.$u.toast('实名申请成功!')
 					this.$store.dispatch('getUserInfo')
 					setTimeout(() => {
 						uni.navigateTo({
@@ -233,7 +233,7 @@
 
 				} catch (e) {
 					//TODO handle the exception
-          uni.$u.toast('实名认证失败!')
+          uni.$u.toast('实名申请失败!')
 				}
 			}
 		}
