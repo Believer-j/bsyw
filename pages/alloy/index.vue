@@ -1,7 +1,12 @@
 <template>
 	<view class="page-wrap page-gradient-bg">
 		<view class="page-content2">
-			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+			<!-- #ifdef APP -->
+				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 42px;">
+			<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+				<!-- #endif -->
 				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
 			</view>
 			<view class="swiper-box">

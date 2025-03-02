@@ -1,39 +1,45 @@
 <template>
 	<view class="page-wrap page-gradient-bg">
 		<view class="page-content2">
-			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
-				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
-			</view>
-			<view class="swiper-box">
-				<u-swiper :list="list1" height="200px"  @change="swiperChange" @click="swiperClick"></u-swiper>
-			</view>
-			<view class="page-main">
-				<notice-box />
-				<!-- <product-box /> -->
-				<video-box v-if="hasLeave" />
-				<good-foundation ref="goodFoundation" />
+			<!-- #ifdef APP -->
+				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 42px;">
+			<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+				<!-- #endif -->
 
+					<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
+				</view>
+				<view class="swiper-box">
+					<u-swiper :list="list1" height="200px" @change="swiperChange" @click="swiperClick"></u-swiper>
+				</view>
+				<view class="page-main">
+					<notice-box />
+					<!-- <product-box /> -->
+					<video-box v-if="hasLeave" />
+					<good-foundation ref="goodFoundation" />
+
+				</view>
 			</view>
+			<navbar></navbar>
+
+			<u-popup :show="showUpdate" mode="bottom" :closeOnClickOverlay="false" :safeAreaInsetBottom="false"
+				bgColor="transparent">
+				<view class="update flex-column">
+					<view class="title">
+						温馨提示
+					</view>
+					<view class="content">
+						现在新版本更新啦，快去下载吧！
+					</view>
+					<view style="background-color: aliceblue; height: 1px;"></view>
+					<view class="btn r-flex-row r-flex-items-center r-flex-center" @click="downTap">
+						去下载
+					</view>
+				</view>
+			</u-popup>
+
 		</view>
-		<navbar></navbar>
-		
-		<u-popup :show="showUpdate" mode="bottom" :closeOnClickOverlay="false"
-			:safeAreaInsetBottom="false" bgColor="transparent">
-			<view class="update flex-column">
-				<view class="title">
-					温馨提示
-				</view>
-				<view class="content">
-					现在新版本更新啦，快去下载吧！
-				</view>
-				<view style="background-color: aliceblue; height: 1px;"></view>
-				<view class="btn r-flex-row r-flex-items-center r-flex-center" @click="downTap">
-					去下载
-				</view>
-			</view>
-		</u-popup>
-
-	</view>
 </template>
 
 <script>
@@ -160,7 +166,7 @@
 	.page-wrap {
 		position: relative;
 		min-height: calc(100vh - 54px);
-		 
+
 		.img-a {
 			width: 36px;
 			height: 36px;

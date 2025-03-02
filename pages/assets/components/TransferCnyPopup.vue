@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="form-tip">
-				可用股份：{{userInfo.released}}
+				可用股份：{{userInfo.released}} 股 
 			</view>
 			<view class="form-item form-item-bg">
 				<view class="tag">

@@ -17,7 +17,7 @@
 				</view>
 			</view>
 			<view class="form-tip">
-				可用余额：¥ {{userInfo.amount}}
+				可用股份： {{userInfo.amount}} 股
 			</view>
 			<view class="form-item form-item-bg">
 				<view class="tag">

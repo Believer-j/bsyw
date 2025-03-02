@@ -16,35 +16,35 @@
 		</view>
 		<view class="set-list">
 			<view class="set-item" @click="openEditPhone">
-				<image class="img-10" src="@/static/img/my/set-2.png" mode=""></image>
+				<u-icon name="edit-pen-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
 					修改邮箱
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
 			<view class="set-item" @click="openEditNick">
-				<image class="img-10" src="@/static/img/my/set-2.png" mode=""></image>
+				<u-icon name="edit-pen-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
 					修改昵称
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
 			<view class="set-item" @click="openLoginPwd">
-				<image class="img-10" src="@/static/img/my/set-1.png" mode=""></image>
+				<u-icon name="lock-opened-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
 					修改登录密码
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
 			<view class="set-item" @click="openNumPwd">
-				<image class="img-10" src="@/static/img/my/set-1.png" mode=""></image>
+				<u-icon name="lock-opened-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
 					修改资金密码
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
 			<view class="set-item" @click="goNameAuth">
-				<image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
+				<u-icon name="account-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
 					实名认证
 				</view>
@@ -58,14 +58,14 @@
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
 			<view class="set-item" @click="goTeams">
-				<image class="img-10" src="@/static/img/my/set-3.png" mode=""></image>
+				<u-icon name="account-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
 					我的团队
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
 			<view class="set-item" @click="share">
-				<image class="img-10" src="@/static/img/my/set-4.png" mode=""></image>
+				<u-icon name="share-square" color="#2d2d2d" size="18" :bold="true"></u-icon>
 				<view class="title">
 					分享链接
 				</view>

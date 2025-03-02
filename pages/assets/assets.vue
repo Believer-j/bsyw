@@ -2,7 +2,12 @@
 	<view>
 		<view class="user-bg" style="min-height: calc(100vh - 54px);">
 			<view class="page-main">
-			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+			<!-- #ifdef APP -->
+				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 42px;">
+			<!-- #endif -->
+				<!-- #ifdef H5 -->
+				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+				<!-- #endif -->
 				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
 			</view>
 				<view class="assets-info">
@@ -191,7 +196,13 @@
 		computed: {
 			scrollHeight() {
 				const sys = this.$u.sys()
+				// #ifdef APP
+				return sys.windowHeight - 490
+				// #endif
+				// #ifdef H5
 				return sys.windowHeight - 460
+				// #endif
+				
 			}
 		},
 		onShow() {
@@ -228,7 +239,8 @@
 			},
 			handleChangeNav(item) {
 				this.current = item.index
-				this.mescroll.resetUpScroll();
+				this.listData = []
+				this.mescroll.resetUpScroll(true);
 			},
 			/*上拉加载的回调*/
 			upCallback(page) {
