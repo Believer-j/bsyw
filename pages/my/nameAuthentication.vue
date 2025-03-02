@@ -10,7 +10,7 @@
 					请确保信息无误，并本人操作
 				</view>
 				<view class="tip" style="margin-top: 6px;">
-					实名信息异常, 可能导致股份转移失败, 请仔细核实
+					实名信息异常, 可能导致股份转出失败, 请仔细核实
 				</view>
 				
 			</view>
@@ -50,13 +50,39 @@
 					</u--input>
 				</view>
 			</view>
+      <view class="input-item">
+        <view class="tag">
+          手机号码
+        </view>
+        <view class="form-item-content">
+          <view class="text" v-if="hasAuth">
+            {{authParams.idUrl}}
+          </view>
+          <u--input v-else class="account-input" placeholder="请输入实名手机号码" border="none" v-model="authParams.idUrl"
+                    fontSize="18px" color="#333">
+          </u--input>
+        </view>
+      </view>
 			<view class="btns">
 				<!-- // 认证状态 0 未实名, 1 已申请，2 未通过 3 已实名 -->
-				<u-button type="primary" v-if="userInfo.authStatus==0" :disabled="hasSave" text="立即认证" size="large"
-					@click="getAuth"></u-button>
-				<u-button type="primary" v-if="userInfo.authStatus==2" :disabled="hasSave" text="重新认证" size="large"
-					@click="getAuth"></u-button>
+<!--				<u-button type="primary" v-if="userInfo.authStatus==0" :disabled="hasSave" text="立即认证" size="large"-->
+<!--					@click="getAuth"></u-button>-->
+<!--				<u-button  type="primary" v-if="userInfo.authStatus==2" :disabled="hasSave" text="重新认证" size="large"-->
+<!--					@click="getAuth"></u-button>-->
 			</view>
+
+      <view v-if="userInfo.authStatus == 0" :disabled="hasSave" class="flex-row-center font-18 font-weight-semibold"
+            style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
+            @click="getAuth">
+        立即认证
+      </view>
+
+      <view v-if="userInfo.authStatus == 2" :disabled="hasSave" class="flex-row-center font-18 font-weight-semibold"
+            style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
+            @click="getAuth">
+        重新认证
+      </view>
+
 		</view>
 	</view>
 </template>
@@ -125,7 +151,7 @@
 				authParams: {
 					realName: undefined,
 					idNo: undefined,
-					// idUrl: undefined,
+					idUrl: undefined,
 					// idBackUrl: undefined
 				}
 
@@ -147,6 +173,7 @@
 
 				this.authParams.realName = realName
 				this.authParams.idNo = idNo
+				this.authParams.idUrl = idUrl
 				// if (idUrl) {
 				// 	this.authParams.idUrl = idUrl
 				// 	this.$refs.uploadImg1.initFile([{

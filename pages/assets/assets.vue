@@ -91,7 +91,7 @@
 								<text v-if="current == 0" class="font-16 font-weight-medium">{{ item.proName }}</text>
 								<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
 
-								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }}</text>
+								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 股</text>
 								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>
 
 								<text v-if="current == 2" class="font-16 font-weight-medium">转出</text>
@@ -103,7 +103,7 @@
 							</view>
 							<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
 								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
-								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }}</text>
+								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 股</text>
 								<text v-if="current == 2">{{ `数量: ${item.amount}` }}</text>
 								<text v-if="current > 2">{{ `数量: ${item.amount}股` }}</text>
 
@@ -111,7 +111,7 @@
 							</view>
 							<view v-if="current == 1 || current == 2" class="flex-row flex-items-center flex-between"
 								style="margin-top: 10px;">
-								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }}</text>
+								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }} 天</text>
 								<text v-if="current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
 								<text style="color: #999999;">{{ item.time }}</text>
 							</view>
