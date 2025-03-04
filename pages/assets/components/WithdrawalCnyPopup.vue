@@ -2,7 +2,7 @@
 	<u-popup :show="show" mode="center" @close="close" @open="open" :closeOnClickOverlay="false" :round="16"
 		class="transfer-popup" closeable>
 		<view class="title">
-			股份质押
+      积分质押
 		</view>
 		<view class="form-box">
 
@@ -17,7 +17,7 @@
 				</view>
 			</view>
 			<view class="form-tip">
-				可用股份： {{userInfo.amount}} 股
+				可用积分： {{userInfo.released}}
 			</view>
 			<view class="form-item form-item-bg">
 				<view class="tag">

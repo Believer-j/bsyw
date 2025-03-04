@@ -35,7 +35,7 @@
 									<text>剩余待释放</text>
 								</view>
 								<view class="info-amount-num" style="">
-									{{userInfo.staticAmount}} 股
+									{{userInfo.staticAmount}} 积分
 								</view>
 							</view>
 						</view>
@@ -48,7 +48,7 @@
 									<text>剩余待释放</text>
 								</view>
 								<view class="info-amount-num">
-									{{userInfo.staticAmount}}股
+									{{userInfo.staticAmount}}积分
 								</view>
 							</view>
 							<view class="btns">
@@ -61,10 +61,10 @@
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>可用股份</text>
+									<text>可用积分</text>
 								</view>
 								<view class="info-amount-num">
-									{{userInfo.released}} 股
+									{{userInfo.released}} 积分
 								</view>
 							</view>
 							<view class="btns">
@@ -91,7 +91,7 @@
 								<text v-if="current == 0" class="font-16 font-weight-medium">{{ item.proName }}</text>
 								<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
 
-								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 股</text>
+								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 积分</text>
 								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>
 
 								<text v-if="current == 2" class="font-16 font-weight-medium">转出</text>
@@ -103,9 +103,9 @@
 							</view>
 							<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
 								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
-								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 股</text>
+								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 积分</text>
 								<text v-if="current == 2">{{ `数量: ${item.amount}` }}</text>
-								<text v-if="current > 2">{{ `数量: ${item.amount}股` }}</text>
+								<text v-if="current > 2">{{ `数量: ${item.amount} 积分` }}</text>
 
 								<text v-if="current !== 1 && current !== 2" style="color: #999999;">{{ item.time }}</text>
 							</view>

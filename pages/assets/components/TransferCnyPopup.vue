@@ -2,7 +2,7 @@
 	<u-popup :show="show" mode="center" @close="close" @open="open" :closeOnClickOverlay="false" :round="16"
 		class="transfer-popup" closeable>
 		<view class="title">
-			股份转出
+			积分转出
 		</view>
 		<view class="form-box">
 			<view class="form-item form-item-bg">
@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="form-tip">
-				可用股份：{{userInfo.released}} 股 
+				可用积分：{{userInfo.released}}
 			</view>
 			<view class="form-item form-item-bg">
 				<view class="tag">
@@ -86,7 +86,7 @@
 					}
 					// 判断余额
 					if (Number(this.$store.state.userInfo.released) < Number(amount)) {
-						utils.errorToast('可用股份不足!')
+						utils.errorToast('可用积分不足!')
 						return
 					}
 					const res = await withdrawApi({
