@@ -50,6 +50,13 @@
 				</view>
 				<u-icon name="arrow-right" color="#999" size="12"></u-icon>
 			</view>
+      <view class="set-item" @click="goBank">
+        <u-icon name="account-fill" color="#2d2d2d" size="18"></u-icon>
+        <view class="title">
+          绑定银行卡
+        </view>
+        <u-icon name="arrow-right" color="#999" size="12"></u-icon>
+      </view>
 			<view class="set-item" @click="goAddress">
 				<u-icon name="map-fill" color="#2d2d2d" size="18"></u-icon>
 				<view class="title">
@@ -143,6 +150,12 @@
 					url: '/pages/my/nameAuthentication'
 				})
 			},
+      // 绑定银行卡
+      goBank() {
+        uni.navigateTo({
+          url: '/pages/my/bank'
+        })
+      },
 			goAddress() {
 				uni.navigateTo({
 					url: '/pages/address/address'

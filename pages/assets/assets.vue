@@ -22,11 +22,6 @@
 									¥ {{userInfo.amount}}
 								</view>
 							</view>
-							<!-- <view class="btns">
-								<view class="btn" @click="openRecharge(1)">
-									充值
-								</view>
-							</view> -->
 						</view>
 						<view class="info-1 info-2">
 							<view class="info-amount">
@@ -40,42 +35,42 @@
 							</view>
 						</view>
 					</view>
-					<view class="amount-info r-flex-all-center">
-						<!-- <view class="info-1">
+
+					<view class="amount-info flex-row flex-items-center flex-between">
+						<view class="info-1">
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>剩余待释放</text>
+									<text>已释放积分</text>
 								</view>
 								<view class="info-amount-num">
-									{{userInfo.staticAmount}}积分
+									{{userInfo.releasedAmount}} 积分
 								</view>
 							</view>
 							<view class="btns">
 								<view class="btn" style="opacity: 0;">
-									
+
 								</view>
 							</view>
-						</view> -->
+						</view>
+
 						<view class="info-1 info-2 flex-column flex-items-center flex-center">
 							<view class="info-amount">
 								<view class="info-amount-title">
 									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>可用积分</text>
+									<text>可用分红</text>
 								</view>
 								<view class="info-amount-num">
-									{{userInfo.released}} 积分
+									{{userInfo.released}} 分红
 								</view>
 							</view>
 							<view class="btns">
-								<view class="btn" @click="openWithdrawalCny">
-									质押
-								</view>
 								<view class="btn" @click="openTranCnysfer">
 									转出
 								</view>
 							</view>
 						</view>
+
 					</view>
 				</view>
 				<u-tabs :list="navList" :current="current" lineColor="#389838"
@@ -91,28 +86,28 @@
 								<text v-if="current == 0" class="font-16 font-weight-medium">{{ item.proName }}</text>
 								<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
 
-								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 积分</text>
-								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>
+<!--								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 积分</text>-->
+<!--								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>-->
 
-								<text v-if="current == 2" class="font-16 font-weight-medium">转出</text>
-								<text v-if="current == 2">{{ item.status == 1 ? '确认中' : '已完成' }}</text>
+								<text v-if="current == 1" class="font-16 font-weight-medium">转出</text>
+								<text v-if="current == 1">{{ item.status == 1 ? '已完成' : '处理中' }}</text>
 
-								<text v-if="current > 2"
+								<text v-if="current > 1"
 									class="font-16 font-weight-medium">{{ navList[current].name }}</text>
 								<text v-if="current > 2">已完成</text>
 							</view>
 							<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
 								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
-								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 积分</text>
-								<text v-if="current == 2">{{ `数量: ${item.amount}` }}</text>
-								<text v-if="current > 2">{{ `数量: ${item.amount} 积分` }}</text>
+<!--								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 积分</text>-->
+								<text v-if="current == 1">{{ `数量: ${item.amount}` }}</text>
+								<text v-if="current > 1">{{ `数量: ${item.amount} 积分` }}</text>
 
-								<text v-if="current !== 1 && current !== 2" style="color: #999999;">{{ item.time }}</text>
+								<text v-if="current !== 1" style="color: #999999;">{{ item.time }}</text>
 							</view>
-							<view v-if="current == 1 || current == 2" class="flex-row flex-items-center flex-between"
+							<view v-if="current == 1" class="flex-row flex-items-center flex-between"
 								style="margin-top: 10px;">
-								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }} 天</text>
-								<text v-if="current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
+<!--								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }} 天</text>-->
+								<text v-if="current == 1" style="">{{ `手续费: ${item.fee}` }}</text>
 								<text style="color: #999999;">{{ item.time }}</text>
 							</view>
 
@@ -158,10 +153,12 @@
 				navList: [{
 					id: '1',
 					name: '订单记录'
-				}, {
-					id: '2',
-					name: '质押记录'
-				}, {
+				},
+        //   {
+				// 	id: '2',
+				// 	name: '质押记录'
+				// },
+          {
 					id: '3',
 					name: '转出记录'
 				}, {

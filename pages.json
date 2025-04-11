@@ -64,6 +64,12 @@
 			}
 		},
 		{
+			"path": "pages/my/bank",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
 			"path": "pages/assets/assets",
 			"style": {
 				"navigationBarTitleText": ""

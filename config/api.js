@@ -58,6 +58,14 @@ export const authApply = (data) => {
 	})
 }
 
+// 实名认证
+export const bankApply = (data) => {
+	return uniRequest('/base/api/user/bankApply', {
+		method: 'post',
+		data,
+	})
+}
+
 // 文件上传 文件: MultipartFile file
 export const uploadFile = (data) => {
 	return uniRequest('/base/api/user//upload', {
