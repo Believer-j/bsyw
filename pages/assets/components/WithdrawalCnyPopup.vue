@@ -2,22 +2,22 @@
 	<u-popup :show="show" mode="center" @close="close" @open="open" :closeOnClickOverlay="false" :round="16"
 		class="transfer-popup" closeable>
 		<view class="title">
-      积分质押
+      积分转出
 		</view>
 		<view class="form-box">
 
 			<view class="form-item form-item-bg">
 				<view class="tag">
-					质押数量
+          转出数量
 				</view>
 				<view class="form-item-content">
-					<u--input type="digit" class="account-input" placeholder="请输入质押数量" border="none"
+					<u--input type="digit" class="account-input" placeholder="请输入转出数量" border="none"
 						v-model="form.amount">
 					</u--input>
 				</view>
 			</view>
 			<view class="form-tip">
-				可用积分： {{userInfo.released}}
+				可用积分： {{userInfo.shares}}
 			</view>
 			<view class="form-item form-item-bg">
 				<view class="tag">
@@ -29,18 +29,18 @@
 					</u--input>
 				</view>
 			</view>
-			<view class=" form-item-bg flex-row flex-items-start" style="margin-top: 15px;">
-				<view class="tag" style="margin-top: 15px; margin-left: 10px;">
-					质押时间
-				</view>
-				<view class="form-item-content">
-					<u-radio-group v-model="form.timeDay" placement="column" size="30px" iconSize="30px" @change="groupChange" style="margin-left: 10px; margin-top: 15px; margin-bottom: 5px;">
-						<u-radio :customStyle="{marginBottom: '10px'}" v-for="(item, index) in radiolist1" :key="index"
-							:label="item.name" :name="item.name" activeColor="#389838" size="17px" iconSize="17px" labelSize="15px" >
-						</u-radio>
-					</u-radio-group>
-				</view>
-			</view>
+<!--			<view class=" form-item-bg flex-row flex-items-start" style="margin-top: 15px;">-->
+<!--				<view class="tag" style="margin-top: 15px; margin-left: 10px;">-->
+<!--					质押时间-->
+<!--				</view>-->
+<!--				<view class="form-item-content">-->
+<!--					<u-radio-group v-model="form.timeDay" placement="column" size="30px" iconSize="30px" @change="groupChange" style="margin-left: 10px; margin-top: 15px; margin-bottom: 5px;">-->
+<!--						<u-radio :customStyle="{marginBottom: '10px'}" v-for="(item, index) in radiolist1" :key="index"-->
+<!--							:label="item.name" :name="item.name" activeColor="#389838" size="17px" iconSize="17px" labelSize="15px" >-->
+<!--						</u-radio>-->
+<!--					</u-radio-group>-->
+<!--				</view>-->
+<!--			</view>-->
 		</view>
 		<view class="btns">
 			<u-button class="btn-2" text="取消" size="large" @click="close"></u-button>
@@ -119,7 +119,7 @@
 				}
 				// 判断余额
 				if (Number(this.$store.state.userInfo.amount) < Number(amount)) {
-					utils.errorToast('可用余额不足!')
+					utils.errorToast('可用积分不足!')
 					return
 				}
 				const res = await transferApi({
@@ -129,7 +129,7 @@
 					time
 				});
 				uni.showToast({
-					title: '质押成功!'
+					title: '转出成功!'
 				});
 				this.$store.dispatch('getUserInfo')
 				this.$emit('success')

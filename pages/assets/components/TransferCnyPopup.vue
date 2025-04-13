@@ -2,12 +2,12 @@
 	<u-popup :show="show" mode="center" @close="close" @open="open" :closeOnClickOverlay="false" :round="16"
 		class="transfer-popup" closeable>
 		<view class="title">
-			积分转出
+			贡献值提现
 		</view>
 		<view class="form-box">
 			<view class="form-item form-item-bg">
 				<view class="tag">
-					转出数量
+					提现数量
 				</view>
 				<view class="form-item-content">
 					<u--input class="account-input" type="digit" placeholder="请输入转出数量" border="none"
@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="form-tip">
-				可用积分：{{userInfo.released}}
+				可用贡献值：{{userInfo.released}}
 			</view>
 			<view class="form-item form-item-bg">
 				<view class="tag">

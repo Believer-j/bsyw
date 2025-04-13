@@ -14,4 +14,4 @@ export const baseURL = () => {
 	}
 }
 
-export const VERSION = 2;
+export const VERSION = 4;
