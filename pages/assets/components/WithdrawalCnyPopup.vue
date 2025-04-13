@@ -2,7 +2,7 @@
 	<u-popup :show="show" mode="center" @close="close" @open="open" :closeOnClickOverlay="false" :round="16"
 		class="transfer-popup" closeable>
 		<view class="title">
-      积分转出
+      积分转出 (自动取整)
 		</view>
 		<view class="form-box">
 
