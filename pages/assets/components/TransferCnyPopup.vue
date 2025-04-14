@@ -86,7 +86,7 @@
 					}
 					// 判断余额
 					if (Number(this.$store.state.userInfo.released) < Number(amount)) {
-						utils.errorToast('可用积分不足!')
+						utils.errorToast('可用贡献值不足!')
 						return
 					}
 					const res = await withdrawApi({

@@ -118,7 +118,7 @@
 					return
 				}
 				// 判断余额
-				if (Number(this.$store.state.userInfo.amount) < Number(amount)) {
+				if (Number(this.$store.state.userInfo.shares) < Number(amount)) {
 					utils.errorToast('可用积分不足!')
 					return
 				}

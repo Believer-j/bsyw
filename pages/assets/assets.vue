@@ -100,7 +100,8 @@
 								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
 <!--								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 积分</text>-->
 								<text v-if="current == 1">{{ `金额: ${item.amount}` }}</text>
-								<text v-if="current > 1">{{ `数量: ${item.amount} 积分` }}</text>
+								<text v-if="current > 1 && current <= 4">{{ `数量: ${item.amount} 积分` }}</text>
+								<text v-if="current > 4">{{ `数量: ${item.amount} 贡献值` }}</text>
 
 								<text v-if="current !== 1 && current !== 2" style="color: #999999;">{{ item.time }}</text>
 							</view>
