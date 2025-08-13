@@ -2,136 +2,147 @@
 	<view>
 		<view class="user-bg" style="min-height: calc(100vh - 54px);">
 			<view class="page-main">
-			<!-- #ifdef APP -->
+				<!-- #ifdef APP -->
 				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 42px;">
-			<!-- #endif -->
-				<!-- #ifdef H5 -->
-				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
 				<!-- #endif -->
-				<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
-			</view>
-				<view class="assets-info">
-					<view class="amount-info flex-row flex-items-center flex-between">
-						<view class="info-1 info-2 flex-column flex-items-center flex-center">
-							<view class="info-amount">
-								<view class="info-amount-title">
-									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>可用余额</text>
+					<!-- #ifdef H5 -->
+					<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
+					<!-- #endif -->
+						<image src="/static/bsyw-logo-green.png" mode="heightFix" style="height: 45px;"></image>
+					</view>
+					<view class="assets-info">
+						<view class="amount-info flex-row flex-items-center flex-between">
+							<view class="info-1 info-2 flex-column flex-items-center flex-center">
+								<view class="info-amount">
+									<view class="info-amount-title">
+										<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
+										<text>可用余额</text>
+									</view>
+									<view class="info-amount-num">
+										¥ {{userInfo.amount}}
+									</view>
 								</view>
-								<view class="info-amount-num">
-									¥ {{userInfo.amount}}
+							</view>
+							<view class="info-1 info-2">
+								<view class="info-amount">
+									<view class="info-amount-title">
+										<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
+										<text>剩余待释放</text>
+									</view>
+									<view class="info-amount-num" style="">
+										{{userInfo.staticAmount}} 积分
+									</view>
 								</view>
 							</view>
 						</view>
-						<view class="info-1 info-2">
-							<view class="info-amount">
-								<view class="info-amount-title">
-									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>剩余待释放</text>
+
+						<view class="amount-info flex-row flex-items-center flex-between">
+
+							<view class="info-1 info-2 flex-column flex-items-center flex-center">
+								<view class="info-amount">
+									<view class="info-amount-title">
+										<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
+										<text>可用贡献值</text>
+									</view>
+									<view class="info-amount-num">
+										{{userInfo.released}} 贡献值
+									</view>
 								</view>
-								<view class="info-amount-num" style="">
-									{{userInfo.staticAmount}} 积分
+								<view class="btns">
+									<view class="btn" @click="openTranCnysfer">
+										提现
+									</view>
 								</view>
 							</view>
+
+							<view class="info-1 info-2">
+								<view class="info-amount">
+									<view class="info-amount-title">
+										<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
+										<text>可用积分</text>
+									</view>
+									<view class="info-amount-num">
+										{{userInfo.shares}} 积分
+									</view>
+								</view>
+								<view class="btns">
+									<view class="btn" @click="openWithdrawalCny">
+										转出
+									</view>
+								</view>
+							</view>
+
 						</view>
 					</view>
+					<u-tabs :list="navList" :current="current" lineColor="#389838"
+						activeStyle="color: #333333; font-size: 16px; fontWeight: 500;" @click="handleChangeNav"
+						style="height: 50px;"></u-tabs>
+					<mescroll-uni @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption"
+						:up="upOption" :height="scrollHeight + 'px'">
+						<no-data v-if="listData.length==0" :version="0" />
+						<view style="background-color: transparent;" v-else>
 
-					<view class="amount-info flex-row flex-items-center flex-between">
+							<view v-for="item in listData" :key="item.sort" class="flex-column"
+								style="padding: 14px 12px; background-color: rgba(255, 255, 255, 0.8); border-radius: 6px; margin: 10px;">
+								<view class="flex-row flex-items-center flex-between">
+									<text v-if="current == 0"
+										class="font-16 font-weight-medium">{{ item.proName }}</text>
+									<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
 
-            <view class="info-1 info-2 flex-column flex-items-center flex-center">
-              <view class="info-amount">
-                <view class="info-amount-title">
-                  <image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-                  <text>可用贡献值</text>
-                </view>
-                <view class="info-amount-num">
-                  {{userInfo.released}} 贡献值
-                </view>
-              </view>
-              <view class="btns">
-                <view class="btn" @click="openTranCnysfer">
-                  提现
-                </view>
-              </view>
-            </view>
+									<!--								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 积分</text>-->
+									<!--								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>-->
 
-						<view class="info-1 info-2">
-							<view class="info-amount">
-								<view class="info-amount-title">
-									<image class="img-2" src="@/static/img/assets/asset.png" mode=""></image>
-									<text>可用积分</text>
+									<text v-if="current == 1" class="font-16 font-weight-medium">
+										{{ `提现: ${item.remark}` }}</text>
+									<text v-if="current == 1">{{ item.status == 1 ? '已完成' : '处理中' }}</text>
+
+									<text v-if="current > 1"
+										class="font-16 font-weight-medium">{{ navList[current].name }}</text>
+									<text v-if="current > 2">已完成</text>
 								</view>
-								<view class="info-amount-num">
-									{{userInfo.shares}} 积分
+								<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
+									<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
+									<!--								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 积分</text>-->
+									<text v-if="current == 1">{{ `金额: ${item.amount}` }}</text>
+									<text v-if="current > 1 && current <= 4">{{ `数量: ${item.amount} 积分` }}</text>
+									<text v-if="current > 4">{{ `数量: ${item.amount} 贡献值` }}</text>
+
+									<text v-if="current !== 1 && current !== 2"
+										style="color: #999999;">{{ item.time }}</text>
+								</view>
+								<view v-if="current == 1 || current == 2"
+									class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
+									<!--								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }} 天</text>-->
+									<text v-if="current == 1 || current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
+									<text style="color: #999999;">{{ item.time }}</text>
+								</view>
+								<view v-if="current==0 && item.type == 1" class="flex-row-center" style="margin-top: 10px;">
+									<view class="confirmWBTN flex-row-center" @click="showPickupPopup(item)">
+										确认提货
+									</view>
 								</view>
 							</view>
-							<view class="btns">
-                <view class="btn" @click="openWithdrawalCny">
-                  转出
-                </view>
-							</view>
+
 						</view>
-
-					</view>
+					</mescroll-uni>
 				</view>
-				<u-tabs :list="navList" :current="current" lineColor="#389838"
-					activeStyle="color: #333333; font-size: 16px; fontWeight: 500;" @click="handleChangeNav" style="height: 50px;"></u-tabs>
-				<mescroll-uni @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption"
-					:up="upOption" :height="scrollHeight + 'px'">
-					<no-data v-if="listData.length==0" :version="0" />
-					<view style="background-color: transparent;" v-else>
-
-						<view v-for="item in listData" :key="item.sort" class="flex-column"
-							style="padding: 14px 12px; background-color: rgba(255, 255, 255, 0.8); border-radius: 6px; margin: 10px;">
-							<view class="flex-row flex-items-center flex-between">
-								<text v-if="current == 0" class="font-16 font-weight-medium">{{ item.proName }}</text>
-								<text v-if="current == 0">{{ item.status == 1 ? '已发货' : '待发货' }}</text>
-
-<!--								<text v-if="current == 1">{{ `质押数量: ${item.amount}` }} 积分</text>-->
-<!--								<text v-if="current == 1">{{ item.status == 1 ? '质押中' : '已解押' }}</text>-->
-
-								<text v-if="current == 1" class="font-16 font-weight-medium"> {{ `提现: ${item.remark}` }}</text>
-								<text v-if="current == 1">{{ item.status == 1 ? '已完成' : '处理中' }}</text>
-
-								<text v-if="current > 1" class="font-16 font-weight-medium">{{ navList[current].name }}</text>
-								<text v-if="current > 2">已完成</text>
-							</view>
-							<view class="flex-row flex-items-center flex-between" style="margin-top: 10px;">
-								<text v-if="current == 0">{{ `金额: ${item.amountCny}` }}</text>
-<!--								<text v-if="current == 1">{{ `到期收益: ${item.fee}` }} 积分</text>-->
-								<text v-if="current == 1">{{ `金额: ${item.amount}` }}</text>
-								<text v-if="current > 1 && current <= 4">{{ `数量: ${item.amount} 积分` }}</text>
-								<text v-if="current > 4">{{ `数量: ${item.amount} 贡献值` }}</text>
-
-								<text v-if="current !== 1 && current !== 2" style="color: #999999;">{{ item.time }}</text>
-							</view>
-							<view v-if="current == 1 || current == 2" class="flex-row flex-items-center flex-between"
-								style="margin-top: 10px;">
-<!--								<text v-if="current == 1" style="">{{ `剩余质押天数: ${item.hash}` }} 天</text>-->
-								<text v-if="current == 1 || current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
-								<text style="color: #999999;">{{ item.time }}</text>
-							</view>
-
-						</view>
-
-					</view>
-				</mescroll-uni>
+				<navbar></navbar>
+				<transfer-cny-popup ref="transferCnyPopup" @success="handleChangeNav({index: 1})" />
+				<Withdrawal-cny-popup ref="withdrawalCnyPopup" @success="handleChangeNav({index: 2})" />
+				<transfer-usdt-popup ref="transferUsdtPopup" />
+				<Withdrawal-usdt-popup ref="withdrawalUsdtPopup" />
+				<recharge-popup ref="rechargePopup" />
+				<withdraw-popup ref="withdrawPopup" />
+				<pickup-popup ref="pickupPopup" @confirmPickUp="confirmPickUp"></pickup-popup>
 			</view>
-			<navbar></navbar>
-			<transfer-cny-popup ref="transferCnyPopup" @success="handleChangeNav({index: 1})" />
-			<Withdrawal-cny-popup ref="withdrawalCnyPopup" @success="handleChangeNav({index: 2})" />
-			<transfer-usdt-popup ref="transferUsdtPopup" />
-			<Withdrawal-usdt-popup ref="withdrawalUsdtPopup" />
-			<recharge-popup ref="rechargePopup" />
-			<withdraw-popup ref="withdrawPopup" />
 		</view>
-	</view>
 </template>
 
 <script>
 	import base from '@/mixins/base.js'
 	import RecordList from './components/RecordList.vue'
 	import TransferCnyPopup from './components/TransferCnyPopup.vue'
+	import PickupPopup from './components/PickupPopup.vue'
 	import WithdrawalCnyPopup from './components/WithdrawalCnyPopup.vue'
 	import TransferUsdtPopup from './components/TransferUsdtPopup.vue'
 	import WithdrawalUsdtPopup from './components/WithdrawalUsdtPopup.vue'
@@ -146,48 +157,51 @@
 			TransferCnyPopup,
 			WithdrawalCnyPopup,
 			TransferUsdtPopup,
-			WithdrawalUsdtPopup
+			WithdrawalUsdtPopup,
+			PickupPopup
 		},
 		data() {
 			return {
+				pickUpItem: {},
 				option: {},
 				navList: [{
-					id: '1',
-					name: '订单记录'
-				},
-          {
-					id: '2',
-					name: '提现记录'
-				},
-          {
-					id: '3',
-					name: '转出记录'
-				}, {
-					id: '4',
-					name: '释放记录'
-				}, {
-					id: '5',
-					name: '推荐记录'
-				}, {
-					id: '6',
-					name: '合伙分红'
-				}, {
-					id: '7',
-					name: '平级分红'
-				}, {
-					id: '8',
-					name: '业绩分红'
-				}],
+						id: '1',
+						name: '订单记录'
+					},
+					{
+						id: '2',
+						name: '提现记录'
+					},
+					{
+						id: '3',
+						name: '转出记录'
+					}, {
+						id: '4',
+						name: '释放记录'
+					}, {
+						id: '5',
+						name: '推荐记录'
+					}, {
+						id: '6',
+						name: '合伙分红'
+					}, {
+						id: '7',
+						name: '平级分红'
+					}, {
+						id: '8',
+						name: '业绩分红'
+					}
+				],
 				listData: [],
 				current: 0,
 				// 上拉加载的配置(可选, 绝大部分情况无需配置)
 				upOption: {
 					empty: {
-						use : false
+						use: false
 					}
 				},
 				downOption: {
-					
+
 				}
 			}
 		},
@@ -200,7 +214,7 @@
 				// #ifdef H5
 				return sys.windowHeight - 460
 				// #endif
-				
+
 			}
 		},
 		onShow() {
@@ -210,6 +224,27 @@
 			console.log('onPullDownRefresh==');
 		},
 		methods: {
+			// 确认提货
+			async confirmPickUp() {
+				// this.pickUpItem 就是当前这条订单记录, 记录中没有找到订单ID
+				console.log(this.pickUpItem)
+				// 修改具体的参数
+				let params = {
+					a: '11111'
+				}
+				// assetRecords 需要修改为实际的接口
+				const res = await assetRecords(params);
+				uni.showToast({
+					title: '提货成功!'
+				});
+				this.listData = []
+				this.mescroll.resetUpScroll(true);
+			},
+			// 显示确认提货弹窗
+			showPickupPopup(item) {
+				this.pickUpItem = item
+				this.$refs.pickupPopup.open()
+			},
 			// 划转人民币
 			openTranCnysfer() {
 				this.$refs.transferCnyPopup.open()
@@ -238,7 +273,7 @@
 			handleChangeNav(item) {
 				this.current = item.index
 				this.listData = []
-				this.mescroll.resetUpScroll(true);
+				this.mescroll.resetUpScroll(false);
 			},
 			/*上拉加载的回调*/
 			upCallback(page) {
@@ -256,7 +291,7 @@
 					//设置列表数据
 					if (page.num == 1) this.listData = []; //如果是第一页需手动置空列表
 					this.listData = this.listData.concat(curPageData); //追加新数据
-					
+
 					// 请求成功,隐藏加载状态
 					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
 					this.mescroll.endByPage(curPageLen, totalPage);
@@ -275,7 +310,15 @@
 		background-image: url('/static/img/user-bg.jpg');
 		background-size: 100% 100%;
 	}
-
+	.confirmWBTN {
+		width: 80px;
+		height: 32px;
+		background-color: #389838;
+		box-shadow: inset 0px 1px 4px 0px rgba(255, 255, 255, 0.25);
+		border-radius: 8px;
+		color: #FFFFFF;
+		line-height: 28px;
+	}
 	.page-main {
 		// padding-bottom: 70px;
 
