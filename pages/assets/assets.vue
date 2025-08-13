@@ -116,11 +116,16 @@
 									<text v-if="current == 1 || current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
 									<text style="color: #999999;">{{ item.time }}</text>
 								</view>
-								<view v-if="current==0 && item.type == 2" class="flex-row-center" style="margin-top: 10px;">
+								<view v-if="current == 0 && item.type == 2 && item.operateType == 0" class="flex-row-center" style="margin-top: 10px;">
 									<view class="confirmWBTN flex-row-center" @click="showPickupPopup(item)">
-										确认提货
+										确认自提
 									</view>
 								</view>
+                <view v-if="current == 0 && item.type == 2 && item.operateType == 1" class="flex-row-center" style="margin-top: 10px;">
+                  <view class="confirmWBTN flex-row-center">
+                    已自提
+                  </view>
+                </view>
 							</view>
 
 						</view>
@@ -148,7 +153,8 @@
 	import WithdrawalUsdtPopup from './components/WithdrawalUsdtPopup.vue'
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
 	import {
-		assetRecords
+		assetRecords,
+    sendApi
 	} from "@/config/api.js"
 	export default {
 		mixins: [base, MescrollMixin],
@@ -223,23 +229,20 @@
 		onPullDownRefresh() {
 			console.log('onPullDownRefresh==');
 		},
+
 		methods: {
 			// 确认提货
 			async confirmPickUp() {
 				// this.pickUpItem 就是当前这条订单记录, 记录中没有找到订单ID
-				console.log(this.pickUpItem)
-				// 修改具体的参数
-				let params = {
-					a: '11111'
-				}
-				// assetRecords 需要修改为实际的接口
-				const res = await assetRecords(params);
+        console.error(this.pickUpItem.id)
+				const res = await sendApi(this.pickUpItem.id + '');
 				uni.showToast({
-					title: '提货成功!'
+					title: '自提成功!'
 				});
 				this.listData = []
 				this.mescroll.resetUpScroll(true);
 			},
+
 			// 显示确认提货弹窗
 			showPickupPopup(item) {
 				this.pickUpItem = item
@@ -312,7 +315,7 @@
 	}
 	.confirmWBTN {
 		width: 80px;
-		height: 32px;
+		height: 24px;
 		background-color: #389838;
 		box-shadow: inset 0px 1px 4px 0px rgba(255, 255, 255, 0.25);
 		border-radius: 8px;

@@ -229,6 +229,13 @@ export const withdrawApi = (data) => {
 	})
 }
 
+export const sendApi = (data) => {
+	return uniRequest('/base/api/home/sending/'+ data, {
+		method: 'get',
+		data,
+	})
+}
+
 // 质押
 export const transferApi = (data) => {
 	return uniRequest('/base/api/asset/transfer', {

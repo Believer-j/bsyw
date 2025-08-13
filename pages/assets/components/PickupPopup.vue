@@ -2,10 +2,10 @@
 	<u-popup :show="show" mode="center" @close="close" @open="open" :closeOnClickOverlay="false" :round="16"
 		class="transfer-popup" closeable>
 		<view class="title">
-			贡献值提现
+			确认自提
 		</view>
 		<view class="flex-row-center" style="margin-top: 50px; font-size: 18px; font-weight: 500;">
-			确认分公司 50% 产品已经提货?
+			确认分公司 50% 产品已经自提?
 		</view>
 		<view class="btns">
 			<u-button class="btn-2" text="取消" size="large" @click="close"></u-button>
