@@ -116,7 +116,7 @@
 									<text v-if="current == 1 || current == 2" style="">{{ `手续费: ${item.fee}` }}</text>
 									<text style="color: #999999;">{{ item.time }}</text>
 								</view>
-								<view v-if="current==0 && item.type == 1" class="flex-row-center" style="margin-top: 10px;">
+								<view v-if="current==0 && item.type == 2" class="flex-row-center" style="margin-top: 10px;">
 									<view class="confirmWBTN flex-row-center" @click="showPickupPopup(item)">
 										确认提货
 									</view>
