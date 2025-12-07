@@ -2,8 +2,8 @@ const isProduction = true
 
 export const baseURL = () => {
 	if (isProduction) {
-		return 'https://bsyw.club'
-		// return 'https://bsyw.shop'
+		// return 'https://bsyw.club'
+		return 'https://bsyw.shop'
 		// return 'http://localhost:8061'
 		// return 'http://localhost:8057'
 		// return 'http://47.121.187.203:8057'
@@ -11,8 +11,8 @@ export const baseURL = () => {
 		// return 'http://localhost:8061'
 		// return 'http://localhost:8061'
 		// return 'http://localhost:8057'
-		return 'https://bsyw.club'
-		// return 'https://bsyw.shop'
+		// return 'https://bsyw.club'
+		return 'https://bsyw.shop'
 	}
 }
 
