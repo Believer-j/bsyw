@@ -2,7 +2,7 @@
 	<view class="page-wrap page-gradient-bg">
 		<view class="page-content2">
 			<!-- #ifdef APP -->
-				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 42px;">
+			<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 42px;">
 			<!-- #endif -->
 				<!-- #ifdef H5 -->
 				<view class="r-flex-row r-flex-items-center r-flex-center" style="padding-top: 12px;">
@@ -17,11 +17,9 @@
 					<!-- <product-box /> -->
 					<video-box v-if="hasLeave" />
 					<good-foundation ref="goodFoundation" />
-
 				</view>
 			</view>
 			<navbar></navbar>
-
 			<u-popup :show="showUpdate" mode="bottom" :closeOnClickOverlay="false" :safeAreaInsetBottom="false"
 				bgColor="transparent">
 				<view class="update flex-column">
@@ -37,7 +35,18 @@
 					</view>
 				</view>
 			</u-popup>
-
+			  <!-- 悬浮球组件 -->
+			    <float-ball
+			      ref="floatBall"
+			      :initial-position="{ x: screenWidth - 10, y: 300 }"
+			      :adsorb-distance="10"
+			      @click="onFloatBallClick"
+			    >
+			      <!-- 自定义内容 -->
+			      <view class="custom-ball">
+			        <image src="/static/img/chat.png" mode="" style="width: calc(100% - 20px); height: calc(100% - 20px);"></image>
+			      </view>
+			    </float-ball>
 		</view>
 </template>
 
@@ -48,6 +57,7 @@
 	import ProductBox from './components/ProductBox.vue'
 	import VideoBox from './components/VideoBox.vue'
 	import GoodFoundation from './components/GoodFoundation.vue'
+	import FloatBall from '@/components/FloatBall/FloatBall.vue'
 	import {
 		getUserInfo,
 		download
@@ -63,7 +73,8 @@
 			NoticeBox,
 			ProductBox,
 			VideoBox,
-			GoodFoundation
+			GoodFoundation,
+			FloatBall
 		},
 		data() {
 			return {
@@ -110,6 +121,11 @@
 			this.hasLeave = false
 		},
 		methods: {
+			onFloatBallClick() {
+				uni.navigateTo({
+					url: "/pages/chat/chat"
+				})
+			},
 			async downTap() {
 				const res = await download()
 				// window.open(res)
@@ -135,6 +151,20 @@
 </script>
 
 <style lang="scss" scoped>
+	.custom-ball {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(135deg, #529742 0%, #2F5B45 100%);
+		border-radius: 50%;
+	}
+
+	.custom-icon {
+		font-size: 30px;
+	}
+
 	.update {
 		// width: 100vw;
 		background-color: white;

@@ -34,18 +34,18 @@ export default {
 			return `https://phoenixnet.club/#/?invitationCode=${invitation}`
 		},
 		statusBarHeight() {
-			const sys = uni.$uv.sys()
+			const sys = uni.$u.sys()
 			return sys.statusBarHeight
 		},
 		navbarHeight() {
 			return this.statusBarHeight + 44
 		},
 		screenWidth() {
-			const sys = uni.$uv.sys()
+			const sys = uni.$u.sys()
 			return sys.windowWidth
 		},
 		pageHeight() {
-			const sys = uni.$uv.sys()
+			const sys = uni.$u.sys()
 			return sys.windowHeight - this.navbarHeight
 		},
 	},

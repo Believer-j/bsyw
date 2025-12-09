@@ -14,6 +14,11 @@
 			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab1.png">
 			</image>
 		</u-tabbar-item>
+		<u-tabbar-item text="商家">
+			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/tab-0-s.png"></image>
+			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab-0.png">
+			</image>
+		</u-tabbar-item>
 		<u-tabbar-item text="资产">
 			<image class="u-page__item__slot-icon" slot="active-icon" src="@/static/img/tabbar/tab2-s.png"></image>
 			<image class="u-page__item__slot-icon" slot="inactive-icon" src="@/static/img/tabbar/tab2.png">
@@ -50,6 +55,12 @@
 					activeImg: require('@/static/img/navBar/home-2.svg'),
 					link: '/pages/alloy/index'
 				}, {
+					id: '/pages/merchant',
+					title: '商家',
+					inactiveImg: require('@/static/img/navBar/home-1.svg'),
+					activeImg: require('@/static/img/navBar/home-2.svg'),
+					link: '/pages/merchant/merchant'
+				}, {
 					id: '/pages/assets',
 					title: '资产',
 					inactiveImg: require('@/static/img/navBar/assets-1.svg'),
@@ -75,7 +86,7 @@
 			// const path = window.location.href
 			const pages = getCurrentPages(); // 获取当前打开的页面栈
 			const currentPage = pages[pages.length - 1]; // 获取当前页面实例
-			const currentPath ='/' + currentPage.route; // 获取当前页面的路径
+			const currentPath = '/' + currentPage.route; // 获取当前页面的路径
 			console.log(currentPath);
 			let index = this.navList.findIndex(val => currentPath.includes(val.id))
 			index = index === -1 ? 0 : index

@@ -1,7 +1,7 @@
 <template>
 	<view class="font-16 font-weight-regular page-gradient-bg"
 		style="width: 100vw; color: #545958; font-size: 400; min-height: 100vh;">
-		<u-navbar :fixed="true" title="" height="70px" :placeholder="true" bgColor="#FAFCFF" :autoBack="true" >
+		<u-navbar :fixed="true" title="" height="70px" :placeholder="true" bgColor="rgba(255, 255, 255, 0)" :autoBack="true" >
 			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
 				我的团队
 			</view>
