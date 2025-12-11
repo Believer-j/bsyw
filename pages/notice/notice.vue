@@ -25,16 +25,16 @@
 						
 					</view>
 					<view class="flex flex-row flex-between flex-wrap">
-						<view v-for="(item,index) in 6" :key="index" class="flex-row-center" style="border-radius: 10px; overflow: hidden; margin-top: 10px; width: calc((100vw - 60px) / 3.0); height: calc((100vw - 60px) / 3.0); background-color: red;">
+						<view v-for="(item,index) in 6" :key="index" class="flex-row-center" style="border-radius: 10px; overflow: hidden; margin-top: 10px; width: calc((100vw - 60px) / 3.0); height: calc((100vw - 60px) / 3.0);">
 							<image :src="imgURL" mode="aspectFill"></image>
 						</view>
 					</view>
 					<view class="flex-row flex-items-center" style="border-top: 1px solid #F5F5F5; width: 100%; height: 40px; margin-top: 10px;">
-						<view class="flex-row-center" style="width: 50%; height: 100%; color: #545958; font-size: 15px;">
+						<view class="flex-row-center" style="width: 50%; height: 100%; color: #545958; font-size: 15px;" @click.stop="copy(item)">
 							<image src="/static/copy.png" style="width: 16px; height: 16px;"></image>
 							<span style="margin-left: 10px;">点击复制</span>
 						</view>
-						<view class="flex-row-center" style="width: 50%; height: 100%; color: #545958; font-size: 15px;">
+						<view class="flex-row-center" style="width: 50%; height: 100%; color: #545958; font-size: 15px;" @click.stop="save(item)">
 							<image src="/static/save.png" style="width: 16px; height: 16px;"></image>
 							<span style="margin-left: 7px;">一键保存</span>
 						</view>
@@ -68,7 +68,7 @@
 						name: "工具流下载"
 					}
 				],
-				imgURL: "https://gips3.baidu.com/it/u=3886271102,3123389489&fm=3028&app=3028&f=JPEG&fmt=auto?w=1280&h=960",
+				imgURL: "https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/product1.png",
 				dataList: [1,1,,11,1,1,1]
 			}
 		},
@@ -76,6 +76,30 @@
 			this.getList()
 		},
 		methods: {
+			save(item) {
+				// uni.downloadFile({
+				// 	url: 'https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/bsmj.mp4',
+				// 	success: (res) => {
+				// 		console.log(res)
+				// 	}
+				// })
+				
+				uni.request({
+					url: this.imgURL,
+					responseType: 'arraybuffer',
+					success: (res) => {
+						console.log(res)
+					},
+					fail: (e) => {
+						console.log('fail', e)
+					}
+				})
+			},
+			copy(item) {
+				uni.setClipboardData({
+					data: '.'
+				})
+			},
 			tabsTap(item) {
 				console.log(item)
 			},
