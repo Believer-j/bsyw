@@ -46,8 +46,13 @@ export default {
 		},
 		pageHeight() {
 			const sys = uni.$u.sys()
+			console.log(sys.safeAreaInsets.bottom)
 			return sys.windowHeight - this.navbarHeight
 		},
+		tabbarHeight() {
+			const sys = uni.$u.sys()
+			return 50 + sys.safeAreaInsets.bottom
+		}
 	},
 	watch: {
 		'$store.state.curTheme': {

@@ -39,7 +39,7 @@
 		},
 		methods: {
 			async getList() {
-				const res = await noticeListApi()
+				const res = await noticeListApi(1)
 				var texts = []
 				for (var index = 0; index < res.length; index++) {
 					var element = res[index];

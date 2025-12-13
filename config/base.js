@@ -1,4 +1,4 @@
-const isProduction = true
+const isProduction = false
 
 export const baseURL = () => {
 	if (isProduction) {
@@ -12,7 +12,7 @@ export const baseURL = () => {
 		// return 'http://localhost:8061'
 		// return 'http://localhost:8057'
 		// return 'https://bsyw.club'
-		return 'https://bsyw.shop'
+		return 'http://47.121.187.203:8057'
 	}
 }
 

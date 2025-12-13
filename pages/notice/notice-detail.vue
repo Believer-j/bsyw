@@ -1,12 +1,19 @@
 <template>
 	<view class="page-wrap page-gradient-bg">
-		<header-box title="公告详情" backUrl="/pages/notice/notice" />
-		<view class="notice-detail r-flex-column" style="">
-			<text class="item_title">{{ content.title }}</text>
-			<text class="item_content" style="color: gainsboro;">{{ content.createTime }}</text>
-			<text
-				class="item_content " v-html="content.detail"></text>
-		</view>
+		<u-navbar :fixed="true" title="" :placeholder="true" bgColor="rgba(255, 255, 255, 0)" :autoBack="true">
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				公告详情
+			</view>
+		</u-navbar>
+		<scroll-view scroll-y="true" :style="{height: pageHeight - 15 + 'px'}">
+			<view class="notice-detail r-flex-column" style="">
+				<text class="item_title">{{ content.title }}</text>
+				<text class="item_content" style="color: gainsboro;">{{ content.createTime }}</text>
+				<text
+					class="item_content " :selectable="true" v-html="content.detail "></text>
+			</view>
+		</scroll-view>
+		
 		
 	</view>
 </template>
@@ -15,7 +22,9 @@
 import {
 		noticeDetailApi
 	} from "@/config/api.js"
+	import base from "@/mixins/base"
 	export default {
+		mixins: [base],
 		data() {
 			return {
 				id: '',
@@ -35,12 +44,12 @@ import {
 </script>
 <style lang="scss" scoped>
 	.page-wrap {
-		overflow: hidden;
+		// overflow: hidden;
 		// background: white;
 		min-height: 100vh;
 		.notice-detail {
 			margin: 12px;
-			margin-top: 80px;
+			margin-top: 0px;
 			background-color: white;
 			box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
 			border: 1px solid rgba(0, 0, 0, 0.1);

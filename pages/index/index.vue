@@ -136,7 +136,7 @@
 				console.error(VERSION)
 				let netVersion = this.$store.state.userInfo.version
 				console.error(netVersion)
-				if (netVersion && VERSION !== netVersion) {
+				if (netVersion && VERSION < netVersion) {
 					this.showUpdate = true
 				}
 			},

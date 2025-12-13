@@ -186,9 +186,9 @@ export const deleteAddressApi = (data) => {
 }
 // 通知列表
 export const noticeListApi = (data) => {
-	return uniRequest('/base/api/home/notices', {
+	return uniRequest('/base/api/home/notices/'+data, {
 		method: 'post',
-		data,
+		data: {},
 	})
 }
 // 通知详情
@@ -258,5 +258,29 @@ export const findPWDApi = (data) => {
 	})
 }
 
-
+// 用户聊天
+// {
+// 	"type": "1", 1 查询记录, 2 发送
+// 	"content": "嘻嘻嘻嘻嘻嘻" 发送内容
+// }
+export const chatApi = (data) => {
+	return uniRequest('/base/api/user/chat', {
+		method: 'post',
+		data,
+	})
+}
+// {
+// 	"msg": "success",
+// 	"code": 0,
+// 	"data": [
+// 		{
+// 			"id": 6, 聊天ID
+// 			"head": null, 头像, 默认使用 logo
+// 			"nickname": "****44140@qq.com", // 昵称
+// 			"time": "18:11", // 时间
+// 			"content": "嘻嘻嘻嘻嘻嘻", // 内容
+// 			"tag": 1987 // 用户邀请码
+// 		}
+// 	]
+// }
 
