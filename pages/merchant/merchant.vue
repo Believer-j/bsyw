@@ -89,7 +89,7 @@
 				datas: [],
 				latitude: 0,
 				longitude: 0,
-				showDistance: true
+				showDistance: false
 			}
 		},
 		onLoad() {
@@ -152,6 +152,7 @@
 					element.distance = distance
 					list[index] = element
 				}
+				this.showDistance = true
 				this.datas = list
 			},
 			/**

@@ -12,12 +12,12 @@
 					<!-- 时间 -->
 					<view v-if="index % 5 == 0" class="flex-row-center" style="width: 100%;">
 						<view class="" style="color: #529742; font-size: 12px;">
-							{{ '2012-12-12 12:12:12' }}
+							{{ item.time }}
 						</view>
 					</view>
 					<view class="flex-row" :class="[$store.state.userInfo.inviteCode == item.tag && 'flex-row-reverse']" style="margin: 25px 10px;">
 						<view class="">
-							<image src="/static/success_icon.png"
+							<image src="/static/img/logo/bsyw-logo.png"
 								style="width: 30px; height: 30px; min-width: 30px; min-height: 30px;"></image>
 						</view>
 						<view class="flex-column flex-items-end" style="max-width: calc(100% - 80px);" :style="{
@@ -31,7 +31,7 @@
 								{{ item.nickname }}
 							</view>
 							<view class=""
-								style="max-width: 100%; padding: 10px; background-color: #fff; margin-top: 5px; width: fit-content"
+								style="max-width: 100%; word-break: break-all; padding: 10px; background-color: #fff; margin-top: 5px; width: fit-content"
 								:style="{
 								borderRadius: $store.state.userInfo.inviteCode == item.tag ? '10px 0px 10px 10px' : '0px 10px 10px 10px',
 								boxShadow: $store.state.userInfo.inviteCode == item.tag ? '-4px 3px 2px -1px rgba(0,0,0,0.1)' : '4px 3px 2px -1px rgba(0,0,0,0.1)'
@@ -53,7 +53,7 @@
 			:style="{height: inputBoxHeight + 'px'}">
 			<view class="flex-row flex-items-end flex-between" style=" width: 100%; ">
 				<textarea v-model="msg"
-					style="margin: 10px; background-color: white; padding: 10px;  border-radius: 5px;" placeholder="请输入"
+					style="margin: 10px; width: 100%; background-color: white; padding: 10px;  border-radius: 5px;" placeholder="请输入"
 					placeholder-style="color: #529742; font-weight: 500;" :auto-height="true" :maxlength="-1"
 					@linechange="linechange" />
 				<view class="flex-row-center"
@@ -159,6 +159,7 @@
 				this.datas = await chatApi({
 					type: "1"
 				})
+				console.log(this.datas)
 				let that = this
 				if (this.isBottom || isScroll) {
 					this.$nextTick(() => {
