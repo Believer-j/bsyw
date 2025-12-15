@@ -284,3 +284,10 @@ export const chatApi = (data) => {
 // 	]
 // }
 
+
+export const merchantApi = (data) => {
+	return uniRequest('/base/api/user/merchant', {
+		method: 'post',
+		data,
+	})
+}
