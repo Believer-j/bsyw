@@ -1,7 +1,12 @@
 <template>
 	<view class="page-wrap page-gradient-bg">
-		<header-box :title="headerTitle" backUrl="/pages/my/my" />
-		<view class="page-content page-main page-header-main">
+		<!-- <header-box :title="headerTitle" backUrl="/pages/my/my" /> -->
+		<u-navbar :fixed="true" title="" :placeholder="true" bgColor="rgba(255, 255, 255, 0)" :autoBack="true">
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				{{ headerTitle }}
+			</view>
+		</u-navbar>
+		<view class="page-content page-main ">
 			<view class="page-title">
 				<view class="title">
 					绑定银行卡
@@ -10,48 +15,50 @@
 					请确保信息无误，并本人操作
 				</view>
 				<view class="tip" style="margin-top: 6px;">
-          银行卡信息异常, 可能导致积分转出失败, 请仔细核实
+					银行卡信息异常, 可能导致积分转出失败, 请仔细核实
 				</view>
-				
+
 			</view>
-      <view class="input-item">
-        <view class="tag">
-          开户行
-        </view>
-        <view class="form-item-content">
-          <u--input  v-if="hasAuth" class="account-input" :placeholder="authParams.bankName" border="none" v-model="authParams.bankName"
-                    fontSize="18px" color="#333">
-          </u--input>
-          <u--input v-else class="account-input" placeholder="请输入开户行" border="none" v-model="authParams.bankName"
-                    fontSize="18px" color="#333">
-          </u--input>
-        </view>
-      </view>
+			<view class="input-item">
+				<view class="tag">
+					开户行
+				</view>
+				<view class="form-item-content">
+					<u--input v-if="hasAuth" class="account-input" :placeholder="authParams.bankName" border="none"
+						v-model="authParams.bankName" fontSize="18px" color="#333">
+					</u--input>
+					<u--input v-else class="account-input" placeholder="请输入开户行" border="none"
+						v-model="authParams.bankName" fontSize="18px" color="#333">
+					</u--input>
+				</view>
+			</view>
 			<view class="input-item">
 				<view class="tag">
 					银行卡号
 				</view>
 				<view class="form-item-content">
-					<u--input v-if="hasAuth" class="account-input" :placeholder="authParams.bankNo" border="none" v-model="authParams.bankNo"
-						fontSize="18px" color="#333">
+					<u--input v-if="hasAuth" class="account-input" :placeholder="authParams.bankNo" border="none"
+						v-model="authParams.bankNo" fontSize="18px" color="#333">
 					</u--input>
-          <u--input v-else class="account-input" placeholder="请输入银行卡号" border="none" v-model="authParams.bankNo"
-						fontSize="18px" color="#333">
+					<u--input v-else class="account-input" placeholder="请输入银行卡号" border="none"
+						v-model="authParams.bankNo" fontSize="18px" color="#333">
 					</u--input>
 				</view>
 			</view>
 
-      <view v-if="userInfo.bankStatus == 0" :disabled="hasSave" class="flex-row-center font-18 font-weight-semibold"
-            style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
-            @click="getAuth">
-        立即绑定
-      </view>
+			<view v-if="userInfo.bankStatus == 0" :disabled="hasSave"
+				class="flex-row-center font-18 font-weight-semibold"
+				style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
+				@click="getAuth">
+				立即绑定
+			</view>
 
-      <view v-if="userInfo.bankStatus == 1" :disabled="hasSave" class="flex-row-center font-18 font-weight-semibold"
-            style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
-            @click="getAuth">
-        重新绑定
-      </view>
+			<view v-if="userInfo.bankStatus == 1" :disabled="hasSave"
+				class="flex-row-center font-18 font-weight-semibold"
+				style="color: white; background-color: #389838; height: 44px; border-radius: 15px; width: 90vw;"
+				@click="getAuth">
+				重新绑定
+			</view>
 
 		</view>
 	</view>
@@ -60,7 +67,7 @@
 <script>
 	import base from '@/mixins/base.js'
 	import {
-    bankApply
+		bankApply
 	} from '@/config/api.js'
 	import {
 		validateIdNumber
@@ -82,7 +89,7 @@
 			hasAuth() {
 				// bankStatus: 3,  // 认证状态 0 未实名, 1 已申请，2 未通过 3 已实名
 				const {
-          bankStatus
+					bankStatus
 				} = this.userInfo
 
 				if (bankStatus == 0) {
@@ -92,12 +99,12 @@
 			},
 			headerTitle() {
 				let str = '绑定银行卡'
-        const {
-          realName
-        } = this.userInfo
+				const {
+					realName
+				} = this.userInfo
 
 				const {
-          bankStatus
+					bankStatus
 				} = this.userInfo
 				switch (bankStatus) {
 					case 0:
@@ -125,8 +132,8 @@
 				fileList1: [],
 				authParams: {
 					realName: undefined,
-          bankNo: undefined,
-          bankName: undefined,
+					bankNo: undefined,
+					bankName: undefined,
 				}
 
 			}
@@ -139,8 +146,8 @@
 			init() {
 				const {
 					realName,
-          bankNo,
-          bankName,
+					bankNo,
+					bankName,
 					idBackUrl,
 					authStatus
 				} = this.userInfo
@@ -155,7 +162,7 @@
 					const res = await bankApply({
 						...this.authParams
 					})
-          uni.$u.toast('银行卡绑定成功!')
+					uni.$u.toast('银行卡绑定成功!')
 					this.$store.dispatch('getUserInfo')
 					setTimeout(() => {
 						uni.navigateTo({
@@ -164,7 +171,7 @@
 					}, 500)
 
 				} catch (e) {
-          uni.$u.toast('绑定失败, 请先实名认证!')
+					uni.$u.toast('绑定失败, 请先实名认证!')
 				}
 			}
 		}
@@ -192,6 +199,7 @@
 
 			.page-title {
 				margin-top: 15px;
+
 				.title {
 					font-weight: 500;
 					font-size: 17px;
@@ -240,6 +248,7 @@
 				.form-item-content {
 					width: calc(100% - 95px);
 					height: 48px;
+
 					.text {
 						font-weight: 500;
 						font-size: 18px;

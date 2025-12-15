@@ -1,7 +1,12 @@
 <template>
 	<view class="page-wrap page-gradient-bg">
-		<header-box :title="headerTitle" backUrl="/pages/my/my" />
-		<view class="page-content page-main page-header-main">
+		<!-- <header-box :title="headerTitle" backUrl="/pages/my/my" /> -->
+		<u-navbar :fixed="true" title="" :placeholder="true" bgColor="rgba(255, 255, 255, 0)" :autoBack="true">
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				{{ headerTitle }}
+			</view>
+		</u-navbar>
+		<view class="page-content page-main ">
 			<view class="page-title">
 				<view class="title">
 					证件信息

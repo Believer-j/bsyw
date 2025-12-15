@@ -27,29 +27,41 @@
 						style="height: 8px; width: 100%; background-color: #F4F9F7; border-radius: 0px 0px 12px 12px;">
 
 					</view>
-					<view v-if="item.urls && item.urls.length !== 0" class="flex flex-row flex-between flex-wrap">
+					<view v-if="item.urls && item.urls.length !== 0" class="flex flex-row flex-wrap">
 						<view v-for="(subItem,subIndex) in item.urls" :key="subIndex" class="flex-row-center"
-							style="border-radius: 10px; overflow: hidden; margin-top: 10px; width: calc((100vw - 60px) / 3.0); height: calc((100vw - 60px) / 3.0);">
-							<view v-if="subItem.includes('.mp4')" class="" style="width: 100%; height: 100%; position: relative;" @click.stop="playVideo(subItem)">
-								<image src="/static/img/common/480.png" mode="aspectFill" style="background-color: #F9F9F9; width: 100%; height: 100%;"></image>
-								<image src="/static/img/play.png" style="width: 40px; height: 40px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></image>
+							style="border-radius: 10px; overflow: hidden; margin-top: 10px; width: calc((100vw - 60px) / 3.0); height: calc((100vw - 60px) / 3.0);"
+							:style="{
+								marginLeft: subIndex % 3 == 0 ? '0px' : '7px'
+							}">
+							<view v-if="subItem.includes('.mp4')" class=""
+								style="width: 100%; height: 100%; position: relative;" @click.stop="playVideo(subItem)">
+								<image src="/static/img/common/480.png" mode="aspectFill"
+									style="background-color: #F9F9F9; width: 100%; height: 100%;"></image>
+								<image src="/static/img/play.png"
+									style="width: 40px; height: 40px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+								</image>
 							</view>
-							<image v-else :src="subItem" mode="aspectFit" style="background-color: #F9F9F9;" @click.stop="showImages(item.urls, subIndex)"></image>
+							<image v-else :src="subItem" mode="aspectFit" style="background-color: #F9F9F9;"
+								@click.stop="showImages(item.urls, subIndex)"></image>
 						</view>
 					</view>
-					<view class="flex-row flex-items-center flex-around"
+					<view v-if="tabIndex != 0" class="flex-row flex-items-center flex-around"
 						style="border-top: 1px solid #F5F5F5; width: 100%; height: 40px; margin-top: 10px;">
 						<view class="flex-row-center" style="width: 50%; height: 100%; color: #545958; font-size: 15px;"
-						:style="{width: item.urls && item.urls.length !== 0 ? '50%' : '90%'}"
+							:style="{width: item.urls && item.urls.length !== 0 ? '50%' : '90%'}"
 							@click.stop="copy(item)">
 							<image src="/static/copy.png" style="width: 16px; height: 16px;"></image>
 							<span style="margin-left: 10px;">点击复制</span>
 						</view>
-						<view v-if="item.urls && item.urls.length !== 0" class="flex-row-center" style="width: 50%; height: 100%; color: #545958; font-size: 15px;"
-							@click.stop="save(item)">
+						<view v-if="item.urls && item.urls.length !== 0" class="flex-row-center"
+							style="width: 50%; height: 100%; color: #545958; font-size: 15px;" @click.stop="save(item)">
 							<image src="/static/save.png" style="width: 16px; height: 16px;"></image>
 							<span style="margin-left: 7px;">一键保存</span>
 						</view>
+					</view>
+					<view v-if="tabIndex == 0" class=""
+						style="height: 8px; width: 100%; border-radius: 0px 0px 12px 12px;">
+
 					</view>
 					<!-- <text class="item_title u-line-1">{{ item.title }}</text> -->
 					<!-- <text class="item_content u-line-3">{{ removeHTMLTags(item.subTitle) }}</text> -->
@@ -91,7 +103,8 @@
 				],
 				bgURL: "https://static-bsyw.oss-cn-shanghai.aliyuncs.com/img/product15.png",
 				dataList: [],
-				tempList: []
+				tempList: [],
+				currentDownloadUrls: []
 			}
 		},
 		onLoad() {
@@ -113,6 +126,7 @@
 				})
 			},
 			save(item) {
+				this.currentDownloadUrls = item.urls
 				uni.showLoading({
 					mask: true,
 					title: '下载中...'
@@ -152,6 +166,54 @@
 					this.requestAndroidPermission()
 				}
 				// #endif
+
+				// #ifdef H5
+				// H5环境保存
+				this.tempList.forEach((item, index) => {
+					// console.log(this.currentDownloadUrls)
+					// console.log(index)
+					// const link = document.createElement('a')
+					// link.href = this.tempList[0]
+					// link.download = 'video.mp4'
+					// document.body.appendChild(link)
+					// link.click()
+					// document.body.removeChild(link)
+
+					const url = this.currentDownloadUrls[index]
+					// let isVideo = url.includes('mp4')
+					const temps = url.split('/')
+
+					// const timestamp = Date.now();
+					const name = `${this.generate13RandomNum()}${temps[temps.length - 1]}`
+
+
+					const a = document.createElement("a");
+					a.href = item;
+					a.download = name;
+					a.style.display = "none";
+					document.body.appendChild(a);
+					// 轻微延迟避免浏览器拦截
+					setTimeout(() => a.click(), index * 100);
+					setTimeout(() => document.body.removeChild(a), 1000);
+				});
+
+
+				// #endif
+			},
+			/**
+			 * 生成13位随机数（纯数字，无前置零）
+			 * @returns {string} 13位随机数字符串（也可转为Number，需注意大数精度）
+			 */
+			generate13RandomNum() {
+				// 1. 生成16位随机数（确保足够长度），取整后转字符串
+				let randomStr = Math.floor(Math.random() * 1000000000000000).toString();
+				// 2. 补前导零（若长度不足13位）或截断（若超过13位）
+				randomStr = randomStr.padStart(13, '0').slice(0, 13);
+				// 3. 确保第一位不为0（可选，若需13位有效数字）
+				if (randomStr[0] === '0') {
+					randomStr = Math.floor(Math.random() * 9 + 1) + randomStr.slice(1);
+				}
+				return randomStr;
 			},
 			saveIOSImages() {
 				const a = permision.judgeIosPermission("photoLibrary")
@@ -212,6 +274,10 @@
 			},
 			async getList(type) {
 				const res = await noticeListApi(type)
+				// for (var index = 0; index < res.length; index++) {
+				// 	var element = res[index];
+				// 	element.urls = element.urls.concat(element.urls).concat(element.urls).concat(element.urls).concat(element.urls).concat(element.urls).concat(element.urls)
+				// }
 				this.dataList = res
 				console.log(res)
 			},
@@ -220,7 +286,7 @@
 			},
 			intoDetail(id) {
 				uni.navigateTo({
-					url: `/pages/notice/notice-detail?id=${id}`
+					url: `/pages/notice/notice-detail?id=${id}&title=${this.tabs[this.tabIndex].name}`
 				})
 			},
 

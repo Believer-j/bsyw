@@ -1,14 +1,22 @@
 <template>
 	<view class="page-gradient-bg" style="min-height: 100vh;">
-		<u-navbar title="我的收货地址" :placeholder="true" height="70px" :autoBack="true">
+		<!-- <u-navbar title="我的收货地址" :placeholder="true" height="70px" :autoBack="true">
 			<view class="" style="color: #18533C; font-size: 15px;" slot="right" @click="editing = !editing">
 				{{ editing ? '取消' : '管理' }}
 			</view>
 			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
+				
+			</view>
+		</u-navbar> -->
+		<u-navbar :fixed="true" title="" :placeholder="true" bgColor="rgba(255, 255, 255, 0)" :autoBack="true">
+			<view slot='center' class="font-18 font-weight-medium" style="color: #000;">
 				我的收货地址
 			</view>
+			<view class="" style="color: #18533C; font-size: 15px;" slot="right" @click="editing = !editing">
+				{{ editing ? '取消' : '管理' }}
+			</view>
 		</u-navbar>
-		<view class="address-wrap  r-flex-column content">
+		<view class="address-wrap  r-flex-column content" :style="{maxHeight: pageHeight - 64 + 'px', minHeight: pageHeight - 64 + 'px'}">
 			<view v-for="(item,index) in dataList" :key="index" class="r-flex-row r-flex-items-center r-flex-between">
 				<view class="item r-flex-row r-flex-items-center r-flex-between" :class="[editing ? 'editingWidth' : 'normalWidth']" @click="selectAddress(index)">
 					<view class="r-flex-column">
@@ -40,8 +48,9 @@
 		addressListApi,
 		deleteAddressApi
 	} from '@/config/api.js'
-
+	import base from '@/mixins/base'
 	export default {
+		mixins: [base],
 		data() {
 			return {
 				dataList: [],

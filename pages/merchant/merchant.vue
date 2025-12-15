@@ -15,7 +15,7 @@
 
 				<view class=""
 					style="font-weight: 500;font-size: 18px;color: #333333;line-height: 21px; margin-left: 15px;">
-					商家
+					白沙商家
 				</view>
 				<view v-for="(item, index) in datas" :key="index" class="merchant_item flex-row flex-between">
 					<view class="">
@@ -31,7 +31,7 @@
 							</view>
 						</view>
 						<view class="flex-row flex-items-center" style="margin-top: 5px;">
-							<view class="flex-row flex-items-center" style="margin-left: 5px;">
+							<view class="flex-row flex-items-center" >
 								<view class=""
 									style="padding: 4px 7px; background-color: #EEFAF7; border-radius: 2px; color: #38BF9F; font-weight: 500; font-size: 10px;">
 									{{ item.province }}
@@ -50,12 +50,17 @@
 								</view>
 							</view>
 						</view>
+						<view class="flex-row" style="margin-top: 5px;">
+							<image src="/static/img/phone.png" style="width: 12px; height: 13px;"></image>
+							<view
+								style="font-size: 12px; color: #545958; margin-left: 5px;">{{ item.mobile }}</view>
+						</view>
 						<view class="flex-row flex-between" style="margin-top: 5px;">
-							<p style="margin-right: 10px;" @click="openLocation(item)">
+							<view class="flex-row" style="margin-right: 10px;" @click="openLocation(item)">
 								<image src="/static/address.png" style="width: 12px; height: 13px;"></image>
-								<span
-									style="font-size: 12px; color: #545958; margin-left: 5px;">{{ item.details }}</span>
-							</p>
+								<view
+									style="font-size: 12px; color: #545958; margin-left: 5px;">{{ item.details }}</view>
+							</view>
 							<view class="flex-row-center copyBtn" @click="copy(item)">
 								复制
 							</view>
@@ -114,7 +119,13 @@
 			},
 			copy(item) {
 				uni.setClipboardData({
-					data: item.details
+					data: item.details,
+					showToast: false,
+					success: () => {
+						uni.showToast({
+							title: "地址已复制"
+						})
+					}
 				})
 			},
 			async getDatas() {
@@ -209,9 +220,9 @@
 	}
 
 	.name {
-		font-weight: 600;
-		font-size: 18px;
-		color: #545958;
+		font-weight: 500;
+		font-size: 16px;
+		color: #000000;
 	}
 
 	.merchant_item {
