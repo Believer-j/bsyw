@@ -12,9 +12,13 @@
 				<text
 					class="item_content " :selectable="true" v-html="content.detail "></text>
 				
-				<view v-if="content.urls && content.urls.length !== 0" class="flex flex-row flex-between flex-wrap">
+				<view v-if="content.urls && content.urls.length !== 0" class="flex flex-row flex-wrap">
 					<view v-for="(subItem,subIndex) in content.urls" :key="subIndex" class="flex-row-center"
-						style="border-radius: 10px; overflow: hidden; margin-top: 10px; width: calc((100vw - 60px) / 3.0); height: calc((100vw - 60px) / 3.0);">
+						style="border-radius: 10px; overflow: hidden; margin-top: 10px; width: calc((100vw - 60px) / 3.0); height: calc((100vw - 60px) / 3.0);"
+						:style="{
+							marginLeft: subIndex % 3 == 0 ? '0px' : '7px'
+						}"
+						>
 						<view v-if="subItem.includes('.mp4')" class="" style="width: 100%; height: 100%; position: relative;" @click.stop="playVideo(subItem)">
 							<image src="/static/img/common/480.png" mode="aspectFill" style="background-color: #F9F9F9; width: 100%; height: 100%;"></image>
 							<image src="/static/img/play.png" style="width: 40px; height: 40px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></image>
