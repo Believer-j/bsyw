@@ -13,8 +13,7 @@
 					<u-swiper :list="list1" height="200px"></u-swiper>
 				</view>
 
-				<view class=""
-					style="font-weight: 500;font-size: 18px;color: #333333;line-height: 21px; margin-left: 15px;">
+				<view style="font-weight: 500;font-size: 18px;color: #333333;line-height: 21px; margin-left: 15px; margin-top: 30px">
 					白沙商家
 				</view>
 				<view v-for="(item, index) in datas" :key="index" class="merchant_item flex-row flex-between">
