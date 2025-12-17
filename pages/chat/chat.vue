@@ -53,7 +53,7 @@
 			:style="{height: inputBoxHeight + 'px'}">
 			<view class="flex-row flex-items-end flex-between" style=" width: 100%; ">
 				<textarea v-model="msg"
-					style="margin: 10px; width: 100%; background-color: white; padding: 10px;  border-radius: 5px;" placeholder="请输入"
+					style="margin: 10px; width: 100%; background-color: white; padding: 10px;  border-radius: 5px;" placeholder="   请输入..."
 					placeholder-style="color: #529742; font-weight: 500;" :auto-height="true" :maxlength="-1"
 					@linechange="linechange" />
 				<view class="flex-row-center"
