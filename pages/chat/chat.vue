@@ -10,7 +10,7 @@
 				@scrolltolower="scrolltolower" @scroll="scroll">
 				<view v-for="(item,index) in datas" :key="index" style="width: 100vw;" :id="`segmentItem${index}`">
 					<!-- 时间 -->
-					<view v-if="index % 5 == 0" class="flex-row-center" style="width: 100%;">
+					<view v-if="item.time" class="flex-row-center" style="width: 100%;">
 						<view class="" style="color: #529742; font-size: 12px;">
 							{{ item.time }}
 						</view>
